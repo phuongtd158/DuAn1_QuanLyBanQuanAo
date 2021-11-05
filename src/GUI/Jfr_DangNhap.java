@@ -34,8 +34,10 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     public void hoverButton() {
         defualtColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
+        //alo
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
