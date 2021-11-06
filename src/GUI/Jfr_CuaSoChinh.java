@@ -23,7 +23,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     public Jfr_CuaSoChinh() {
         initComponents();
         setLocationRelativeTo(null);
-
+        Jfr_TrangChu menu1 = new Jfr_TrangChu();
+        jDesktopPane1.add(menu1).setVisible(true);
         defualtColor = new Color(41, 182, 246);
         ClickColor = new Color(144, 202, 249);
 
@@ -79,7 +80,6 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         pnTrangChu = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -401,9 +401,6 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         pnTrangChu.setBackground(new java.awt.Color(255, 255, 255));
         pnTrangChu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setText("Trang chủ");
-        pnTrangChu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, -1, -1));
-
         jDesktopPane1.setLayer(pnTrangChu, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -637,7 +634,6 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lb;
