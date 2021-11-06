@@ -6,6 +6,10 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.JFrame;
 
 /**
  *
@@ -28,6 +32,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         hoverButton();
+        initMoving(Jfr_DangNhap.this); 
        
     }
     
@@ -37,7 +42,26 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         //alo
     }
     
-    
+    private int x, y;
+
+    public void initMoving(JFrame frame) {
+        jPanel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                x = e.getX();
+                y = e.getY();
+            }
+
+        });
+        jPanel1.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                frame.setLocation(e.getXOnScreen() - x, e.getYOnScreen() - y);
+            }
+
+        });
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
