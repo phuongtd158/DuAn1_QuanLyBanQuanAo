@@ -11,6 +11,7 @@ package Entity;
 public class KichThuoc {
     private int MaKT ;
     private String TenKT ; 
+    private Boolean TrangThai ;
 
     public int getMaKT() {
         return MaKT;
@@ -28,6 +29,14 @@ public class KichThuoc {
         this.TenKT = TenKT;
     }
 
+    public Boolean getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(Boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+    
     @Override
     public String toString() {
         return TenKT ;

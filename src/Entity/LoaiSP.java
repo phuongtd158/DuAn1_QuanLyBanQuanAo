@@ -11,6 +11,7 @@ package Entity;
 public class LoaiSP {
     private int LoaiSP ;
     private String TenLoaiSP ; 
+    
 
     public int getLoaiSP() {
         return LoaiSP;

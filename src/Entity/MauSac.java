@@ -11,6 +11,7 @@ package Entity;
 public class MauSac {
     private int MaMau ;
     private String TenMau ;
+    private Boolean TrangThai ;
 
     public int getMaMau() {
         return MaMau;
@@ -28,6 +29,14 @@ public class MauSac {
         this.TenMau = TenMau;
     }
 
+    public Boolean getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(Boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+    
     @Override
     public String toString() {
         return this.TenMau ;
