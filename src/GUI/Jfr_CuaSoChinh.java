@@ -27,8 +27,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         jDesktopPane1.add(menu1).setVisible(true);
         defualtColor = new Color(41, 182, 246);
         ClickColor = new Color(144, 202, 249);
-
         initMoving(Jfr_CuaSoChinh.this);
+
     }
 
     //Di chuyển form khi giữ chuột
