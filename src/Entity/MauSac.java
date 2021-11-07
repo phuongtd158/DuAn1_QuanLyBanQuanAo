@@ -9,14 +9,14 @@ package Entity;
  * @author ASUS
  */
 public class MauSac {
-    private String MaMau ;
+    private int MaMau ;
     private String TenMau ;
 
-    public String getMaMau() {
+    public int getMaMau() {
         return MaMau;
     }
 
-    public void setMaMau(String MaMau) {
+    public void setMaMau( int MaMau) {
         this.MaMau = MaMau;
     }
 

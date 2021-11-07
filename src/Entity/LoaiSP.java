@@ -9,14 +9,14 @@ package Entity;
  * @author ASUS
  */
 public class LoaiSP {
-    private String LoaiSP ;
+    private int LoaiSP ;
     private String TenLoaiSP ; 
 
-    public String getLoaiSP() {
+    public int getLoaiSP() {
         return LoaiSP;
     }
 
-    public void setLoaiSP(String LoaiSP) {
+    public void setLoaiSP( int LoaiSP) {
         this.LoaiSP = LoaiSP;
     }
 

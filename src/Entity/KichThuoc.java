@@ -9,14 +9,14 @@ package Entity;
  * @author ASUS
  */
 public class KichThuoc {
-    private String MaKT ;
+    private int MaKT ;
     private String TenKT ; 
 
-    public String getMaKT() {
+    public int getMaKT() {
         return MaKT;
     }
 
-    public void setMaKT(String MaKT) {
+    public void setMaKT( int MaKT) {
         this.MaKT = MaKT;
     }
 
