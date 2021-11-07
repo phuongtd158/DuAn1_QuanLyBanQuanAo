@@ -20,7 +20,8 @@ public class Test {
 
         ResultSet rs = JDBCHelper.query(sql);
         while (rs.next()) {
-            System.out.println("" + rs.getString(1));
+            System.out.println("" + rs.getString(3));
         }
+
     }
 }

@@ -6,23 +6,23 @@
 package Entity;
 
 import java.util.Date;
-import jdk.jfr.DataAmount;
 
 /**
  *
  * @author ADMIN
  */
 public class NhanVien {
-    private String MaNV ;
-    private String TenNV ;
-    private String DiaChi ;
-    private Boolean GioiTinh ;
-    private String Email ;
-    private String SDT ;
-    private Date NgaySinh ;
-    private Boolean VaiTro ;
-    private String MatKhau ;
-    private Boolean TrangThai ;
+
+    private String MaNV;
+    private String TenNV;
+    private String DiaChi;
+    private Boolean GioiTinh;
+    private String Email;
+    private String SDT;
+    private Date NgaySinh;
+    private Boolean VaiTro;
+    private String MatKhau;
+    private Boolean TrangThai;
 
     public String getMaNV() {
         return MaNV;
@@ -103,6 +103,5 @@ public class NhanVien {
     public void setTrangThai(Boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
-    
+
 }
