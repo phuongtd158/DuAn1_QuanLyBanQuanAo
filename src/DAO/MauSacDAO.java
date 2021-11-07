@@ -34,7 +34,7 @@ public class MauSacDAO extends Main< MauSac, String>{
     // Update
     @Override
     public void update(MauSac entity) {
-        JDBCHelper.Update( Update, entity.getTenMau() , entity.getTrangThai() , entity.getMaMau() );
+        JDBCHelper.Update( Update, entity.getTenMau()  , entity.getMaMau() );
     }
     
     public void update_1(MauSac entity) {

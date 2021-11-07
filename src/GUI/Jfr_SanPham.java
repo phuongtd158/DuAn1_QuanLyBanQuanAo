@@ -552,7 +552,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             new String [] {
                 "STT", "Loại thuộc tính", "Tên thuộc tinh"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         table_ThuocTinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table_ThuocTinhMouseClicked(evt);
@@ -865,6 +873,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             daoMS.update_2( txtTenThuocTinh.getText() );
             DoVaotableThuocTinh1();
         }
+        
+        txtTenThuocTinh.setText("");
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void table_ThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ThuocTinhMouseClicked
@@ -886,23 +896,34 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             return  ;
         }
         
-        if( rbChatLieu.isSelected() ){
-            ChatLieu cl = listCL.get(a);
-            daoCL.update(cl);
-            DoVaotableThuocTinh3();
-        }else if( rbKichThuoc.isSelected() ){
-            KichThuoc kt = listKT.get(a) ;
-            daoKT.update(kt);
-            DoVaotableThuocTinh2();
-        }else if( rbLoaiSP.isSelected() ){
-            LoaiSP sp = listLSP.get(a) ;
-            daoLSP.update(sp);
-            DoVaotableThuocTinh4();
-        }else {
-            MauSac ms = listMS.get(a);
-            daoMS.update(ms);
-            DoVaotableThuocTinh1();
+        try {
+            if (rbChatLieu.isSelected()) {
+                ChatLieu cl = listCL.get(a);
+                cl.setTenChatLieu( txtTenThuocTinh.getText() );
+                daoCL.update(cl);
+                DoVaotableThuocTinh3();
+            } else if (rbKichThuoc.isSelected()) {
+                KichThuoc kt = listKT.get(a);
+                kt.setTenKT(txtTenThuocTinh.getText() );
+                daoKT.update(kt);
+                DoVaotableThuocTinh2();
+            } else if (rbLoaiSP.isSelected()) {
+                LoaiSP sp = listLSP.get(a);
+                sp.setTenLoaiSP(txtTenThuocTinh.getText() );
+                daoLSP.update(sp);
+                DoVaotableThuocTinh4();
+            } else {
+                MauSac ms = listMS.get(a);
+                ms.setTenMau(txtTenThuocTinh.getText() );
+                daoMS.update(ms);
+                DoVaotableThuocTinh1();
+            }
+            
+            MsgBox.alert( this , "Sửa thành công");
+        } catch (Exception e) {
+            MsgBox.alert( this , "Sửa thất bại");
         }
+
     }//GEN-LAST:event_jLabel9MouseClicked
 
     
