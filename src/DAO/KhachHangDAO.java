@@ -1,11 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
 
-import Entity.NhanVien;
+import Entity.KhachHang;
 import Entity.SanPham;
 import Ultil.JDBCHelper;
 import java.sql.ResultSet;
@@ -14,17 +13,17 @@ import java.util.List;
 
 /**
  *
- * @author ADMIN
+ * @author ASUS
  */
-public class NhanVienDAO extends Main<NhanVien, String>{
+public class KhachHangDAO extends Main< KhachHang, String >{
 
     @Override
-    public void insert(NhanVien entity) {
+    public void insert(KhachHang entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(NhanVien entity) {
+    public void update(KhachHang entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -34,35 +33,33 @@ public class NhanVienDAO extends Main<NhanVien, String>{
     }
 
     @Override
-    public List<NhanVien> selectAll() {
+    public List<KhachHang> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public NhanVien selectByID(String id) {
+    public KhachHang selectByID(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    protected List<NhanVien> selectBySQL(String sql, Object... args) {
-        List<NhanVien> list = new ArrayList<>();
+    protected List<KhachHang> selectBySQL(String sql, Object... args) {
+        List<KhachHang> list = new ArrayList<>();
 
         try {
             ResultSet rs = JDBCHelper.query(sql, args);
 
             while (rs.next()) {
-                NhanVien nv = new NhanVien() ;
-                nv.setMaNV(rs.getString("MaNV"));
-                nv.setTenNV(rs.getString("TenNV"));
-                nv.setDiaChi(rs.getString("DiaChi"));
-                nv.setGioiTinh(rs.getBoolean("GioiTinh"));
-                nv.setEmail(rs.getString("Email"));
-                nv.setSDT(rs.getString("SoDienThoai"));
-                nv.setNgaySinh(rs.getDate("NgaySinh"));
-                nv.setVaiTro(rs.getBoolean("VaiTro"));
-                nv.setMatKhau(rs.getString("MatKhau"));
-                nv.setTrangThai(rs.getBoolean("TrangThai"));
-                list.add(nv);
+                KhachHang kh = new KhachHang();
+                kh.setMaKH(rs.getString("MaKH"));
+                kh.setTenKH(rs.getString("TenKH"));
+                kh.setNgaySinh(rs.getDate("NgaySinh"));
+                kh.setGioiTinh(rs.getBoolean("GioiTinh"));
+                kh.setSDT(rs.getString("SoDienThoai"));
+                kh.setDiaChi(rs.getString("DiaChi"));
+                kh.setTrangThai(rs.getBoolean("TrangThai"));
+                
+                list.add(kh);
             }
             rs.getStatement().getConnection().close();
             return list;
@@ -70,5 +67,5 @@ public class NhanVienDAO extends Main<NhanVien, String>{
             throw new RuntimeException();
         }
     }
-     
+    
 }
