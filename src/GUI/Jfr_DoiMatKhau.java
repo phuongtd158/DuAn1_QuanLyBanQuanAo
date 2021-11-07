@@ -18,7 +18,7 @@ public class Jfr_DoiMatKhau extends javax.swing.JInternalFrame {
      */
     public Jfr_DoiMatKhau() {
         initComponents();
-         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
     }
