@@ -17,30 +17,41 @@ import java.util.List;
  * @author ADMIN
  */
 public class NhanVienDAO extends Main<NhanVien, String>{
-
+    final String INSERT = "INSERT INTO dbo.NHANVIEN(MaNV,TenNV,DiaChi,GioiTinh,Email,SoDienThoai,NgaySinh,VaiTro,MatKhau,TrangThai)\n" +
+                            "VALUES(?,?,?,?,?,?,?,?,?,?)";
+    final String UPDATE = "UPDATE dbo.NHANVIEN\n" +
+                            "SET TenNV = ?,DiaChi = ?,GioiTinh = ?,Email = ?,SoDienThoai = ?,NgaySinh = ?,VaiTro = ?,MatKhau = ?,TrangThai = ?\n" +
+                            "WHERE MaNV = ?";
+    final String AN = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 1";
+    final String SELECT_ALL = "SELECT*FROM dbo.NHANVIEN";
+    final String SELECT_BYID = "SELECT*FROM dbo.NHANVIEN WHERE MaNV = ?";
     @Override
     public void insert(NhanVien entity) {
-        
+        JDBCHelper.Update(INSERT, entity.getMaNV(),entity.getTenNV(),entity.getDiaChi(),entity.getGioiTinh(),entity.getEmail(),entity.getSDT(),entity.getNgaySinh(),entity.getVaiTro(),entity.getMatKhau(),entity.getTrangThai());
     }
 
     @Override
     public void update(NhanVien entity) {
-        
+        JDBCHelper.Update(UPDATE, entity.getTenNV(),entity.getDiaChi(),entity.getGioiTinh(),entity.getEmail(),entity.getSDT(),entity.getNgaySinh(),entity.getVaiTro(),entity.getMatKhau(),entity.getTrangThai(),entity.getMaNV());
     }
 
     @Override
     public void delete(String id) {
-        
+        JDBCHelper.Update(AN, id);
     }
 
     @Override
     public List<NhanVien> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectBySQL(SELECT_ALL);
     }
 
     @Override
     public NhanVien selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<NhanVien> list = selectBySQL(SELECT_BYID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override

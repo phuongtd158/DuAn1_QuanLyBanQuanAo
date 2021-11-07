@@ -5,9 +5,14 @@
  */
 package GUI;
 
+import DAO.NhanVienDAO;
+import Entity.NhanVien;
+import Ultil.MsgBox;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -17,7 +22,8 @@ import javax.swing.table.JTableHeader;
 public class Jfr_NhanVien extends javax.swing.JInternalFrame {
 
     Color defaulColor, ClickColor;
-
+    NhanVienDAO nvdao = new NhanVienDAO();
+    int dong = 0;
     /**
      * Creates new form NewJInternalFrame
      */
@@ -33,11 +39,62 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         hoverButton();
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
+        fillTable();
     }
 
     public void hoverButton() {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
+    }
+    public void fillTable(){
+        DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhanVien> list = nvdao.selectAll();
+            for (NhanVien nv : list) {
+                model.addRow(new Object[]{
+                    nv.getMaNV(),nv.getTenNV(),nv.getGioiTinh()?"Nam":"Nữ",nv.getDiaChi(),nv.getNgaySinh()
+                        ,nv.getSDT(),nv.getEmail(),nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm",nv.getMatKhau(),nv.getVaiTro()?"Quản Lý":"Nhân Viên"
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi fillTable");
+        }
+    }
+    
+    public void edit(){
+        try {
+            String maNV = (String) tbNhanVien.getValueAt(dong, 0);
+            NhanVien nv = nvdao.selectByID(maNV);
+            if (nv != null) {
+                setForm(nv);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi edit");
+        }
+    }
+    
+    public void setForm(NhanVien nv){
+        txtMaNV.setText(nv.getMaNV());
+        txtTenNhanVien.setText(nv.getTenNV());
+        if (nv.getGioiTinh() == true) {
+            rdNam.isSelected();
+        }else{
+            rdNu.isSelected();
+        }
+        txtDiaChi.setText(nv.getDiaChi());
+        txtNgaySinh.setDate(nv.getNgaySinh());
+        txtSDT.setText(nv.getSDT());
+        txtEmail.setText(nv.getEmail());
+        txtTrangThai.setText(nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm");
+        if (nv.getVaiTro()== true) {
+            rdQuanLy.isSelected();
+        }else{
+            rdNhanVien.isSelected();
+        }
+        txtMatKhau.setText(nv.getMatKhau());
     }
 
     /**
@@ -54,39 +111,39 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenNhanVien = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdNam = new javax.swing.JRadioButton();
+        rdNu = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtDiaChi = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtSDT = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtTrangThai = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rdNhanVien = new javax.swing.JRadioButton();
+        rdQuanLy = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtMatKhau = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbNhanVien = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        btnThem = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        btnSua = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        btnAn = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        btnMoi = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1260, 760));
@@ -103,39 +160,39 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mã Nhân Viên");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 30));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 340, 34));
+        jPanel2.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 340, 34));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tên Nhân Viên");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, -1, 30));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 340, 34));
+        jPanel2.add(txtTenNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 340, 34));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Giới Tính");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
-        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Nam");
-        jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
+        rdNam.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdNam);
+        rdNam.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdNam.setForeground(new java.awt.Color(0, 0, 0));
+        rdNam.setSelected(true);
+        rdNam.setText("Nam");
+        jPanel2.add(rdNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, -1, -1));
 
-        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton2.setText("Nữ");
-        jPanel2.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+        rdNu.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdNu);
+        rdNu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdNu.setForeground(new java.awt.Color(0, 0, 0));
+        rdNu.setText("Nữ");
+        jPanel2.add(rdNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Địa Chỉ");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, -1, 30));
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 340, 34));
+        jPanel2.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 340, 34));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -146,51 +203,51 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Số Điện Thoại");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, 30));
-        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, 340, 34));
+        jPanel2.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 160, 340, 34));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Email");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 220, 40, 30));
-        jPanel2.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 224, 340, 30));
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 224, 340, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Trạng Thái");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, 30));
-        jPanel2.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 34));
+        jPanel2.add(txtTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 34));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Vai Trò");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
-        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Nhân Viên");
-        jPanel2.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+        rdNhanVien.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(rdNhanVien);
+        rdNhanVien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdNhanVien.setForeground(new java.awt.Color(0, 0, 0));
+        rdNhanVien.setSelected(true);
+        rdNhanVien.setText("Nhân Viên");
+        jPanel2.add(rdNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
-        jRadioButton4.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup2.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton4.setText("Quản Lý");
-        jPanel2.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
+        rdQuanLy.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(rdQuanLy);
+        rdQuanLy.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdQuanLy.setForeground(new java.awt.Color(0, 0, 0));
+        rdQuanLy.setText("Quản Lý");
+        jPanel2.add(rdQuanLy, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Quản Lý Nhân Viên");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 340, 30));
+        jPanel2.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 340, 30));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Mật khẩu");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, -1, 30));
-        jPanel2.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 340, 34));
+        jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 340, 34));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 9, 1190, 320));
 
@@ -198,8 +255,8 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbNhanVien.setForeground(new java.awt.Color(0, 0, 0));
+        tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -207,8 +264,13 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
                 "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Địa Chỉ", "Ngày Sinh", "Số Điện Thoại", "Email", "Trạng Thái", "Mật Khẩu", "Vai Trò"
             }
         ));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
+        tbNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbNhanVienMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbNhanVien);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 50, 1160, 270));
 
@@ -219,8 +281,8 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 342, 1194, 330));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnThem.setBackground(new java.awt.Color(255, 255, 255));
+        btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
@@ -232,21 +294,21 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btnThemLayout = new javax.swing.GroupLayout(btnThem);
+        btnThem.setLayout(btnThemLayout);
+        btnThemLayout.setHorizontalGroup(
+            btnThemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnThemLayout.setVerticalGroup(
+            btnThemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, 30));
+        jPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, 30));
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnSua.setBackground(new java.awt.Color(255, 255, 255));
+        btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
@@ -258,21 +320,21 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btnSuaLayout = new javax.swing.GroupLayout(btnSua);
+        btnSua.setLayout(btnSuaLayout);
+        btnSuaLayout.setHorizontalGroup(
+            btnSuaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnSuaLayout.setVerticalGroup(
+            btnSuaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 700, -1, 30));
+        jPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 700, -1, 30));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnAn.setBackground(new java.awt.Color(255, 255, 255));
+        btnAn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -284,21 +346,21 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btnAnLayout = new javax.swing.GroupLayout(btnAn);
+        btnAn.setLayout(btnAnLayout);
+        btnAnLayout.setHorizontalGroup(
+            btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnAnLayout.setVerticalGroup(
+            btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 700, -1, 30));
+        jPanel1.add(btnAn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 700, -1, 30));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnMoi.setBackground(new java.awt.Color(255, 255, 255));
+        btnMoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
@@ -310,18 +372,18 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btnMoiLayout = new javax.swing.GroupLayout(btnMoi);
+        btnMoi.setLayout(btnMoiLayout);
+        btnMoiLayout.setHorizontalGroup(
+            btnMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnMoiLayout.setVerticalGroup(
+            btnMoiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 700, -1, 30));
+        jPanel1.add(btnMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 700, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,38 +400,49 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        jPanel4.setBackground(ClickColor);
-        jPanel5.setBackground(defaulColor);
-        jPanel6.setBackground(defaulColor);
-        jPanel7.setBackground(defaulColor);
+        btnThem.setBackground(ClickColor);
+        btnSua.setBackground(defaulColor);
+        btnAn.setBackground(defaulColor);
+        btnMoi.setBackground(defaulColor);
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        jPanel4.setBackground(defaulColor);
-        jPanel5.setBackground(ClickColor);
-        jPanel6.setBackground(defaulColor);
-        jPanel7.setBackground(defaulColor);
+        btnThem.setBackground(defaulColor);
+        btnSua.setBackground(ClickColor);
+        btnAn.setBackground(defaulColor);
+        btnMoi.setBackground(defaulColor);
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        jPanel4.setBackground(defaulColor);
-        jPanel5.setBackground(defaulColor);
-        jPanel6.setBackground(ClickColor);
-        jPanel7.setBackground(defaulColor);
+        btnThem.setBackground(defaulColor);
+        btnSua.setBackground(defaulColor);
+        btnAn.setBackground(ClickColor);
+        btnMoi.setBackground(defaulColor);
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        jPanel4.setBackground(defaulColor);
-        jPanel5.setBackground(defaulColor);
-        jPanel6.setBackground(defaulColor);
-        jPanel7.setBackground(ClickColor);
+        btnThem.setBackground(defaulColor);
+        btnSua.setBackground(defaulColor);
+        btnAn.setBackground(defaulColor);
+        btnMoi.setBackground(ClickColor);
     }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void tbNhanVienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMousePressed
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.dong = tbNhanVien.rowAtPoint(evt.getPoint());
+            edit();
+        }
+    }//GEN-LAST:event_tbNhanVienMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnAn;
+    private javax.swing.JPanel btnMoi;
+    private javax.swing.JPanel btnSua;
+    private javax.swing.JPanel btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -389,22 +462,19 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JRadioButton rdNam;
+    private javax.swing.JRadioButton rdNhanVien;
+    private javax.swing.JRadioButton rdNu;
+    private javax.swing.JRadioButton rdQuanLy;
+    private javax.swing.JTable tbNhanVien;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtMaNV;
+    private javax.swing.JTextField txtMatKhau;
+    private com.toedter.calendar.JDateChooser txtNgaySinh;
+    private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txtTenNhanVien;
+    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }
