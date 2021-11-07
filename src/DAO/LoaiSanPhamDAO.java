@@ -45,6 +45,7 @@ public class LoaiSanPhamDAO extends Main<LoaiSP, Integer> {
     }
     
     
+    // Khác 
     @Override
     public void delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -19,6 +19,7 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
     String Insert = "Insert into KICHTHUOC ( KichThuoc ) values ( ? )" ;
     String Update = "Update KICHTHUOC set KichThuoc = ?  where MaKichThuoc = ? " ;
     String Update_1 = "Update KICHTHUOC set TrangThai = 1  where KichThuoc = ? ";
+    String Update_2 = "Update KICHTHUOC set TrangThai = 0  where KichThuoc = ? " ;
     String Select_all = "select * from KICHTHUOC where TrangThai = 1 " ;
     String Select_all_1 = "select * from KICHTHUOC " ;
     
@@ -26,7 +27,9 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
     public void insert(KichThuoc entity) {
         JDBCHelper.Update(Insert, entity.getTenKT()) ;
     }
-
+    
+    
+    // Update 
     @Override
     public void update(KichThuoc entity) {
         JDBCHelper.Update(Update, entity.getTenKT() , entity.getMaKT() );
@@ -36,6 +39,11 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
         JDBCHelper.Update(Update_1, entity.getTenKT() );
     }
 
+    public void update_2( String k ) {
+        JDBCHelper.Update(Update_2, k );
+    }
+    
+    // Khác
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
