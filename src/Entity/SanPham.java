@@ -17,7 +17,7 @@ public class SanPham {
     private String ChatLieu ;
     private int SoLuong ;
     private double Gia ; 
-    private int GiamGia ;
+    private double GiamGia ;
     private boolean TrangThai ;
 
     public String getMaSP() {
@@ -76,11 +76,11 @@ public class SanPham {
         this.Gia = Gia;
     }
 
-    public int getGiamGia() {
+    public double getGiamGia() {
         return GiamGia;
     }
 
-    public void setGiamGia(int GiamGia) {
+    public void setGiamGia(double GiamGia) {
         this.GiamGia = GiamGia;
     }
 
