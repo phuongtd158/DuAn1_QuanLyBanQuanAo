@@ -4,6 +4,8 @@
  */
 package DAO;
 
+import Entity.ChatLieu;
+import Entity.KichThuoc;
 import Entity.MauSac;
 import Ultil.JDBCHelper;
 import java.sql.ResultSet;
@@ -17,19 +19,34 @@ import java.sql.* ;
  */
 public class MauSacDAO extends Main< MauSac, String>{
     String Insert = "Insert into MAUSAC ( TenMauSac ) values ( ? )" ;
-    String Update = "Update MAUSAC set TenMauSac = ? , TrangThai = ? " ;
-    String Select_all = "select * from MAUSAC" ;
+    String Update = "Update MAUSAC set TenMauSac = ?  where MaMauSac = ? " ;
+    String Update_1 = "Update MAUSAC set TrangThai = 1  where TenMauSac = ? ";
+        String Update_2 = "Update MAUSAC set TrangThai = 0  where TenMauSac = ? " ;
+    String Select_all = "select * from MAUSAC where TrangThai = 1 " ;
+    String Select_all_1 = "select * from MAUSAC " ;
     
     @Override
     public void insert(MauSac entity) {
         JDBCHelper.Update(Insert, entity.getTenMau() );
     }
 
+    
+    // Update
     @Override
     public void update(MauSac entity) {
-        JDBCHelper.Update( Update, entity.getTenMau() , entity.getTrangThai() );
+        JDBCHelper.Update( Update, entity.getTenMau() , entity.getTrangThai() , entity.getMaMau() );
     }
+    
+    public void update_1(MauSac entity) {
+        JDBCHelper.Update(Update_1, entity.getTenMau() );
+    }    
 
+    public void update_2(String k) {
+        JDBCHelper.Update(Update_2, k);
+    }
+    
+    
+    // Khác
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -39,6 +56,10 @@ public class MauSacDAO extends Main< MauSac, String>{
     public List<MauSac> selectAll() {
         return selectBySQL( Select_all );
     }
+    
+    public List<MauSac> selectAll_1() {
+        return selectBySQL( Select_all_1 );
+    }    
 
     @Override
     public MauSac selectByID(String id) {
@@ -65,6 +86,10 @@ public class MauSacDAO extends Main< MauSac, String>{
         } catch (Exception e ) {
             throw new RuntimeException();
         }
+    }
+
+    public void update_1(ChatLieu x) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

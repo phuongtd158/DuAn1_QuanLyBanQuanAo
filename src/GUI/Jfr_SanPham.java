@@ -5,8 +5,21 @@
  */
 package GUI;
 
+import DAO.ChatLieuDAO;
+import DAO.KichThuocDAO;
+import DAO.LoaiSanPhamDAO;
+import DAO.MauSacDAO;
+import Entity.ChatLieu;
+import Entity.KichThuoc;
+import Entity.LoaiSP;
+import Entity.MauSac;
+import Ultil.MsgBox;
 import java.awt.Color;
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,13 +28,22 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     Color defualtColor, ClickColor;
-
+    MauSacDAO daoMS = new MauSacDAO() ;
+    ChatLieuDAO daoCL = new ChatLieuDAO();
+    KichThuocDAO daoKT = new KichThuocDAO();
+    LoaiSanPhamDAO daoLSP = new LoaiSanPhamDAO();
+    ArrayList<MauSac> listMS = new ArrayList<>();
+    ArrayList<ChatLieu> listCL = new ArrayList<>();
+    ArrayList<KichThuoc> listKT = new ArrayList<>();
+    ArrayList<LoaiSP> listLSP = new ArrayList<>();
+    DefaultTableModel modelThuocTinh ; 
+    
     public Jfr_SanPham() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-
+        modelThuocTinh = (DefaultTableModel) table_ThuocTinh.getModel() ;
         defualtColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
 
@@ -76,20 +98,20 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        txtTenThuocTinh = new javax.swing.JTextField();
+        rbMauSac = new javax.swing.JRadioButton();
+        rbKichThuoc = new javax.swing.JRadioButton();
+        rbChatLieu = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbLoaiSP = new javax.swing.JRadioButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_ThuocTinh = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -350,18 +372,32 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Tên thuộc tính");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jRadioButton2.setSelected(true);
-        jRadioButton2.setText("Màu sắc");
+        buttonGroup1.add(rbMauSac);
+        rbMauSac.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbMauSac.setText("Màu sắc");
+        rbMauSac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbMauSacMouseClicked(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jRadioButton3.setText("Kích thước");
+        buttonGroup1.add(rbKichThuoc);
+        rbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbKichThuoc.setText("Kích thước");
+        rbKichThuoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbKichThuocMouseClicked(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jRadioButton1.setText("Chất liệu");
+        buttonGroup1.add(rbChatLieu);
+        rbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbChatLieu.setText("Chất liệu");
+        rbChatLieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbChatLieuMouseClicked(evt);
+            }
+        });
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -370,6 +406,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Thêm");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -408,6 +449,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Ẩn");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -420,12 +466,17 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jRadioButton4.setText("Tên loại sản phẩm");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbLoaiSP);
+        rbLoaiSP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbLoaiSP.setText("Tên loại sản phẩm");
+        rbLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbLoaiSPMouseClicked(evt);
+            }
+        });
+        rbLoaiSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                rbLoaiSPActionPerformed(evt);
             }
         });
 
@@ -444,15 +495,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59)
-                                .addComponent(jRadioButton2)
+                                .addComponent(rbMauSac)
                                 .addGap(51, 51, 51)
-                                .addComponent(jRadioButton3)
+                                .addComponent(rbKichThuoc)
                                 .addGap(60, 60, 60)
-                                .addComponent(jRadioButton1)
+                                .addComponent(rbChatLieu)
                                 .addGap(37, 37, 37)
-                                .addComponent(jRadioButton4))
+                                .addComponent(rbLoaiSP))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,12 +518,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -486,7 +537,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_ThuocTinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -497,7 +548,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                 "STT", "Loại thuộc tính", "Tên thuộc tinh"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        table_ThuocTinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_ThuocTinhMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_ThuocTinh);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -544,9 +600,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void rbLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLoaiSPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_rbLoaiSPActionPerformed
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         jPanel16.setBackground(ClickColor);
@@ -604,6 +660,213 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel17.setBackground(defualtColor);
     }//GEN-LAST:event_btnMoiMouseClicked
 
+    // Đổ vào table của thuộc tính
+    
+    // Insert Mau 
+    private void ThemMauSac(){
+        listMS = (ArrayList<MauSac>) daoMS.selectAll_1() ;
+        
+        for( MauSac x : listMS ){
+            if( x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == true ){
+                MsgBox.alert( this , "Màu sắc đã tồn tại");
+                return ;
+            }
+            
+            if( x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() ==false ){
+                daoMS.update_1(x);
+                MsgBox.alert( this , "Thêm thành công");
+                return ;
+            }
+        }
+        
+        MauSac ms = new MauSac();
+        ms.setTenMau(txtTenThuocTinh.getText());
+        daoMS.insert(ms);
+    }
+    
+    // Insert Chất Liệu
+    private void ThemChatLieu(){
+        listCL = (ArrayList<ChatLieu>) daoCL.selectAll_1() ;
+        
+        for( ChatLieu x : listCL ){
+            if( x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai()== true ){
+                MsgBox.alert( this , "Màu sắc đã tồn tại");
+                return ;
+            }
+            
+            if( x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai()==false ){
+                daoCL.update_1(x);
+                MsgBox.alert( this , "Thêm thành công");
+                return ;
+            }
+        }       
+        
+        ChatLieu ms = new ChatLieu();
+        ms.setTenChatLieu(txtTenThuocTinh.getText());
+        daoCL.insert(ms);
+    }  
+    
+    // Insert Kích Thước
+    private void ThemKichThuoc(){
+        listKT = (ArrayList<KichThuoc> ) daoKT.selectAll_1() ;
+        
+        for( KichThuoc x : listKT ){
+            if( x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai()== true ){
+                MsgBox.alert( this , "Màu sắc đã tồn tại");
+                return ;
+            }
+            
+            if( x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai()==false ){
+                daoKT.update_1(x);
+                MsgBox.alert( this , "Thêm thành công");
+                return ;
+            }
+        }        
+        
+        KichThuoc ms = new KichThuoc();
+        ms.setTenKT(txtTenThuocTinh.getText());
+        daoKT.insert(ms);
+    }   
+    
+    // Insert Loai SP 
+    private void ThemLoaiSP(){
+        listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll_1();
+
+        for ( LoaiSP x : listLSP ) {
+            if (x.getTenLoaiSP().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == true) {
+                MsgBox.alert(this, "Màu sắc đã tồn tại");
+                return;
+            }
+
+            if (x.getTenLoaiSP().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == false) {
+                daoLSP.update_1(x);
+                MsgBox.alert(this, "Thêm thành công");
+                return;
+            }
+        }
+
+        LoaiSP ms = new LoaiSP();
+        ms.setTenLoaiSP(txtTenThuocTinh.getText());
+        daoLSP.insert(ms);
+    }
+    
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        if( txtTenThuocTinh.getText().equals("") ){
+            MsgBox.alert( this  , "Vui lòng nhâp thông tin đầy đủ");
+            txtTenThuocTinh.requestFocus();
+            return  ;
+        }
+        
+        if( rbChatLieu.isSelected() ){
+            ThemChatLieu();
+        }else if ( rbKichThuoc.isSelected() ){
+            ThemKichThuoc();
+        }else if ( rbLoaiSP.isSelected() ){
+            ThemLoaiSP();
+        }else{
+            ThemMauSac();
+        }     
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    // Đổ vào bảng thuộc tính
+    private void DoVaotableThuocTinh1(){
+        modelThuocTinh.setRowCount(0);
+        listMS = (ArrayList<MauSac>) daoMS.selectAll() ;
+        
+        for( int i=0 ; i<listMS.size() ; i++  ){
+            MauSac ms = listMS.get(i);
+            modelThuocTinh.addRow( new Object[] { i+1 , "Màu Sắc" , ms.getTenMau() });
+        }        
+    }
+    
+    private void rbMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMauSacMouseClicked
+         DoVaotableThuocTinh1();
+    }//GEN-LAST:event_rbMauSacMouseClicked
+
+    // Đổ vào bảng thuộc tính
+    
+    private void DoVaotableThuocTinh2(){
+        modelThuocTinh.setRowCount(0);
+        listKT = (ArrayList<KichThuoc>) daoKT.selectAll() ;
+        
+        for( int i=0 ; i<listKT.size() ; i++  ){
+            KichThuoc ms = listKT.get(i);
+            modelThuocTinh.addRow( new Object[] { i+1 , "Kích Thước" , ms.getTenKT()});
+        }    
+    }
+    
+    private void rbKichThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbKichThuocMouseClicked
+         DoVaotableThuocTinh2();
+    }//GEN-LAST:event_rbKichThuocMouseClicked
+
+    // Đổ vào bảng thuộc tính
+    
+    private void DoVaotableThuocTinh3(){
+        modelThuocTinh.setRowCount(0);
+        listCL = (ArrayList<ChatLieu>) daoCL.selectAll() ;
+        
+        for( int i=0 ; i<listCL.size() ; i++  ){
+            ChatLieu ms = listCL.get(i);
+            modelThuocTinh.addRow( new Object[] { i+1 , "Chất Liệu" , ms.getTenChatLieu() } );
+        }    
+    }    
+    
+    private void rbChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbChatLieuMouseClicked
+        DoVaotableThuocTinh3();
+    }//GEN-LAST:event_rbChatLieuMouseClicked
+
+    // Đổ vào bảng thuộc tính
+    
+    private void DoVaotableThuocTinh4(){
+        modelThuocTinh.setRowCount(0);
+        listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll() ;
+        
+        for( int i=0 ; i<listLSP.size() ; i++  ){
+            LoaiSP ms = listLSP.get(i);
+            modelThuocTinh.addRow( new Object[] { i+1 , "Loại Sản Phẩm" , ms.getTenLoaiSP()});
+        }    
+    }    
+    
+    private void rbLoaiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbLoaiSPMouseClicked
+        DoVaotableThuocTinh4();
+    }//GEN-LAST:event_rbLoaiSPMouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        int a = table_ThuocTinh.getSelectedRow() ;
+        
+        if( a < 0 ){
+            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
+            return  ;
+        }
+        
+        if( rbChatLieu.isSelected() ){
+            daoCL.update_2( txtTenThuocTinh.getText() );
+            DoVaotableThuocTinh3();
+        }else if( rbKichThuoc.isSelected() ){
+            daoKT.update_2( txtTenThuocTinh.getText() );
+            DoVaotableThuocTinh2();
+        }else if( rbLoaiSP.isSelected() ){
+            daoLSP.update_2(txtTenThuocTinh.getText() );
+            DoVaotableThuocTinh4();
+        }else {
+            daoMS.update_2( txtTenThuocTinh.getText() );
+            DoVaotableThuocTinh1();
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void table_ThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ThuocTinhMouseClicked
+        int a = table_ThuocTinh.getSelectedRow() ;
+        
+        if( a < 0 ){
+            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
+            return  ;
+        }
+
+        txtTenThuocTinh.setText( table_ThuocTinh.getValueAt(a, 2).toString() );
+    }//GEN-LAST:event_table_ThuocTinhMouseClicked
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnHienThi;
@@ -647,19 +910,19 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JRadioButton rbChatLieu;
+    private javax.swing.JRadioButton rbKichThuoc;
+    private javax.swing.JRadioButton rbLoaiSP;
+    private javax.swing.JRadioButton rbMauSac;
+    private javax.swing.JTable table_ThuocTinh;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTextField txtTenThuocTinh;
     // End of variables declaration//GEN-END:variables
 }

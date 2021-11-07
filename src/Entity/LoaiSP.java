@@ -9,16 +9,16 @@ package Entity;
  * @author ASUS
  */
 public class LoaiSP {
-    private int LoaiSP ;
-    private String TenLoaiSP ; 
-    
+    private int maLoaiSP;
+    private String TenLoaiSP;
+    private boolean TrangThai;
 
-    public int getLoaiSP() {
-        return LoaiSP;
+    public int getMaLoaiSP() {
+        return maLoaiSP;
     }
 
-    public void setLoaiSP( int LoaiSP) {
-        this.LoaiSP = LoaiSP;
+    public void setMaLoaiSP(int maLoaiSP) {
+        this.maLoaiSP = maLoaiSP;
     }
 
     public String getTenLoaiSP() {
@@ -29,9 +29,19 @@ public class LoaiSP {
         this.TenLoaiSP = TenLoaiSP;
     }
 
+    public boolean isTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return TenLoaiSP ;
+        return TenLoaiSP;
     }
-     
+
 }

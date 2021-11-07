@@ -8,18 +8,19 @@ import Entity.SanPham;
 import Ultil.JDBCHelper;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.* ;
+import java.sql.*;
 
 /**
  *
  * @author ASUS
  */
-public class SanPhamDAO extends Main< SanPham, String >{
-    String Insert = "Insert " ;
-    
+public class SanPhamDAO extends Main< SanPham, String> {
+
+    final String INSERT = "Insert ";
+
     @Override
     public void insert(SanPham entity) {
-        
+
     }
 
     @Override
@@ -44,12 +45,12 @@ public class SanPhamDAO extends Main< SanPham, String >{
 
     @Override
     protected List<SanPham> selectBySQL(String sql, Object... args) {
-        List<SanPham> list = new ArrayList<>() ;
-        
+        List<SanPham> list = new ArrayList<>();
+
         try {
             ResultSet rs = JDBCHelper.query(sql, args);
-            
-            while( rs.next() ){
+
+            while (rs.next()) {
                 SanPham sp = new SanPham();
                 sp.setMaSP(rs.getString("MaSP"));
                 sp.setTenSP(rs.getString("TenSp"));
@@ -63,10 +64,10 @@ public class SanPhamDAO extends Main< SanPham, String >{
                 list.add(sp);
             }
             rs.getStatement().getConnection().close();
-            return list ;
+            return list;
         } catch (Exception e) {
             throw new RuntimeException();
         }
     }
-    
+
 }

@@ -17,8 +17,10 @@ import java.util.List;
  */
 public class KichThuocDAO extends Main< KichThuoc, String >{
     String Insert = "Insert into KICHTHUOC ( KichThuoc ) values ( ? )" ;
-    String Update = "Update KICHTHUOC set KichThuoc = ? , TrangThai = ? " ;
-    String Select_all = "select * from KICHTHUOC" ;
+    String Update = "Update KICHTHUOC set KichThuoc = ?  where MaKichThuoc = ? " ;
+    String Update_1 = "Update KICHTHUOC set TrangThai = 1  where KichThuoc = ? ";
+    String Select_all = "select * from KICHTHUOC where TrangThai = 1 " ;
+    String Select_all_1 = "select * from KICHTHUOC " ;
     
     @Override
     public void insert(KichThuoc entity) {
@@ -27,7 +29,11 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
 
     @Override
     public void update(KichThuoc entity) {
-        JDBCHelper.Update(Update, entity.getTenKT() , entity.getTrangThai() );
+        JDBCHelper.Update(Update, entity.getTenKT() , entity.getMaKT() );
+    }
+    
+    public void update_1(KichThuoc entity) {
+        JDBCHelper.Update(Update_1, entity.getTenKT() );
     }
 
     @Override
@@ -39,6 +45,10 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
     public List<KichThuoc> selectAll() {
         return selectBySQL(Select_all );
     }
+    
+    public List<KichThuoc> selectAll_1() {
+        return selectBySQL(Select_all_1 );
+    }    
 
     @Override
     public KichThuoc selectByID(String id) {
