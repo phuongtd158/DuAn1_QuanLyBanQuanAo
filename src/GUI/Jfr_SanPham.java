@@ -430,6 +430,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Sửa");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -674,6 +679,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             
             if( x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() ==false ){
                 daoMS.update_1(x);
+                DoVaotableThuocTinh1() ;
                 MsgBox.alert( this , "Thêm thành công");
                 return ;
             }
@@ -682,6 +688,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         MauSac ms = new MauSac();
         ms.setTenMau(txtTenThuocTinh.getText());
         daoMS.insert(ms);
+        DoVaotableThuocTinh1();
     }
     
     // Insert Chất Liệu
@@ -696,6 +703,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             
             if( x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai()==false ){
                 daoCL.update_1(x);
+                DoVaotableThuocTinh3();
                 MsgBox.alert( this , "Thêm thành công");
                 return ;
             }
@@ -704,6 +712,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         ChatLieu ms = new ChatLieu();
         ms.setTenChatLieu(txtTenThuocTinh.getText());
         daoCL.insert(ms);
+        DoVaotableThuocTinh3();
     }  
     
     // Insert Kích Thước
@@ -718,6 +727,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             
             if( x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai()==false ){
                 daoKT.update_1(x);
+                DoVaotableThuocTinh2();
                 MsgBox.alert( this , "Thêm thành công");
                 return ;
             }
@@ -726,6 +736,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         KichThuoc ms = new KichThuoc();
         ms.setTenKT(txtTenThuocTinh.getText());
         daoKT.insert(ms);
+        DoVaotableThuocTinh2();
     }   
     
     // Insert Loai SP 
@@ -740,6 +751,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
             if (x.getTenLoaiSP().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == false) {
                 daoLSP.update_1(x);
+                DoVaotableThuocTinh4();
                 MsgBox.alert(this, "Thêm thành công");
                 return;
             }
@@ -748,6 +760,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         LoaiSP ms = new LoaiSP();
         ms.setTenLoaiSP(txtTenThuocTinh.getText());
         daoLSP.insert(ms);
+        DoVaotableThuocTinh4();
     }
     
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -864,6 +877,33 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         txtTenThuocTinh.setText( table_ThuocTinh.getValueAt(a, 2).toString() );
     }//GEN-LAST:event_table_ThuocTinhMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        int a = table_ThuocTinh.getSelectedRow() ;
+        
+        if( a < 0 ){
+            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
+            return  ;
+        }
+        
+        if( rbChatLieu.isSelected() ){
+            ChatLieu cl = listCL.get(a);
+            daoCL.update(cl);
+            DoVaotableThuocTinh3();
+        }else if( rbKichThuoc.isSelected() ){
+            KichThuoc kt = listKT.get(a) ;
+            daoKT.update(kt);
+            DoVaotableThuocTinh2();
+        }else if( rbLoaiSP.isSelected() ){
+            LoaiSP sp = listLSP.get(a) ;
+            daoLSP.update(sp);
+            DoVaotableThuocTinh4();
+        }else {
+            MauSac ms = listMS.get(a);
+            daoMS.update(ms);
+            DoVaotableThuocTinh1();
+        }
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     
     
