@@ -9,10 +9,12 @@ import DAO.ChatLieuDAO;
 import DAO.KichThuocDAO;
 import DAO.LoaiSanPhamDAO;
 import DAO.MauSacDAO;
+import DAO.SanPhamDAO;
 import Entity.ChatLieu;
 import Entity.KichThuoc;
 import Entity.LoaiSP;
 import Entity.MauSac;
+import Entity.SanPham;
 import Ultil.MsgBox;
 import java.awt.Color;
 import java.awt.List;
@@ -29,16 +31,23 @@ import javax.swing.table.DefaultTableModel;
 public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     Color defualtColor, ClickColor;
+
     MauSacDAO daoMS = new MauSacDAO();
     ChatLieuDAO daoCL = new ChatLieuDAO();
     KichThuocDAO daoKT = new KichThuocDAO();
     LoaiSanPhamDAO daoLSP = new LoaiSanPhamDAO();
+    SanPhamDAO daoSP = new SanPhamDAO();
+
     ArrayList<MauSac> listMS = new ArrayList<>();
     ArrayList<ChatLieu> listCL = new ArrayList<>();
     ArrayList<KichThuoc> listKT = new ArrayList<>();
     ArrayList<LoaiSP> listLSP = new ArrayList<>();
+    ArrayList<SanPham> listSP = new ArrayList<>();
+
     DefaultTableModel modelThuocTinh;
+    DefaultTableModel modelSP;
     DefaultComboBoxModel<Object> cbbBoxModel;
+    int Index = -1;
 
     public Jfr_SanPham() {
         initComponents();
@@ -46,6 +55,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         modelThuocTinh = (DefaultTableModel) table_ThuocTinh.getModel();
+        modelSP = (DefaultTableModel) tblSanPham.getModel();
+        DoVaoTableChiTiet();
         defualtColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
 
@@ -114,14 +125,14 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtMaSP = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtDonGia = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtSoLuong = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         cbbChatLieu = new javax.swing.JComboBox<>();
         cbbLoaiSanPham = new javax.swing.JComboBox<>();
@@ -131,6 +142,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         cbbMauSac = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -180,8 +200,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mã sản phẩm");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
-        jPanel5.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 430, 30));
-        jPanel5.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
+
+        txtMaSP.setEditable(false);
+        jPanel5.add(txtMaSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 430, 30));
+        jPanel5.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -197,28 +219,25 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Đơn giá");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 30));
-        jPanel5.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 430, 30));
+        jPanel5.add(txtDonGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 430, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Số lượng");
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 30));
-        jPanel5.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 430, 30));
+        jPanel5.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 430, 30));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Chất liệu");
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, 30));
 
-        cbbChatLieu.setBackground(null);
         cbbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 330, 30));
 
-        cbbLoaiSanPham.setBackground(null);
         cbbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 430, 30));
 
-        cbbKichThuoc.setBackground(null);
         cbbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 330, 30));
 
@@ -232,7 +251,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel16.setText("Loại sản phẩm");
         jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 30));
 
-        cbbMauSac.setBackground(null);
         cbbMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
 
@@ -247,17 +265,39 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel3.add(jTextField2);
+        jPanel3.add(jTextField3);
+        jPanel3.add(jTextField5);
+        jPanel3.add(jTextField7);
+        jPanel3.add(jTextField8);
+        jPanel3.add(jTextField6);
+
+        jTextField1.setEditable(false);
+        jPanel3.add(jTextField1);
+
+        jTextField4.setEditable(false);
+        jPanel3.add(jTextField4);
+
+        jPanel12.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1180, 30));
+
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
+                "Mã CTSP", "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
         ));
+        tblSanPham.setRowHeight(25);
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblSanPham);
 
         jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1180, 280));
@@ -673,12 +713,64 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbLoaiSPActionPerformed
 
+    public SanPham GetForm() {
+        ChatLieu cl = (ChatLieu) cbbChatLieu.getSelectedItem();
+        KichThuoc kt = (KichThuoc) cbbKichThuoc.getSelectedItem();
+        LoaiSP lsp = (LoaiSP) cbbLoaiSanPham.getSelectedItem();
+        MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
+        SanPham sp = new SanPham();
+
+        sp.setTenSP(txtTenSP.getText());
+        sp.setTenKichThuoc(kt.getTenKT());
+        sp.setTenChatLieu(cl.getTenChatLieu());
+        sp.setTenLoai(lsp.getTenLoaiSP());
+        sp.setTenMauSac(ms.getTenMau());
+        sp.setGia(Double.valueOf(txtDonGia.getText()));
+        sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
+        sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
+
+        return sp;
+    }
+
+    // Thêm SP ;
+    private void ThemSP() {
+        ChatLieu cl = (ChatLieu) cbbChatLieu.getSelectedItem();
+        KichThuoc kt = (KichThuoc) cbbKichThuoc.getSelectedItem();
+        LoaiSP lsp = (LoaiSP) cbbLoaiSanPham.getSelectedItem();
+        MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
+        SanPham sp = GetForm();
+
+        try {
+            if (daoSP.SelectID_1(txtTenSP.getText()) == false) {
+                daoSP.Insert_SP(txtTenSP.getText());
+                daoSP.Insert_SPCT(sp, lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL());
+                MsgBox.alert(this, "Thêm thành công");
+            } else {
+                for (SanPham x : listSP) {
+                    if (x.getTenSP().equalsIgnoreCase(sp.getTenSP()) && x.getTenChatLieu().equalsIgnoreCase(sp.getTenChatLieu())
+                            && x.getTenKichThuoc().equalsIgnoreCase(x.getTenKichThuoc()) && x.getTenMauSac().equalsIgnoreCase(sp.getTenMauSac())
+                            && x.getTenLoai().equalsIgnoreCase(sp.getTenLoai())) {
+                        MsgBox.alert(this, "Sản phẩm đã tồn tại");
+                        return;
+                    }
+                }
+
+                daoSP.Insert_SPCT(sp, lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL());;
+                MsgBox.alert(this, "Thêm thành công");
+            }
+
+        } catch (Exception e) {
+            MsgBox.alert(this, "Thêm thất bại");
+        }
+    }
+
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         jPanel16.setBackground(ClickColor);
         jPanel13.setBackground(defualtColor);
         jPanel14.setBackground(defualtColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
+        ThemSP();
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
@@ -689,15 +781,42 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnXoaMousePressed
 
+    // Xóa 
+    private void XoaSP() {
+        Index = tblSanPham.getSelectedRow();
+        SanPham sp = listSP.get(Index);
+
+        if (MsgBox.confirm_2(this, "Ẩn", "Xóa") == 0) {
+            daoSP.Update_2(sp);
+            DoVaoTableChiTiet();
+            MsgBox.alert(this, "Xóa thành công");
+        }
+
+    }
+
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         jPanel16.setBackground(defualtColor);
         jPanel13.setBackground(defualtColor);
         jPanel14.setBackground(ClickColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
-        Jfr_AnThongTin an = new Jfr_AnThongTin();
-        an.setVisible(true);
+
     }//GEN-LAST:event_btnXoaMouseClicked
+
+    // Hàm Sửa
+    private void Update() {
+        Index = tblSanPham.getSelectedRow();
+        SanPham sp = listSP.get(Index);
+
+        try {
+            daoSP.Update_1(sp);
+            DoVaoTableChiTiet();
+            MsgBox.alert(this, "Cập nhập thành công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập nhật thất bại");
+            e.printStackTrace();
+        }
+    }
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         jPanel16.setBackground(defualtColor);
@@ -705,6 +824,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel14.setBackground(defualtColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
+        Update();
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnHienThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHienThiMouseClicked
@@ -721,12 +841,27 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jPanel16MouseClicked
 
+    // Hàm làm mới form 
+    private void LamMoiForm() {
+        txtDonGia.setText("");
+        txtMaSP.setText("");
+        txtSoLuong.setText("");
+        txtTenSP.setText("");
+        txtTenThuocTinh.setText("");
+        cbbChatLieu.setSelectedIndex(0);
+        cbbKichThuoc.setSelectedIndex(0);
+        cbbLoaiSanPham.setSelectedIndex(0);
+        cbbMauSac.setSelectedIndex(0);
+        Index = -1;
+    }
+
     private void btnMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoiMouseClicked
         jPanel16.setBackground(defualtColor);
         jPanel13.setBackground(defualtColor);
         jPanel14.setBackground(defualtColor);
         jPanel15.setBackground(ClickColor);
         jPanel17.setBackground(defualtColor);
+        LamMoiForm();
     }//GEN-LAST:event_btnMoiMouseClicked
 
     // Đổ vào table của thuộc tính
@@ -826,6 +961,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         DoVaotableThuocTinh4();
     }
 
+    // Nút insert ở bảng thuộc tính
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         jPanel8.setBackground(ClickColor);
         jPanel9.setBackground(defualtColor);
@@ -852,7 +988,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jLabel8MouseClicked
 
-    // Đổ vào bảng thuộc tính
+    // Đổ vào bảng thuộc tính với dánh sách là Màu sắc
     private void DoVaotableThuocTinh1() {
         modelThuocTinh.setRowCount(0);
         listMS = (ArrayList<MauSac>) daoMS.selectAll();
@@ -864,10 +1000,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }
 
     private void rbMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMauSacMouseClicked
+        txtTenThuocTinh.setText("");
         DoVaotableThuocTinh1();
     }//GEN-LAST:event_rbMauSacMouseClicked
 
-    // Đổ vào bảng thuộc tính
+    // Đổ vào bảng thuộc tính với Kích Thước
     private void DoVaotableThuocTinh2() {
         modelThuocTinh.setRowCount(0);
         listKT = (ArrayList<KichThuoc>) daoKT.selectAll();
@@ -879,10 +1016,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }
 
     private void rbKichThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbKichThuocMouseClicked
+        txtTenThuocTinh.setText("");
         DoVaotableThuocTinh2();
     }//GEN-LAST:event_rbKichThuocMouseClicked
 
-    // Đổ vào bảng thuộc tính
+    // Đổ vào bảng thuộc tính với chất liệu
     private void DoVaotableThuocTinh3() {
         modelThuocTinh.setRowCount(0);
         listCL = (ArrayList<ChatLieu>) daoCL.selectAll();
@@ -894,10 +1032,11 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }
 
     private void rbChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbChatLieuMouseClicked
+        txtTenThuocTinh.setText("");
         DoVaotableThuocTinh3();
     }//GEN-LAST:event_rbChatLieuMouseClicked
 
-    // Đổ vào bảng thuộc tính
+    // Đổ vào bảng thuộc tính với loại sản phẩm
     private void DoVaotableThuocTinh4() {
         modelThuocTinh.setRowCount(0);
         listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll();
@@ -909,17 +1048,19 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }
 
     private void rbLoaiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbLoaiSPMouseClicked
+        txtTenThuocTinh.setText("");
         DoVaotableThuocTinh4();
     }//GEN-LAST:event_rbLoaiSPMouseClicked
 
+    // Nút ẩn
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         jPanel8.setBackground(defualtColor);
         jPanel9.setBackground(defualtColor);
         jPanel10.setBackground(ClickColor);
 
-        int a = table_ThuocTinh.getSelectedRow();
+        Index = table_ThuocTinh.getSelectedRow();
 
-        if (a < 0) {
+        if (Index < 0) {
             MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
             return;
         }
@@ -941,47 +1082,49 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         txtTenThuocTinh.setText("");
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    // Hiển thị nên jTextField ở thuộc tính
     private void table_ThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ThuocTinhMouseClicked
-        int a = table_ThuocTinh.getSelectedRow();
+        Index = table_ThuocTinh.getSelectedRow();
 
-        if (a < 0) {
+        if (Index < 0) {
             MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
             return;
         }
 
-        txtTenThuocTinh.setText(table_ThuocTinh.getValueAt(a, 2).toString());
+        txtTenThuocTinh.setText(table_ThuocTinh.getValueAt(Index, 2).toString());
     }//GEN-LAST:event_table_ThuocTinhMouseClicked
 
+    // Sửa thuộc tính
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         jPanel8.setBackground(defualtColor);
         jPanel9.setBackground(ClickColor);
         jPanel10.setBackground(defualtColor);
 
-        int a = table_ThuocTinh.getSelectedRow();
+        Index = table_ThuocTinh.getSelectedRow();
 
-        if (a < 0) {
+        if (Index < 0) {
             MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
             return;
         }
 
         try {
             if (rbChatLieu.isSelected()) {
-                ChatLieu cl = listCL.get(a);
+                ChatLieu cl = listCL.get(Index);
                 cl.setTenChatLieu(txtTenThuocTinh.getText());
                 daoCL.update(cl);
                 DoVaotableThuocTinh3();
             } else if (rbKichThuoc.isSelected()) {
-                KichThuoc kt = listKT.get(a);
+                KichThuoc kt = listKT.get(Index);
                 kt.setTenKT(txtTenThuocTinh.getText());
                 daoKT.update(kt);
                 DoVaotableThuocTinh2();
             } else if (rbLoaiSP.isSelected()) {
-                LoaiSP sp = listLSP.get(a);
+                LoaiSP sp = listLSP.get(Index);
                 sp.setTenLoaiSP(txtTenThuocTinh.getText());
                 daoLSP.update(sp);
                 DoVaotableThuocTinh4();
             } else {
-                MauSac ms = listMS.get(a);
+                MauSac ms = listMS.get(Index);
                 ms.setTenMau(txtTenThuocTinh.getText());
                 daoMS.update(ms);
                 DoVaotableThuocTinh1();
@@ -993,6 +1136,45 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    // Dổ vào bảng sản Phẩm 
+    private void DoVaoTableChiTiet() {
+        listSP = (ArrayList<SanPham>) daoSP.selectAll();
+        modelSP.setRowCount(1);
+
+        for (SanPham x : listSP) {
+            if (x.isTrangThai() == true) {
+                modelSP.addRow(new Object[]{x.getMaCTSP(), x.getMaSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
+                    x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
+            }
+        }
+
+    }
+
+    // Hiển thị ngược nên 
+    private void DoNguocNenForm() {
+        Index = tblSanPham.getSelectedRow();
+
+        if (Index < 0) {
+            MsgBox.alert(this, "Vui lòng chọn thông tin ở bảng");
+            return;
+        }
+
+        SanPham sp = listSP.get(Index);
+        txtMaSP.setText(String.valueOf(sp.getMaSP()));
+        txtTenSP.setText(sp.getTenSP());
+        txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
+        txtDonGia.setText(String.valueOf(sp.getGia()));
+        cbbChatLieu.setSelectedItem(sp.getTenChatLieu());
+        cbbKichThuoc.setSelectedItem(sp.getTenKichThuoc());
+        cbbLoaiSanPham.setSelectedItem(sp.getTenLoai());
+        cbbMauSac.setSelectedItem(sp.getTenMauSac());
+
+    }
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        DoNguocNenForm();
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1031,6 +1213,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1041,8 +1224,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JRadioButton rbChatLieu;
     private javax.swing.JRadioButton rbKichThuoc;
     private javax.swing.JRadioButton rbLoaiSP;
@@ -1050,6 +1237,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JTable table_ThuocTinh;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblSanPham;
+    private javax.swing.JTextField txtDonGia;
+    private javax.swing.JTextField txtMaSP;
+    private javax.swing.JTextField txtSoLuong;
+    private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtTenThuocTinh;
     // End of variables declaration//GEN-END:variables
 }

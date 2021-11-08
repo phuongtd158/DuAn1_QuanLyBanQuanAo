@@ -335,6 +335,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, -1, 30));
         jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 340, 34));
 
+        cbbTrangThai.setBackground(new java.awt.Color(255, 255, 255));
         cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang Làm", "Đã Nghỉ Làm" }));
         jPanel2.add(cbbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 30));
 
@@ -485,13 +486,17 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
 
         jPanel1.add(btnMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 700, -1, 30));
 
-        jButton1.setText("jButton1");
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Danh sách nhân viên đã ẩn");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 690, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 690, 200, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

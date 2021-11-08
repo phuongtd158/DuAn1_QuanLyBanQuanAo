@@ -5,7 +5,12 @@
  */
 package GUI;
 
+import DAO.SanPhamDAO;
+import Entity.SanPham;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +19,7 @@ import java.awt.Color;
 public class Jfr_SanPhamAn extends javax.swing.JFrame {
 
     Color defaulColor, ClickColor;
+    SanPhamDAO daoSp = new SanPhamDAO();
 
     /**
      * Creates new form Jfr_SanPhamAn
@@ -23,6 +29,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
+        sanPhamAn();
     }
 
     /**
@@ -47,13 +54,13 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
 
         tblSanPhamAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
+                "Mã CTSP", "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
         ));
         jScrollPane2.setViewportView(tblSanPhamAn);
@@ -94,8 +101,31 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       jPanel2.setBackground(ClickColor);
+        jPanel2.setBackground(ClickColor);
+        int row = tblSanPhamAn.getSelectedRow();
+        try {
+
+            int id = (int) tblSanPhamAn.getValueAt(row, 0);
+            daoSp.hienThiSanPham(id);
+            sanPhamAn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    public void sanPhamAn() {
+        DefaultTableModel model = (DefaultTableModel) tblSanPhamAn.getModel();
+        model.setRowCount(0);
+
+        List<SanPham> list = daoSp.selectAll();
+        for (SanPham x : list) {
+            if (x.isTrangThai() == false) {
+                model.addRow(new Object[]{x.getMaCTSP(), x.getMaSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
+                    x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
+            }
+        }
+
+    }
 
     /**
      * @param args the command line arguments

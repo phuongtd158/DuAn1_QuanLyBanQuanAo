@@ -59,7 +59,7 @@ public class AnNhanVien extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbNhanVien);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Hiển thị lại nhân viên");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
