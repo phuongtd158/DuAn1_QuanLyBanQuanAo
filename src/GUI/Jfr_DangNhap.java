@@ -21,27 +21,25 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
      * Creates new form Jfr_DangNhap
      */
     Color defualtColor,
+            /**
+             * Creates new form Jfr_DangNhap
+             */
+            ClickColor;
 
-    /**
-     * Creates new form Jfr_DangNhap
-     */
-    ClickColor;
- 
-    
     public Jfr_DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
         hoverButton();
-        initMoving(Jfr_DangNhap.this); 
-       
+        initMoving(Jfr_DangNhap.this);
+
     }
-    
+
     public void hoverButton() {
         defualtColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
         //alo
     }
-    
+
     private int x, y;
 
     public void initMoving(JFrame frame) {
@@ -62,6 +60,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         });
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
