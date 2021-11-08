@@ -580,7 +580,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-
+         Jfr_DangNhap menu8 = new Jfr_DangNhap();
+         jDesktopPane1.add(menu8).setVisible(true);
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked

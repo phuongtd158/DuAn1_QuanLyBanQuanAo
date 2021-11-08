@@ -5,11 +5,16 @@
  */
 package GUI;
 
+import DAO.NhanVienDAO;
+import Entity.NhanVien;
+import Ultil.Auth;
+import Ultil.MsgBox;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -114,7 +119,6 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtTenDangNhap.setBackground(new java.awt.Color(255, 255, 255));
         txtTenDangNhap.setForeground(new java.awt.Color(81, 81, 81));
         txtTenDangNhap.setText("Tên đăng nhập");
         txtTenDangNhap.setBorder(null);
@@ -130,7 +134,6 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         });
         jPanel3.add(txtTenDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 220, 30));
 
-        txtMatKhau.setBackground(new java.awt.Color(255, 255, 255));
         txtMatKhau.setForeground(new java.awt.Color(81, 81, 81));
         txtMatKhau.setText("password");
         txtMatKhau.setBorder(null);
@@ -153,6 +156,9 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(81, 81, 81)));
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel4MousePressed(evt);
             }
@@ -172,10 +178,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 80, 30));
@@ -267,7 +270,13 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel5MousePressed
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        System.exit(0);
+        int hoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn kết thúc không ?", "Hỏi", JOptionPane.YES_NO_OPTION);
+        if (hoi == JOptionPane.YES_OPTION) {
+           System.exit(0);
+        }
+        else{
+            MsgBox.alert(rootPane, "Bạn đã hủy thoát");
+        }
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void txtTenDangNhapFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenDangNhapFocusGained
@@ -277,6 +286,20 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     private void txtMatKhauFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMatKhauFocusGained
         txtMatKhau.setText("");
     }//GEN-LAST:event_txtMatKhauFocusGained
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+        if (txtTenDangNhap.getText().equals("")) {
+            MsgBox.alert(this, "Mời bạn nhập tên đăng nhập!");
+            return;
+        } else if (txtMatKhau.getText().equals("")) {
+            MsgBox.alert(this, "Mời bạn nhập mật khẩu!");
+            return;
+        }
+        else{
+            dangnhap();
+        }
+    }//GEN-LAST:event_jPanel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -334,5 +357,21 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
-
+    NhanVienDAO nvdao = new NhanVienDAO();
+    void dangnhap(){
+        String manv = txtTenDangNhap.getText();
+        String matkhau = txtMatKhau.getText();
+        NhanVien nv = nvdao.selectByID(manv);
+        if (nv == null) {
+            MsgBox.alert(this, "Sai tên đăng nhập!");
+        }
+        else if(!matkhau.equals(nv.getMatKhau())){
+            MsgBox.alert(this, "Sai mật khẩu đăng nhập!");
+        }
+        else{
+            Auth.user = nv;
+            MsgBox.alert(this, "Bạn đã đăng nhập thành công!");
+            this.dispose();
+        }
+    }
 }
