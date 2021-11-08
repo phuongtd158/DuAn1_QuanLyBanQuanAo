@@ -73,7 +73,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         cbbBoxModel = (DefaultComboBoxModel) cbbMauSac.getModel();
         cbbBoxModel.removeAllElements();
         listMS = (ArrayList<MauSac>) daoMS.selectAll();
-
         for (MauSac mauSac : listMS) {
             cbbBoxModel.addElement(mauSac);
         }

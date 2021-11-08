@@ -10,6 +10,7 @@ import Entity.NhanVien;
 import Ultil.MsgBox;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     Color defaulColor, ClickColor;
     NhanVienDAO nvdao = new NhanVienDAO();
     int dong = 0;
+
     /**
      * Creates new form NewJInternalFrame
      */
@@ -40,48 +42,53 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
         fillTable();
+
     }
 
     public void hoverButton() {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
     }
-    public void fillTable(){
+
+    public void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
         try {
             List<NhanVien> list = nvdao.selectAll();
+            int count = 0;
             for (NhanVien nv : list) {
-                model.addRow(new Object[]{
-                    nv.getMaNV(),nv.getTenNV(),nv.getGioiTinh()?"Nam":"Nữ",nv.getDiaChi(),nv.getNgaySinh()
-                        ,nv.getSDT(),nv.getEmail(),nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm",nv.getMatKhau(),nv.getVaiTro()?"Quản Lý":"Nhân Viên"
-                });
+                if (nv.getTrangThai() == true) {
+                    count++;
+                    model.addRow(new Object[]{
+                        count, nv.getMaNV(), nv.getTenNV(), nv.getGioiTinh() ? "Nam" : "Nữ", nv.getDiaChi(), nv.getNgaySinh(),
+                        nv.getSDT(), nv.getEmail(), nv.getTrangThai() ? "Đang Làm" : "Đã Nghỉ Làm", nv.getMatKhau(), nv.getVaiTro() ? "Quản Lý" : "Nhân Viên"
+                    });
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi fillTable");
         }
     }
+
     // ẩn các nhân viên trạng thái đã nghỉ làm
-    public void anTrangThai(){
-        DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
-        model.setRowCount(0);
+    public void anTrangThai() {
         try {
-            List<NhanVien> list = nvdao.selectBytt();
-            for (NhanVien nv : list) {
-                model.addRow(new Object[]{
-                    nv.getMaNV(),nv.getTenNV(),nv.getGioiTinh()?"Nam":"Nữ",nv.getDiaChi(),nv.getNgaySinh()
-                        ,nv.getSDT(),nv.getEmail(),nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm",nv.getMatKhau(),nv.getVaiTro()?"Quản Lý":"Nhân Viên"
-                });
-            }
+            dong = tbNhanVien.getSelectedRow();
+            String id = (String) tbNhanVien.getValueAt(dong, 1);
+            nvdao.update_tt(id);
+            fillTable();
+            this.clearFrom();
+            MsgBox.alert(this, "Ẩn thành công nhân viên có mã " + id);
         } catch (Exception e) {
             e.printStackTrace();
-            MsgBox.alert(this, "Lỗi fillTable");
+            MsgBox.alert(this, "Ẩn thất bại");
         }
     }
-    public void edit(){
+
+    public void edit() {
         try {
-            String maNV = (String) tbNhanVien.getValueAt(dong, 0);
+            String maNV = (String) tbNhanVien.getValueAt(dong, 1);
             NhanVien nv = nvdao.selectByID(maNV);
             if (nv != null) {
                 setForm(nv);
@@ -91,63 +98,77 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi edit");
         }
     }
-    
-    public void setForm(NhanVien nv){
+
+    public void setForm(NhanVien nv) {
         txtMaNV.setText(nv.getMaNV());
         txtTenNhanVien.setText(nv.getTenNV());
         if (nv.getGioiTinh() == true) {
-            rdNam.isSelected();
-        }else{
-            rdNu.isSelected();
+            rdNam.setSelected(true);
+        } else {
+            rdNu.setSelected(true);
         }
         txtDiaChi.setText(nv.getDiaChi());
         txtNgaySinh.setDate(nv.getNgaySinh());
         txtSDT.setText(nv.getSDT());
         txtEmail.setText(nv.getEmail());
-        cbbTrangThai.setSelectedItem(nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm");
-        if (nv.getVaiTro()== true) {
-            rdQuanLy.isSelected();
-        }else{
-            rdNhanVien.isSelected();
+        cbbTrangThai.setSelectedItem(nv.getTrangThai() ? "Đang Làm" : "Đã Nghỉ Làm");
+        if (nv.getVaiTro() == true) {
+            rdQuanLy.setSelected(true);
+        } else {
+            rdNhanVien.setSelected(true);
         }
         txtMatKhau.setText(nv.getMatKhau());
     }
-    public void clearFrom(){
+
+    public void clearFrom() {
         this.setForm(new NhanVien());
         dong = -1;
     }
-    NhanVien getFrom(){
+
+    public boolean check() {
+        if (((JTextField) txtNgaySinh.getDateEditor().getUiComponent()).getText().equals("")) {
+            MsgBox.alert(this, "Không được để trống");
+            return false;
+        }
+        return true;
+    }
+
+    NhanVien getFrom() {
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
         nv.setTenNV(txtTenNhanVien.getText());
         nv.setGioiTinh(rdNam.isSelected());
         nv.setDiaChi(txtDiaChi.getText());
+
         nv.setNgaySinh(txtNgaySinh.getDate());
         nv.setSDT(txtSDT.getText());
         nv.setEmail(txtDiaChi.getText());
         nv.setVaiTro(rdQuanLy.isSelected());
         if (cbbTrangThai.getSelectedIndex() == 0) {
             nv.setTrangThai(true);
-        }else{
+        } else {
             nv.setTrangThai(false);
         }
         nv.setMatKhau(txtMatKhau.getText());
         return nv;
     }
-    void insert(){
+
+    void insert() {
         NhanVien nv = getFrom();
         try {
-            nvdao.insert(nv);
-            this.fillTable();
-            this.clearFrom();
-            MsgBox.alert(this, "Thêm Thành Công");
+            if (check()) {
+                nvdao.insert(nv);
+                this.fillTable();
+                this.clearFrom();
+                MsgBox.alert(this, "Thêm Thành Công");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi insert");
         }
     }
-    
-    void update(){
+
+    void update() {
         NhanVien nv = getFrom();
         try {
             nvdao.update(nv);
@@ -159,6 +180,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi update");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,6 +229,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         btnMoi = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1260, 760));
 
@@ -327,11 +350,22 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Địa Chỉ", "Ngày Sinh", "Số Điện Thoại", "Email", "Trạng Thái", "Mật Khẩu", "Vai Trò"
+                "STT", "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Địa Chỉ", "Ngày Sinh", "Số Điện Thoại", "Email", "Trạng Thái", "Mật Khẩu", "Vai Trò"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbNhanVienMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tbNhanVienMousePressed(evt);
             }
@@ -451,6 +485,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
 
         jPanel1.add(btnMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 700, -1, 30));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 690, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -498,12 +540,18 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void tbNhanVienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMousePressed
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-            this.dong = tbNhanVien.rowAtPoint(evt.getPoint());
-            edit();
-        }
+
     }//GEN-LAST:event_tbNhanVienMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AnNhanVien an = new AnNhanVien();
+        an.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tbNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMouseClicked
+        dong = tbNhanVien.getSelectedRow();
+        edit();
+    }//GEN-LAST:event_tbNhanVienMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -514,6 +562,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbTrangThai;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

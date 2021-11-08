@@ -16,28 +16,38 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class NhanVienDAO extends Main<NhanVien, String>{
-    final String INSERT = "INSERT INTO dbo.NHANVIEN(MaNV,TenNV,DiaChi,GioiTinh,Email,SoDienThoai,NgaySinh,VaiTro,MatKhau,TrangThai)\n" +
-                            "VALUES(?,?,?,?,?,?,?,?,?,?)";
-    final String UPDATE = "UPDATE dbo.NHANVIEN\n" +
-                            "SET TenNV = ?,DiaChi = ?,GioiTinh = ?,Email = ?,SoDienThoai = ?,NgaySinh = ?,VaiTro = ?,MatKhau = ?,TrangThai = ?\n" +
-                            "WHERE MaNV = ?";
-    final String SELECT_BYTT = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 1";
+public class NhanVienDAO extends Main<NhanVien, String> {
+
+    final String INSERT = "INSERT INTO dbo.NHANVIEN(MaNV,TenNV,DiaChi,GioiTinh,Email,SoDienThoai,NgaySinh,VaiTro,MatKhau,TrangThai)\n"
+            + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+    final String UPDATE = "UPDATE dbo.NHANVIEN\n"
+            + "SET TenNV = ?,DiaChi = ?,GioiTinh = ?,Email = ?,SoDienThoai = ?,NgaySinh = ?,VaiTro = ?,MatKhau = ?,TrangThai = ?\n"
+            + "WHERE MaNV = ?";
+    final String SELECT_BYTT = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 0";
     final String SELECT_ALL = "SELECT*FROM dbo.NHANVIEN";
     final String SELECT_BYID = "SELECT*FROM dbo.NHANVIEN WHERE MaNV = ?";
+
     @Override
     public void insert(NhanVien entity) {
-        JDBCHelper.Update(INSERT, entity.getMaNV(),entity.getTenNV(),entity.getDiaChi(),entity.getGioiTinh(),entity.getEmail(),entity.getSDT(),entity.getNgaySinh(),entity.getVaiTro(),entity.getMatKhau(),entity.getTrangThai());
+        JDBCHelper.Update(INSERT, entity.getMaNV(), entity.getTenNV(), entity.getDiaChi(), entity.getGioiTinh(), entity.getEmail(), entity.getSDT(), entity.getNgaySinh(), entity.getVaiTro(), entity.getMatKhau(), entity.getTrangThai());
     }
 
     @Override
     public void update(NhanVien entity) {
-        JDBCHelper.Update(UPDATE, entity.getTenNV(),entity.getDiaChi(),entity.getGioiTinh(),entity.getEmail(),entity.getSDT(),entity.getNgaySinh(),entity.getVaiTro(),entity.getMatKhau(),entity.getTrangThai(),entity.getMaNV());
+        JDBCHelper.Update(UPDATE, entity.getTenNV(), entity.getDiaChi(), entity.getGioiTinh(), entity.getEmail(), entity.getSDT(), entity.getNgaySinh(), entity.getVaiTro(), entity.getMatKhau(), entity.getTrangThai(), entity.getMaNV());
     }
 
     @Override
     public void delete(String id) {
-       
+
+    }
+
+    public void update_tt(String id) {
+        JDBCHelper.Update("UPDATE NHANVIEN set TrangThai = 0 where MaNV = ?", id);
+    }
+
+    public void update_tt_1(String id) {
+        JDBCHelper.Update("UPDATE NHANVIEN set TrangThai = 1 where MaNV = ?", id);
     }
 
     @Override
@@ -62,7 +72,7 @@ public class NhanVienDAO extends Main<NhanVien, String>{
             ResultSet rs = JDBCHelper.query(sql, args);
 
             while (rs.next()) {
-                NhanVien nv = new NhanVien() ;
+                NhanVien nv = new NhanVien();
                 nv.setMaNV(rs.getString("MaNV"));
                 nv.setTenNV(rs.getString("TenNV"));
                 nv.setDiaChi(rs.getString("DiaChi"));
@@ -81,7 +91,7 @@ public class NhanVienDAO extends Main<NhanVien, String>{
             throw new RuntimeException();
         }
     }
-    
+
     public List<NhanVien> selectBytt() {
         return selectBySQL(SELECT_BYTT);
     }

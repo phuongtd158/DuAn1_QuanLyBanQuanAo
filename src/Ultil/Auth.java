@@ -11,16 +11,14 @@ import Entity.NhanVien;
  * @author ASUS
  */
 public class Auth {
-    public static NhanVien user = null ;
-    public static void Clear (){
-        Auth.user = null ;
+    public static NhanVien user = null;// duy trì đăng nhập vào hệ thống
+    public static void clear(){ // khi đăng xuất thì xóa user
+        Auth.user = null;
     }
-    
-    public static boolean isLogin() {
+    public static boolean isLogin(){ // kiểm tra xem đăng nhập chưa
         return Auth.user != null;
     }
-
-    public static boolean isManager() {
-        return Auth.isLogin() && user.getVaiTro() ;
+    public static boolean isManager(){
+        return Auth.isLogin()&& user.getVaiTro();
     }
 }
