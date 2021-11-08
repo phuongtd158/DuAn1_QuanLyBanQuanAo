@@ -21,7 +21,7 @@ public class MauSacDAO extends Main< MauSac, String>{
     String Insert = "Insert into MAUSAC ( TenMauSac ) values ( ? )" ;
     String Update = "Update MAUSAC set TenMauSac = ?  where MaMauSac = ? " ;
     String Update_1 = "Update MAUSAC set TrangThai = 1  where TenMauSac = ? ";
-        String Update_2 = "Update MAUSAC set TrangThai = 0  where TenMauSac = ? " ;
+    String Update_2 = "Update MAUSAC set TrangThai = 0  where TenMauSac = ? " ;
     String Select_all = "select * from MAUSAC where TrangThai = 1 " ;
     String Select_all_1 = "select * from MAUSAC " ;
     
