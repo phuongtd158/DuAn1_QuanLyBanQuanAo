@@ -16,8 +16,7 @@ import java.util.List;
  * @author ASUS
  */
 public class KhachHangDAO extends Main< KhachHang, String >{
-
-        final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
+ final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
         final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
         final String DELETE_SQL = "delete from KHACHHANG where MaKH = ?";
         final String SELECT_ALL_SQL = "select * from KHACHHANG";

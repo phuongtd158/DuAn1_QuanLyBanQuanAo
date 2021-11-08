@@ -10,6 +10,7 @@ import Entity.KhachHang;
 import Ultil.MsgBox;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +34,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         hoverButton();
-
+        fillToTable();
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
     }
@@ -54,7 +55,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
                 });
             }
         } catch (Exception e) {
-            MsgBox.alert(this, "Truy vấn thất bại");
+            JOptionPane.showMessageDialog(this, "Truy vấn thất bại");
             e.printStackTrace();
         }
     }
@@ -146,7 +147,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     }
 
     public boolean check() {
-        String sdt = "0[3,9](\\d){8}";
+        String sdt = "0[3,9,8](\\d){8}";
         if (txtTenKH.getText().trim().equals("") || txtDiaChi.getText().trim().equals("") || txtDST.getText().trim().equals("")) {
             MsgBox.alert(this, "Không được để trống thông tin khi thêm mới");
             return false;
