@@ -17,29 +17,38 @@ import java.util.List;
  */
 public class KhachHangDAO extends Main< KhachHang, String >{
 
+        final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
+        final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
+        final String DELETE_SQL = "delete from KHACHHANG where MaKH = ?";
+        final String SELECT_ALL_SQL = "select * from KHACHHANG";
+        final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
     @Override
     public void insert(KhachHang entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         JDBCHelper.Update(INSERT_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(),entity.getTrangThai());
     }
 
     @Override
     public void update(KhachHang entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         JDBCHelper.Update(UPDATE_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai(), entity.getMaKH());
     }
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.Update(DELETE_SQL, id);
     }
 
     @Override
     public List<KhachHang> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectBySQL(SELECT_ALL_SQL);
     }
 
     @Override
     public KhachHang selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<KhachHang> list = selectBySQL(SELECY_BY_ID_SQL, Integer.valueOf(id));
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override
@@ -51,7 +60,7 @@ public class KhachHangDAO extends Main< KhachHang, String >{
 
             while (rs.next()) {
                 KhachHang kh = new KhachHang();
-                kh.setMaKH(rs.getString("MaKH"));
+                kh.setMaKH(rs.getInt("MaKH"));
                 kh.setTenKH(rs.getString("TenKH"));
                 kh.setNgaySinh(rs.getDate("NgaySinh"));
                 kh.setGioiTinh(rs.getBoolean("GioiTinh"));
