@@ -22,7 +22,7 @@ public class NhanVienDAO extends Main<NhanVien, String>{
     final String UPDATE = "UPDATE dbo.NHANVIEN\n" +
                             "SET TenNV = ?,DiaChi = ?,GioiTinh = ?,Email = ?,SoDienThoai = ?,NgaySinh = ?,VaiTro = ?,MatKhau = ?,TrangThai = ?\n" +
                             "WHERE MaNV = ?";
-    final String AN = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 1";
+    final String SELECT_BYTT = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 1";
     final String SELECT_ALL = "SELECT*FROM dbo.NHANVIEN";
     final String SELECT_BYID = "SELECT*FROM dbo.NHANVIEN WHERE MaNV = ?";
     @Override
@@ -37,7 +37,7 @@ public class NhanVienDAO extends Main<NhanVien, String>{
 
     @Override
     public void delete(String id) {
-        JDBCHelper.Update(AN, id);
+       
     }
 
     @Override
@@ -81,5 +81,8 @@ public class NhanVienDAO extends Main<NhanVien, String>{
             throw new RuntimeException();
         }
     }
-     
+    
+    public List<NhanVien> selectBytt() {
+        return selectBySQL(SELECT_BYTT);
+    }
 }

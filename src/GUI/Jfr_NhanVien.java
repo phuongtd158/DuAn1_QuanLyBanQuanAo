@@ -62,7 +62,23 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi fillTable");
         }
     }
-    
+    // ẩn các nhân viên trạng thái đã nghỉ làm
+    public void anTrangThai(){
+        DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhanVien> list = nvdao.selectBytt();
+            for (NhanVien nv : list) {
+                model.addRow(new Object[]{
+                    nv.getMaNV(),nv.getTenNV(),nv.getGioiTinh()?"Nam":"Nữ",nv.getDiaChi(),nv.getNgaySinh()
+                        ,nv.getSDT(),nv.getEmail(),nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm",nv.getMatKhau(),nv.getVaiTro()?"Quản Lý":"Nhân Viên"
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi fillTable");
+        }
+    }
     public void edit(){
         try {
             String maNV = (String) tbNhanVien.getValueAt(dong, 0);
@@ -88,7 +104,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtNgaySinh.setDate(nv.getNgaySinh());
         txtSDT.setText(nv.getSDT());
         txtEmail.setText(nv.getEmail());
-        txtTrangThai.setText(nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm");
+        cbbTrangThai.setSelectedItem(nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm");
         if (nv.getVaiTro()== true) {
             rdQuanLy.isSelected();
         }else{
@@ -96,7 +112,53 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         }
         txtMatKhau.setText(nv.getMatKhau());
     }
-
+    public void clearFrom(){
+        this.setForm(new NhanVien());
+        dong = -1;
+    }
+    NhanVien getFrom(){
+        NhanVien nv = new NhanVien();
+        nv.setMaNV(txtMaNV.getText());
+        nv.setTenNV(txtTenNhanVien.getText());
+        nv.setGioiTinh(rdNam.isSelected());
+        nv.setDiaChi(txtDiaChi.getText());
+        nv.setNgaySinh(txtNgaySinh.getDate());
+        nv.setSDT(txtSDT.getText());
+        nv.setEmail(txtDiaChi.getText());
+        nv.setVaiTro(rdQuanLy.isSelected());
+        if (cbbTrangThai.getSelectedIndex() == 0) {
+            nv.setTrangThai(true);
+        }else{
+            nv.setTrangThai(false);
+        }
+        nv.setMatKhau(txtMatKhau.getText());
+        return nv;
+    }
+    void insert(){
+        NhanVien nv = getFrom();
+        try {
+            nvdao.insert(nv);
+            this.fillTable();
+            this.clearFrom();
+            MsgBox.alert(this, "Thêm Thành Công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi insert");
+        }
+    }
+    
+    void update(){
+        NhanVien nv = getFrom();
+        try {
+            nvdao.update(nv);
+            this.fillTable();
+            this.clearFrom();
+            MsgBox.alert(this, "Sửa Thành Công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi update");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +187,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtTrangThai = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         rdNhanVien = new javax.swing.JRadioButton();
         rdQuanLy = new javax.swing.JRadioButton();
@@ -133,6 +194,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
         txtMatKhau = new javax.swing.JTextField();
+        cbbTrangThai = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
@@ -215,7 +277,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Trạng Thái");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, 30));
-        jPanel2.add(txtTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 34));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
@@ -250,6 +311,9 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel16.setText("Mật khẩu");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, -1, 30));
         jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 340, 34));
+
+        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang Làm", "Đã Nghỉ Làm" }));
+        jPanel2.add(cbbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 9, 1190, 320));
 
@@ -352,7 +416,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnAn.setLayout(btnAnLayout);
         btnAnLayout.setHorizontalGroup(
             btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
         );
         btnAnLayout.setVerticalGroup(
             btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,6 +470,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
+        insert();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
@@ -413,6 +478,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(ClickColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
+        update();
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
@@ -420,6 +486,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(ClickColor);
         btnMoi.setBackground(defaulColor);
+        anTrangThai();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
@@ -427,6 +494,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(ClickColor);
+        clearFrom();
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void tbNhanVienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNhanVienMousePressed
@@ -445,6 +513,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private javax.swing.JPanel btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cbbTrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -477,6 +546,5 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser txtNgaySinh;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTenNhanVien;
-    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }
