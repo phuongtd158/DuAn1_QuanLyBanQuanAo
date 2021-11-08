@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     Color defualtColor, ClickColor;
-    MauSacDAO daoMS = new MauSacDAO() ;
+    MauSacDAO daoMS = new MauSacDAO();
     ChatLieuDAO daoCL = new ChatLieuDAO();
     KichThuocDAO daoKT = new KichThuocDAO();
     LoaiSanPhamDAO daoLSP = new LoaiSanPhamDAO();
@@ -36,17 +37,67 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     ArrayList<ChatLieu> listCL = new ArrayList<>();
     ArrayList<KichThuoc> listKT = new ArrayList<>();
     ArrayList<LoaiSP> listLSP = new ArrayList<>();
-    DefaultTableModel modelThuocTinh ; 
-    
+    DefaultTableModel modelThuocTinh;
+    DefaultComboBoxModel<Object> cbbBoxModel;
+
     public Jfr_SanPham() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        modelThuocTinh = (DefaultTableModel) table_ThuocTinh.getModel() ;
+        modelThuocTinh = (DefaultTableModel) table_ThuocTinh.getModel();
         defualtColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
 
+        doVaoChatLieu();
+        doVaoMauSac();
+        doVaoLoaiSP();
+        doVaoKichThuoc();
+    }
+
+    //Đổ dữ liệu từ thuộc tính vào combobox màu sắc
+    public void doVaoMauSac() {
+        cbbBoxModel = (DefaultComboBoxModel) cbbMauSac.getModel();
+        cbbBoxModel.removeAllElements();
+        listMS = (ArrayList<MauSac>) daoMS.selectAll();
+
+        for (MauSac mauSac : listMS) {
+            cbbBoxModel.addElement(mauSac);
+        }
+
+    }
+
+    //Đổ dữ liệu từ thuộc tính vào combobox chất liệu
+    public void doVaoChatLieu() {
+        cbbBoxModel = (DefaultComboBoxModel) cbbChatLieu.getModel();
+        cbbBoxModel.removeAllElements();
+        listCL = (ArrayList<ChatLieu>) daoCL.selectAll();
+
+        for (ChatLieu chatLieu : listCL) {
+            cbbBoxModel.addElement(chatLieu);
+        }
+    }
+
+    //Đổ dữ liệu từ thuộc tính vào combobox kích thước
+    public void doVaoKichThuoc() {
+        cbbBoxModel = (DefaultComboBoxModel) cbbKichThuoc.getModel();
+        cbbBoxModel.removeAllElements();
+        listKT = (ArrayList<KichThuoc>) daoKT.selectAll();
+
+        for (KichThuoc kichThuoc : listKT) {
+            cbbBoxModel.addElement(kichThuoc);
+        }
+    }
+
+    //Đổ dữ liệu từ thuộc tính vào combobox loại sản phẩm
+    public void doVaoLoaiSP() {
+        cbbBoxModel = (DefaultComboBoxModel) cbbLoaiSanPham.getModel();
+        cbbBoxModel.removeAllElements();
+        listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll();
+
+        for (LoaiSP loaiSP : listLSP) {
+            cbbBoxModel.addElement(loaiSP);
+        }
     }
 
     /**
@@ -73,16 +124,16 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbbChatLieu = new javax.swing.JComboBox<>();
+        cbbLoaiSanPham = new javax.swing.JComboBox<>();
+        cbbKichThuoc = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cbbMauSac = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblSanPham = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         btnSua = new javax.swing.JLabel();
@@ -114,6 +165,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         table_ThuocTinh = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(1260, 780));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabs.setBackground(new java.awt.Color(255, 255, 255));
@@ -159,14 +211,17 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel13.setText("Chất liệu");
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, 30));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 330, 30));
+        cbbChatLieu.setBackground(null);
+        cbbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel5.add(cbbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 330, 30));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 430, 30));
+        cbbLoaiSanPham.setBackground(null);
+        cbbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel5.add(cbbLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 430, 30));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 330, 30));
+        cbbKichThuoc.setBackground(null);
+        cbbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel5.add(cbbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 330, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
@@ -178,8 +233,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel16.setText("Loại sản phẩm");
         jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 30));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel5.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
+        cbbMauSac.setBackground(null);
+        cbbMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -192,7 +248,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -203,7 +259,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                 "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblSanPham);
 
         jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1180, 280));
 
@@ -359,6 +415,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         tabs.addTab("Thông tin chi tiết", jPanel2);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -674,84 +731,83 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMoiMouseClicked
 
     // Đổ vào table của thuộc tính
-    
     // Insert Mau 
-    private void ThemMauSac(){
-        listMS = (ArrayList<MauSac>) daoMS.selectAll_1() ;
-        
-        for( MauSac x : listMS ){
-            if( x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == true ){
-                MsgBox.alert( this , "Màu sắc đã tồn tại");
-                return ;
+    private void ThemMauSac() {
+        listMS = (ArrayList<MauSac>) daoMS.selectAll_1();
+
+        for (MauSac x : listMS) {
+            if (x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == true) {
+                MsgBox.alert(this, "Màu sắc đã tồn tại");
+                return;
             }
-            
-            if( x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() ==false ){
+
+            if (x.getTenMau().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == false) {
                 daoMS.update_1(x);
-                DoVaotableThuocTinh1() ;
-                MsgBox.alert( this , "Thêm thành công");
-                return ;
+                DoVaotableThuocTinh1();
+                MsgBox.alert(this, "Thêm thành công");
+                return;
             }
         }
-        
+
         MauSac ms = new MauSac();
         ms.setTenMau(txtTenThuocTinh.getText());
         daoMS.insert(ms);
         DoVaotableThuocTinh1();
     }
-    
+
     // Insert Chất Liệu
-    private void ThemChatLieu(){
-        listCL = (ArrayList<ChatLieu>) daoCL.selectAll_1() ;
-        
-        for( ChatLieu x : listCL ){
-            if( x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai()== true ){
-                MsgBox.alert( this , "Màu sắc đã tồn tại");
-                return ;
+    private void ThemChatLieu() {
+        listCL = (ArrayList<ChatLieu>) daoCL.selectAll_1();
+
+        for (ChatLieu x : listCL) {
+            if (x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == true) {
+                MsgBox.alert(this, "Màu sắc đã tồn tại");
+                return;
             }
-            
-            if( x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai()==false ){
+
+            if (x.getTenChatLieu().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == false) {
                 daoCL.update_1(x);
                 DoVaotableThuocTinh3();
-                MsgBox.alert( this , "Thêm thành công");
-                return ;
+                MsgBox.alert(this, "Thêm thành công");
+                return;
             }
-        }       
-        
+        }
+
         ChatLieu ms = new ChatLieu();
         ms.setTenChatLieu(txtTenThuocTinh.getText());
         daoCL.insert(ms);
         DoVaotableThuocTinh3();
-    }  
-    
+    }
+
     // Insert Kích Thước
-    private void ThemKichThuoc(){
-        listKT = (ArrayList<KichThuoc> ) daoKT.selectAll_1() ;
-        
-        for( KichThuoc x : listKT ){
-            if( x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai()== true ){
-                MsgBox.alert( this , "Màu sắc đã tồn tại");
-                return ;
+    private void ThemKichThuoc() {
+        listKT = (ArrayList<KichThuoc>) daoKT.selectAll_1();
+
+        for (KichThuoc x : listKT) {
+            if (x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == true) {
+                MsgBox.alert(this, "Màu sắc đã tồn tại");
+                return;
             }
-            
-            if( x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai()==false ){
+
+            if (x.getTenKT().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.getTrangThai() == false) {
                 daoKT.update_1(x);
                 DoVaotableThuocTinh2();
-                MsgBox.alert( this , "Thêm thành công");
-                return ;
+                MsgBox.alert(this, "Thêm thành công");
+                return;
             }
-        }        
-        
+        }
+
         KichThuoc ms = new KichThuoc();
         ms.setTenKT(txtTenThuocTinh.getText());
         daoKT.insert(ms);
         DoVaotableThuocTinh2();
-    }   
-    
+    }
+
     // Insert Loai SP 
-    private void ThemLoaiSP(){
+    private void ThemLoaiSP() {
         listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll_1();
 
-        for ( LoaiSP x : listLSP ) {
+        for (LoaiSP x : listLSP) {
             if (x.getTenLoaiSP().equalsIgnoreCase(txtTenThuocTinh.getText()) && x.isTrangThai() == true) {
                 MsgBox.alert(this, "Màu sắc đã tồn tại");
                 return;
@@ -770,164 +826,175 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         daoLSP.insert(ms);
         DoVaotableThuocTinh4();
     }
-    
+
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        if( txtTenThuocTinh.getText().equals("") ){
-            MsgBox.alert( this  , "Vui lòng nhâp thông tin đầy đủ");
+        jPanel8.setBackground(ClickColor);
+        jPanel9.setBackground(defualtColor);
+        jPanel10.setBackground(defualtColor);
+
+        if (txtTenThuocTinh.getText().equals("")) {
+            MsgBox.alert(this, "Vui lòng nhâp thông tin đầy đủ");
             txtTenThuocTinh.requestFocus();
-            return  ;
+            return;
         }
-        
-        if( rbChatLieu.isSelected() ){
+
+        if (rbChatLieu.isSelected()) {
             ThemChatLieu();
-        }else if ( rbKichThuoc.isSelected() ){
+            doVaoChatLieu();
+        } else if (rbKichThuoc.isSelected()) {
             ThemKichThuoc();
-        }else if ( rbLoaiSP.isSelected() ){
+            doVaoKichThuoc();
+        } else if (rbLoaiSP.isSelected()) {
             ThemLoaiSP();
-        }else{
+            doVaoLoaiSP();
+        } else {
             ThemMauSac();
-        }     
+            doVaoMauSac();
+        }
     }//GEN-LAST:event_jLabel8MouseClicked
 
     // Đổ vào bảng thuộc tính
-    private void DoVaotableThuocTinh1(){
+    private void DoVaotableThuocTinh1() {
         modelThuocTinh.setRowCount(0);
-        listMS = (ArrayList<MauSac>) daoMS.selectAll() ;
-        
-        for( int i=0 ; i<listMS.size() ; i++  ){
+        listMS = (ArrayList<MauSac>) daoMS.selectAll();
+
+        for (int i = 0; i < listMS.size(); i++) {
             MauSac ms = listMS.get(i);
-            modelThuocTinh.addRow( new Object[] { i+1 , "Màu Sắc" , ms.getTenMau() });
-        }        
+            modelThuocTinh.addRow(new Object[]{i + 1, "Màu Sắc", ms.getTenMau()});
+        }
     }
-    
+
     private void rbMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMauSacMouseClicked
-         DoVaotableThuocTinh1();
+        DoVaotableThuocTinh1();
     }//GEN-LAST:event_rbMauSacMouseClicked
 
     // Đổ vào bảng thuộc tính
-    
-    private void DoVaotableThuocTinh2(){
+    private void DoVaotableThuocTinh2() {
         modelThuocTinh.setRowCount(0);
-        listKT = (ArrayList<KichThuoc>) daoKT.selectAll() ;
-        
-        for( int i=0 ; i<listKT.size() ; i++  ){
+        listKT = (ArrayList<KichThuoc>) daoKT.selectAll();
+
+        for (int i = 0; i < listKT.size(); i++) {
             KichThuoc ms = listKT.get(i);
-            modelThuocTinh.addRow( new Object[] { i+1 , "Kích Thước" , ms.getTenKT()});
-        }    
+            modelThuocTinh.addRow(new Object[]{i + 1, "Kích Thước", ms.getTenKT()});
+        }
     }
-    
+
     private void rbKichThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbKichThuocMouseClicked
-         DoVaotableThuocTinh2();
+        DoVaotableThuocTinh2();
     }//GEN-LAST:event_rbKichThuocMouseClicked
 
     // Đổ vào bảng thuộc tính
-    
-    private void DoVaotableThuocTinh3(){
+    private void DoVaotableThuocTinh3() {
         modelThuocTinh.setRowCount(0);
-        listCL = (ArrayList<ChatLieu>) daoCL.selectAll() ;
-        
-        for( int i=0 ; i<listCL.size() ; i++  ){
+        listCL = (ArrayList<ChatLieu>) daoCL.selectAll();
+
+        for (int i = 0; i < listCL.size(); i++) {
             ChatLieu ms = listCL.get(i);
-            modelThuocTinh.addRow( new Object[] { i+1 , "Chất Liệu" , ms.getTenChatLieu() } );
-        }    
-    }    
-    
+            modelThuocTinh.addRow(new Object[]{i + 1, "Chất Liệu", ms.getTenChatLieu()});
+        }
+    }
+
     private void rbChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbChatLieuMouseClicked
         DoVaotableThuocTinh3();
     }//GEN-LAST:event_rbChatLieuMouseClicked
 
     // Đổ vào bảng thuộc tính
-    
-    private void DoVaotableThuocTinh4(){
+    private void DoVaotableThuocTinh4() {
         modelThuocTinh.setRowCount(0);
-        listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll() ;
-        
-        for( int i=0 ; i<listLSP.size() ; i++  ){
+        listLSP = (ArrayList<LoaiSP>) daoLSP.selectAll();
+
+        for (int i = 0; i < listLSP.size(); i++) {
             LoaiSP ms = listLSP.get(i);
-            modelThuocTinh.addRow( new Object[] { i+1 , "Loại Sản Phẩm" , ms.getTenLoaiSP()});
-        }    
-    }    
-    
+            modelThuocTinh.addRow(new Object[]{i + 1, "Loại Sản Phẩm", ms.getTenLoaiSP()});
+        }
+    }
+
     private void rbLoaiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbLoaiSPMouseClicked
         DoVaotableThuocTinh4();
     }//GEN-LAST:event_rbLoaiSPMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        int a = table_ThuocTinh.getSelectedRow() ;
-        
-        if( a < 0 ){
-            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
-            return  ;
+        jPanel8.setBackground(defualtColor);
+        jPanel9.setBackground(defualtColor);
+        jPanel10.setBackground(ClickColor);
+
+        int a = table_ThuocTinh.getSelectedRow();
+
+        if (a < 0) {
+            MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
+            return;
         }
-        
-        if( rbChatLieu.isSelected() ){
-            daoCL.update_2( txtTenThuocTinh.getText() );
+
+        if (rbChatLieu.isSelected()) {
+            daoCL.update_2(txtTenThuocTinh.getText());
             DoVaotableThuocTinh3();
-        }else if( rbKichThuoc.isSelected() ){
-            daoKT.update_2( txtTenThuocTinh.getText() );
+        } else if (rbKichThuoc.isSelected()) {
+            daoKT.update_2(txtTenThuocTinh.getText());
             DoVaotableThuocTinh2();
-        }else if( rbLoaiSP.isSelected() ){
-            daoLSP.update_2(txtTenThuocTinh.getText() );
+        } else if (rbLoaiSP.isSelected()) {
+            daoLSP.update_2(txtTenThuocTinh.getText());
             DoVaotableThuocTinh4();
-        }else {
-            daoMS.update_2( txtTenThuocTinh.getText() );
+        } else {
+            daoMS.update_2(txtTenThuocTinh.getText());
             DoVaotableThuocTinh1();
         }
-        
+
         txtTenThuocTinh.setText("");
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void table_ThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_ThuocTinhMouseClicked
-        int a = table_ThuocTinh.getSelectedRow() ;
-        
-        if( a < 0 ){
-            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
-            return  ;
+        int a = table_ThuocTinh.getSelectedRow();
+
+        if (a < 0) {
+            MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
+            return;
         }
 
-        txtTenThuocTinh.setText( table_ThuocTinh.getValueAt(a, 2).toString() );
+        txtTenThuocTinh.setText(table_ThuocTinh.getValueAt(a, 2).toString());
     }//GEN-LAST:event_table_ThuocTinhMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        int a = table_ThuocTinh.getSelectedRow() ;
-        
-        if( a < 0 ){
-            MsgBox.alert( this , "yêu cầu bạn chọn dòng trên table");
-            return  ;
+        jPanel8.setBackground(defualtColor);
+        jPanel9.setBackground(ClickColor);
+        jPanel10.setBackground(defualtColor);
+
+        int a = table_ThuocTinh.getSelectedRow();
+
+        if (a < 0) {
+            MsgBox.alert(this, "yêu cầu bạn chọn dòng trên table");
+            return;
         }
-        
+
         try {
             if (rbChatLieu.isSelected()) {
                 ChatLieu cl = listCL.get(a);
-                cl.setTenChatLieu( txtTenThuocTinh.getText() );
+                cl.setTenChatLieu(txtTenThuocTinh.getText());
                 daoCL.update(cl);
                 DoVaotableThuocTinh3();
             } else if (rbKichThuoc.isSelected()) {
                 KichThuoc kt = listKT.get(a);
-                kt.setTenKT(txtTenThuocTinh.getText() );
+                kt.setTenKT(txtTenThuocTinh.getText());
                 daoKT.update(kt);
                 DoVaotableThuocTinh2();
             } else if (rbLoaiSP.isSelected()) {
                 LoaiSP sp = listLSP.get(a);
-                sp.setTenLoaiSP(txtTenThuocTinh.getText() );
+                sp.setTenLoaiSP(txtTenThuocTinh.getText());
                 daoLSP.update(sp);
                 DoVaotableThuocTinh4();
             } else {
                 MauSac ms = listMS.get(a);
-                ms.setTenMau(txtTenThuocTinh.getText() );
+                ms.setTenMau(txtTenThuocTinh.getText());
                 daoMS.update(ms);
                 DoVaotableThuocTinh1();
             }
-            
-            MsgBox.alert( this , "Sửa thành công");
+
+            MsgBox.alert(this, "Sửa thành công");
         } catch (Exception e) {
-            MsgBox.alert( this , "Sửa thất bại");
+            MsgBox.alert(this, "Sửa thất bại");
         }
 
     }//GEN-LAST:event_jLabel9MouseClicked
 
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnHienThi;
@@ -936,10 +1003,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JLabel btnThem;
     private javax.swing.JLabel btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> cbbChatLieu;
+    private javax.swing.JComboBox<String> cbbKichThuoc;
+    private javax.swing.JComboBox<String> cbbLoaiSanPham;
+    private javax.swing.JComboBox<String> cbbMauSac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -973,7 +1040,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField5;
@@ -984,6 +1050,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rbMauSac;
     private javax.swing.JTable table_ThuocTinh;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTable tblSanPham;
     private javax.swing.JTextField txtTenThuocTinh;
     // End of variables declaration//GEN-END:variables
 }

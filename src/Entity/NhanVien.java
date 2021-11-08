@@ -16,13 +16,13 @@ public class NhanVien {
     private String MaNV;
     private String TenNV;
     private String DiaChi;
-    private Boolean GioiTinh;
+    private Boolean GioiTinh = true;
     private String Email;
     private String SDT;
     private Date NgaySinh;
-    private Boolean VaiTro;
+    private Boolean VaiTro = true;
     private String MatKhau;
-    private Boolean TrangThai;
+    private Boolean TrangThai = true;
 
     public String getMaNV() {
         return MaNV;
