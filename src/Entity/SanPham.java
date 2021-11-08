@@ -10,23 +10,17 @@ package Entity;
  * @author ADMIN
  */
 public class SanPham {
-    private String MaSP ; 
+    private int MaCTSP ;
+    private int MaSP ; 
     private String TenSP ;
-    private String MauSac ;
-    private String KichThuoc ;
-    private String ChatLieu ;
+    private String TenMauSac ;
+    private String TenKichThuoc ;
+    private String TenChatLieu ;
+    private String TenLoai ; 
     private int SoLuong ;
     private double Gia ; 
     private double GiamGia ;
     private boolean TrangThai ;
-
-    public String getMaSP() {
-        return MaSP;
-    }
-
-    public void setMaSP(String MaSP) {
-        this.MaSP = MaSP;
-    }
 
     public String getTenSP() {
         return TenSP;
@@ -36,28 +30,52 @@ public class SanPham {
         this.TenSP = TenSP;
     }
 
-    public String getMauSac() {
-        return MauSac;
+    public int getMaCTSP() {
+        return MaCTSP;
     }
 
-    public void setMauSac(String MauSac) {
-        this.MauSac = MauSac;
+    public void setMaCTSP(int MaCTSP) {
+        this.MaCTSP = MaCTSP;
     }
 
-    public String getKichThuoc() {
-        return KichThuoc;
+    public int getMaSP() {
+        return MaSP;
     }
 
-    public void setKichThuoc(String KichThuoc) {
-        this.KichThuoc = KichThuoc;
+    public void setMaSP(int MaSP) {
+        this.MaSP = MaSP;
     }
 
-    public String getChatLieu() {
-        return ChatLieu;
+    public String getTenMauSac() {
+        return TenMauSac;
     }
 
-    public void setChatLieu(String ChatLieu) {
-        this.ChatLieu = ChatLieu;
+    public void setTenMauSac(String TenMauSac) {
+        this.TenMauSac = TenMauSac;
+    }
+
+    public String getTenKichThuoc() {
+        return TenKichThuoc;
+    }
+
+    public void setTenKichThuoc(String TenKichThuoc) {
+        this.TenKichThuoc = TenKichThuoc;
+    }
+
+    public String getTenChatLieu() {
+        return TenChatLieu;
+    }
+
+    public void setTenChatLieu(String TenChatLieu) {
+        this.TenChatLieu = TenChatLieu;
+    }
+
+    public String getTenLoai() {
+        return TenLoai;
+    }
+
+    public void setTenLoai(String TenLoai) {
+        this.TenLoai = TenLoai;
     }
 
     public int getSoLuong() {
@@ -91,6 +109,7 @@ public class SanPham {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
+        
     
 }
