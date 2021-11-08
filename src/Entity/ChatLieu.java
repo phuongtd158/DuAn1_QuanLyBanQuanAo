@@ -9,9 +9,9 @@ package Entity;
  * @author ASUS
  */
 public class ChatLieu {
-    
-    private int MaCL ;
-    private String TenChatLieu ;
+
+    private int MaCL;
+    private String TenChatLieu;
     private boolean trangThai;
 
     public int getMaCL() {
@@ -37,14 +37,11 @@ public class ChatLieu {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
-    
+
     @Override
     public String toString() {
 
         return TenChatLieu;
     }
-    
-   
-
 
 }

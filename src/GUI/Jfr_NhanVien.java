@@ -241,6 +241,8 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Quản Lý Nhân Viên");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        txtNgaySinh.setDateFormatString("dd-MM-yyyy");
         jPanel2.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 340, 30));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
