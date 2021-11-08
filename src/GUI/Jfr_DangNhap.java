@@ -272,9 +272,8 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         int hoi = JOptionPane.showConfirmDialog(this, "Bạn có muốn kết thúc không ?", "Hỏi", JOptionPane.YES_NO_OPTION);
         if (hoi == JOptionPane.YES_OPTION) {
-           System.exit(0);
-        }
-        else{
+            System.exit(0);
+        } else {
             MsgBox.alert(rootPane, "Bạn đã hủy thoát");
         }
     }//GEN-LAST:event_jPanel5MouseClicked
@@ -295,8 +294,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         } else if (txtMatKhau.getText().equals("")) {
             MsgBox.alert(this, "Mời bạn nhập mật khẩu!");
             return;
-        }
-        else{
+        } else {
             dangnhap();
         }
     }//GEN-LAST:event_jPanel4MouseClicked
@@ -358,17 +356,16 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
     NhanVienDAO nvdao = new NhanVienDAO();
-    void dangnhap(){
+
+    void dangnhap() {
         String manv = txtTenDangNhap.getText();
         String matkhau = txtMatKhau.getText();
         NhanVien nv = nvdao.selectByID(manv);
         if (nv == null) {
             MsgBox.alert(this, "Sai tên đăng nhập!");
-        }
-        else if(!matkhau.equals(nv.getMatKhau())){
+        } else if (!matkhau.equals(nv.getMatKhau())) {
             MsgBox.alert(this, "Sai mật khẩu đăng nhập!");
-        }
-        else{
+        } else {
             Auth.user = nv;
             MsgBox.alert(this, "Bạn đã đăng nhập thành công!");
             this.dispose();
