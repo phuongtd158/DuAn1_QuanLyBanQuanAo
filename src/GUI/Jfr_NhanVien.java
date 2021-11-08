@@ -62,7 +62,23 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi fillTable");
         }
     }
-    
+    // ẩn các nhân viên trạng thái đã nghỉ làm
+    public void anTrangThai(){
+        DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
+        model.setRowCount(0);
+        try {
+            List<NhanVien> list = nvdao.selectBytt();
+            for (NhanVien nv : list) {
+                model.addRow(new Object[]{
+                    nv.getMaNV(),nv.getTenNV(),nv.getGioiTinh()?"Nam":"Nữ",nv.getDiaChi(),nv.getNgaySinh()
+                        ,nv.getSDT(),nv.getEmail(),nv.getTrangThai()?"Đang Làm":"Đã Nghỉ Làm",nv.getMatKhau(),nv.getVaiTro()?"Quản Lý":"Nhân Viên"
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Lỗi fillTable");
+        }
+    }
     public void edit(){
         try {
             String maNV = (String) tbNhanVien.getValueAt(dong, 0);
@@ -398,7 +414,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnAn.setLayout(btnAnLayout);
         btnAnLayout.setHorizontalGroup(
             btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
         );
         btnAnLayout.setVerticalGroup(
             btnAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,6 +484,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(ClickColor);
         btnMoi.setBackground(defaulColor);
+        anTrangThai();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
