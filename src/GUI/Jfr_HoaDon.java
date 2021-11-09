@@ -5,22 +5,91 @@
  */
 package GUI;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
  * @author ADMIN
  */
-public class Jfr_HoaDon extends javax.swing.JInternalFrame {
+public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, ThreadFactory {
 
-    /**
-     * Creates new form Jfr_HoaDon
-     */
+    private WebcamPanel panel = null;
+    private Webcam webcam = null;
+    private static final long serialVersionUID = 6441489157408381878L;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
     public Jfr_HoaDon() {
         initComponents();
-         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        initWebcam();
+    }
+
+    private void initWebcam() {
+        Dimension size = WebcamResolution.QVGA.getSize();
+        webcam = Webcam.getWebcams().get(0); //0 is default webcam
+        webcam.setViewSize(size);
+
+        panel = new WebcamPanel(webcam);
+        panel.setPreferredSize(size);
+        panel.setFPSDisplayed(true);
+
+        jPanel5.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 160));
+
+        executor.execute(this);
+    }
+
+    @Override
+    public void run() {
+        do {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Result result = null;
+            BufferedImage image = null;
+
+            if (webcam.isOpen()) {
+                if ((image = webcam.getImage()) == null) {
+                    continue;
+                }
+            }
+
+            LuminanceSource source = new BufferedImageLuminanceSource(image);
+            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+            try {
+                result = new MultiFormatReader().decode(bitmap);
+            } catch (NotFoundException e) {
+                //No result...
+            }
+
+        } while (true);
+    }
+
+    @Override
+    public Thread newThread(Runnable r) {
+        Thread t = new Thread(r, "My Thread");
+        t.setDaemon(true);
+        return t;
     }
 
     /**
@@ -33,27 +102,100 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Hóa đơn");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(621, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 280, 760));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 260, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 950, 260));
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 440, 160));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 950, 210));
+
+        jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(546, 546, 546)
-                .addComponent(jLabel1)
-                .addContainerGap(656, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(jLabel1)
-                .addContainerGap(488, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -70,9 +212,24 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        webcam.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        webcam.open();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

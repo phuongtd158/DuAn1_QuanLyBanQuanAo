@@ -15,25 +15,36 @@ import java.util.List;
  *
  * @author ASUS
  */
-public class KhachHangDAO extends Main< KhachHang, String >{
- final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
-        final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
-        final String DELETE_SQL = "delete from KHACHHANG where MaKH = ?";
-        final String SELECT_ALL_SQL = "select * from KHACHHANG";
-        final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
+public class KhachHangDAO extends Main< KhachHang, String> {
+
+    final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
+    final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
+    final String DELETE_SQL_0 = "update KHACHHANG set TrangThai = 0 where MaKH = ?";
+    final String DELETE_SQL_1 = "update KHACHHANG set TrangThai = 1 where MaKH = ?";
+    final String SELECT_ALL_SQL = "select * from KHACHHANG";
+    final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
+
     @Override
     public void insert(KhachHang entity) {
-         JDBCHelper.Update(INSERT_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(),entity.getTrangThai());
+        JDBCHelper.Update(INSERT_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai());
     }
 
     @Override
     public void update(KhachHang entity) {
-         JDBCHelper.Update(UPDATE_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai(), entity.getMaKH());
+        JDBCHelper.Update(UPDATE_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai(), entity.getMaKH());
     }
 
     @Override
     public void delete(String id) {
-        JDBCHelper.Update(DELETE_SQL, id);
+        throw new RuntimeException();
+    }
+
+    public void delete_0(int id) {
+        JDBCHelper.Update(DELETE_SQL_0, id);
+    }
+
+    public void delete_1(int id) {
+        JDBCHelper.Update(DELETE_SQL_1, id);
     }
 
     @Override
@@ -66,7 +77,7 @@ public class KhachHangDAO extends Main< KhachHang, String >{
                 kh.setSDT(rs.getString("SoDienThoai"));
                 kh.setDiaChi(rs.getString("DiaChi"));
                 kh.setTrangThai(rs.getBoolean("TrangThai"));
-                
+
                 list.add(kh);
             }
             rs.getStatement().getConnection().close();
@@ -75,5 +86,5 @@ public class KhachHangDAO extends Main< KhachHang, String >{
             throw new RuntimeException();
         }
     }
-    
+
 }

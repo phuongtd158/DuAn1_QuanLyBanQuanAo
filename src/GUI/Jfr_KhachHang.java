@@ -7,9 +7,16 @@ package GUI;
 
 import DAO.KhachHangDAO;
 import Entity.KhachHang;
+import Ultil.Check;
 import Ultil.MsgBox;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -25,6 +32,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     KhachHangDAO dao = new KhachHangDAO();
     int row = 0;
+
     /**
      * Creates new form Jfr_KhachHang
      */
@@ -37,12 +45,14 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         fillToTable();
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
+
     }
 
     public void hoverButton() {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
     }
+
     //ĐỔ VÀO BẢNG
     public void fillToTable() {
         model = (DefaultTableModel) tblKH.getModel();
@@ -50,16 +60,19 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         try {
             List<KhachHang> list = dao.selectAll();// đọc dữ liệu từ CSDL
             for (KhachHang x : list) {
-                model.addRow(new Object[]{
-                    x.getMaKH(), x.getTenKH(), x.isGioiTinh() ? "Nam" : "Nữ", x.getDiaChi(), x.getSDT(), x.getNgaySinh()
-                });
+                if (x.getTrangThai() == true) {
+                    model.addRow(new Object[]{
+                        x.getMaKH(), x.getTenKH(), x.isGioiTinh() ? "Nam" : "Nữ", x.getDiaChi(), x.getSDT(), x.getNgaySinh()
+                    });
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Truy vấn thất bại");
             e.printStackTrace();
         }
     }
-      public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
+
+    public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
         row = tblKH.getSelectedRow();
         txtMaKH.setText(model.getMaKH() + "");
         txtTenKH.setText(model.getTenKH());
@@ -72,11 +85,10 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         txtDST.setText(model.getSDT());
         jDateNgaySinh.setDate(model.getNgaySinh());
     }
-       KhachHang getForm() {// tạo khách hàng từ from / nhận dc 1 khách hàng
+
+    KhachHang getForm() {// tạo khách hàng từ from / nhận dc 1 khách hàng
         KhachHang kh = new KhachHang();
-//        kh.getMaKH(Integer.valueOf(txtMaKH.getText()));
-//        kh.getMaKH(txtMaKH.getText()+"");
-        kh.setMaKH((int) tblKH.getValueAt(row, 0));
+
         kh.setTenKH(txtTenKH.getText());
         kh.setGioiTinh(rdoNam.isSelected() ? true : false);
         kh.setDiaChi(txtDiaChi.getText());
@@ -84,19 +96,21 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         kh.setNgaySinh(jDateNgaySinh.getDate());
         return kh;
     }
-        //THÊM KHÁCH HÀNG
+    //THÊM KHÁCH HÀNG
+
     public void insert() {
         KhachHang model = getForm();// lấy khách hàng từ from
         try {
             dao.insert(model);
             this.fillToTable();
-//            this.clear();
+
             MsgBox.alert(this, "Thêm mới thành công");
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Thêm mới thất bại");
         }
     }
+
     //Hiển thị thông tin nhân viên lên các ô text
     public void edit() {
         String MaKH = tblKH.getValueAt(row, 0).toString();//Lấy dữ liệu ở cột Mã NV
@@ -109,6 +123,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
+
     //CẬP NHẬT KHÁCH HÀNG
     public void update() {
         try {
@@ -125,18 +140,22 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     }
 
     public void delete() {
-        if (MsgBox.comfirm(this, "bạn có thực sự muốn xóa nhân viên này không?")) {
-            String maNV = txtMaKH.getText();
+        row = tblKH.getSelectedRow();
+        if (MsgBox.comfirm(this, "Bạn có thực sự muốn ẩn khách hàng này không?")) {
+            int id = (int) tblKH.getValueAt(row, 0);
             try {
-                dao.delete(maNV);//lấy mã
+                dao.delete_0(id);//lấy mã
                 this.fillToTable();
-                MsgBox.alert(this, "Xóa thành công!");
+                this.clear();
+                MsgBox.alert(this, "Ẩn thành công khách hàng có mã " + id);
             } catch (Exception a) {
+                a.printStackTrace();
                 MsgBox.alert(this, "Xóa Thất bại!");
             }
         }
     }
 //LÀM MỚI FOM
+
     public void clear() {
         txtTenKH.setText("");
         txtDST.setText("");
@@ -144,24 +163,6 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).setText("");
         txtMaKH.setText("");
         rdoNam.setSelected(true);
-    }
-
-    public boolean check() {
-        String sdt = "0[3,9,8](\\d){8}";
-        if (txtTenKH.getText().trim().equals("") || txtDiaChi.getText().trim().equals("") || txtDST.getText().trim().equals("")) {
-            MsgBox.alert(this, "Không được để trống thông tin khi thêm mới");
-            return false;
-        } else if (txtDST.getText().length() < 1) {
-            MsgBox.alert(this, "Số điện thoại phải lớn hơn 1 ký tự");
-            return false;
-        }else if (!txtDST.getText().matches(sdt)) {
-            MsgBox.alert(this, "Số điện thoại phải đúng định dạng");
-            return false;
-        }else if (((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText().equals("")) {
-            MsgBox.alert(this, "Không được để trống ngày sinh");
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -202,6 +203,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         btnXoa = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btnMoi = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1267, 788));
 
@@ -215,6 +217,8 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Mã Khách Hàng");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        txtMaKH.setEditable(false);
         jPanel2.add(txtMaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 340, 34));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -259,6 +263,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, -1, -1));
         jPanel2.add(txtDST, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 370, 34));
 
+        jDateNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
         jDateNgaySinh.setDateFormatString("dd-MM-yyyy");
         jPanel2.add(jDateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 340, 34));
 
@@ -280,7 +285,15 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
             new String [] {
                 "Mã Khách Hàng", "Tên Khách Hàng", "Giới Tính", "Địa Chỉ", "Số Điện Thoại", "Ngày Sinh"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblKH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblKHMouseClicked(evt);
@@ -396,6 +409,18 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 700, -1, 30));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Danh sách khách hàng đã ẩn");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 700, 250, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -415,9 +440,9 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel5.setBackground(defaulColor);
         jPanel6.setBackground(defaulColor);
         jPanel7.setBackground(defaulColor);
-         try {
+        try {
 
-            if (check()) {
+            if (Check.checkTrongText(txtDST) && Check.checkTrongText(txtTenKH)) {
                 this.insert();
             }
         } catch (Exception e) {
@@ -432,7 +457,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel6.setBackground(defaulColor);
         jPanel7.setBackground(defaulColor);
         try {
-            if (check()) {
+            if (Check.checkTrongText(txtDST) && Check.checkTrongText(txtTenKH)) {
                 this.update();
             }
         } catch (Exception e) {
@@ -452,7 +477,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel5.setBackground(defaulColor);
         jPanel6.setBackground(defaulColor);
         jPanel7.setBackground(ClickColor);
-         clear();
+        clear();
     }//GEN-LAST:event_btnMoiMouseClicked
 
     private void txtTenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKHActionPerformed
@@ -467,6 +492,11 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tblKHMouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Jfr_KhachHangAn kachHangAn = new Jfr_KhachHangAn();
+        kachHangAn.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnMoi;
@@ -474,6 +504,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     private javax.swing.JLabel btnThem;
     private javax.swing.JLabel btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateNgaySinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

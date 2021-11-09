@@ -185,6 +185,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         table_ThuocTinh = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1260, 780));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

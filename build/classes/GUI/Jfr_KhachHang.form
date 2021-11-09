@@ -84,6 +84,9 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaKH">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="150" y="50" width="340" height="34"/>
@@ -220,6 +223,9 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jDateNgaySinh">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
               </Properties>
               <Constraints>
@@ -283,12 +289,12 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="0">
-                        <Column editable="true" title="M&#xe3; Kh&#xe1;ch H&#xe0;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="T&#xea;n Kh&#xe1;ch H&#xe0;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x110;&#x1ecb;a Ch&#x1ec9;" type="java.lang.Object"/>
-                        <Column editable="true" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
-                        <Column editable="true" title="Ng&#xe0;y Sinh" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe3; Kh&#xe1;ch H&#xe0;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n Kh&#xe1;ch H&#xe0;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
+                        <Column editable="false" title="&#x110;&#x1ecb;a Ch&#x1ec9;" type="java.lang.Object"/>
+                        <Column editable="false" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y Sinh" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -526,6 +532,33 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="16" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch kh&#xe1;ch h&#xe0;ng &#x111;&#xe3; &#x1ea9;n"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="980" y="700" width="250" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

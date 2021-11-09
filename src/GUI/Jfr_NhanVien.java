@@ -112,7 +112,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtNgaySinh.setDate(nv.getNgaySinh());
         txtSDT.setText(nv.getSDT());
         txtEmail.setText(nv.getEmail());
-        cbbTrangThai.setSelectedItem(nv.getTrangThai() ? "Đang Làm" : "Đã Nghỉ Làm");
+
         if (nv.getVaiTro() == true) {
             rdQuanLy.setSelected(true);
         } else {
@@ -126,14 +126,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         dong = -1;
     }
 
-//    public boolean check() {
-//        if (((JTextField) txtNgaySinh.getDateEditor().getUiComponent()).getText().equals("")) {
-//            MsgBox.alert(this, "Không được để trống");
-//            return false;
-//        }
-//        return true;
-//    }
-
     NhanVien getFrom() {
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
@@ -145,11 +137,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         nv.setSDT(txtSDT.getText());
         nv.setEmail(txtDiaChi.getText());
         nv.setVaiTro(rdQuanLy.isSelected());
-        if (cbbTrangThai.getSelectedIndex() == 0) {
-            nv.setTrangThai(true);
-        } else {
-            nv.setTrangThai(false);
-        }
         nv.setMatKhau(txtMatKhau.getText());
         return nv;
     }
@@ -157,12 +144,11 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     void insert() {
         NhanVien nv = getFrom();
         try {
-            
-                nvdao.insert(nv);
-                this.fillTable();
-                this.clearFrom();
-                MsgBox.alert(this, "Thêm Thành Công");
-            
+            nvdao.insert(nv);
+            this.fillTable();
+            this.clearFrom();
+            MsgBox.alert(this, "Thêm Thành Công");
+
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi insert");
@@ -179,14 +165,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi update");
-        }
-    }
-    public boolean checkTrungMa(JTextField txt){
-        if (nvdao.selectByID(txt.getText()) == null) {
-            return true;
-        }else{
-            MsgBox.alert(txt.getRootPane(), "Trùng Mã");
-            return false;
         }
     }
 
@@ -217,7 +195,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtSDT = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         rdNhanVien = new javax.swing.JRadioButton();
         rdQuanLy = new javax.swing.JRadioButton();
@@ -225,7 +202,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
         txtMatKhau = new javax.swing.JTextField();
-        cbbTrangThai = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
@@ -254,6 +230,8 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mã Nhân Viên");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 30));
+
+        txtMaNV.setEditable(false);
         jPanel2.add(txtMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 340, 34));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -305,11 +283,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 220, 40, 30));
         jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 224, 340, 30));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Trạng Thái");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, 30));
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Vai Trò");
@@ -341,12 +314,8 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Mật khẩu");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, -1, 30));
-        jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 340, 34));
-
-        cbbTrangThai.setBackground(new java.awt.Color(255, 255, 255));
-        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang Làm", "Đã Nghỉ Làm" }));
-        jPanel2.add(cbbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 30));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 220, -1, 30));
+        jPanel2.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, 340, 34));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 9, 1190, 320));
 
@@ -364,7 +333,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -498,14 +467,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Danh sách nhân viên đã ẩn");
+        jButton1.setText("Danh sách nhân viên đã nghỉ");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 690, 200, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 680, 220, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -515,7 +484,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
         );
 
         pack();
@@ -526,12 +495,10 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        if (Check.checkTrongText(txtMaNV)&&Check.checkTrongText(txtDiaChi)&&Check.checkTrongText(txtEmail)&&Check.checkTrongText(txtMatKhau)&&
-                Check.checkTrongText(txtSDT)&&Check.checkTrongText(txtTenNhanVien)&&Check.checkTrongJdate(txtNgaySinh)) {
-            if (Check.checkEmail(txtEmail)&&Check.checkSDT(txtSDT)) {
-                if (checkTrungMa(txtMaNV)) {
-                    insert();
-                }
+        if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
+                && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
+            if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
+                insert();
             }
         }
     }//GEN-LAST:event_jLabel12MouseClicked
@@ -541,9 +508,9 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(ClickColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        if (Check.checkTrongText(txtMaNV)&&Check.checkTrongText(txtDiaChi)&&Check.checkTrongText(txtEmail)&&Check.checkTrongText(txtMatKhau)&&
-                Check.checkTrongText(txtSDT)&&Check.checkTrongText(txtTenNhanVien)&&Check.checkTrongJdate(txtNgaySinh)) {
-            if (Check.checkEmail(txtEmail)&&Check.checkSDT(txtSDT)) {
+        if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
+                && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
+            if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
                 update();
             }
         }
@@ -570,7 +537,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbNhanVienMousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AnNhanVien an = new AnNhanVien();
+        Jfr_NhanVienAn an = new Jfr_NhanVienAn();
         an.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -587,7 +554,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private javax.swing.JPanel btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox<String> cbbTrangThai;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -604,7 +570,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

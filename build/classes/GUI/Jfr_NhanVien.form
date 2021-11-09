@@ -35,7 +35,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="751" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="735" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -92,6 +92,9 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaNV">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="150" y="50" width="340" height="34"/>
@@ -267,22 +270,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="16" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng Th&#xe1;i"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="680" y="220" width="-1" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -382,35 +369,14 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="690" y="270" width="-1" height="30"/>
+                  <AbsoluteConstraints x="700" y="220" width="-1" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMatKhau">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="790" y="270" width="340" height="34"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbbTrangThai">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="&#x110;ang L&#xe0;m"/>
-                    <StringItem index="1" value="&#x110;&#xe3; Ngh&#x1ec9; L&#xe0;m"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="790" y="220" width="340" height="30"/>
+                  <AbsoluteConstraints x="790" y="220" width="340" height="34"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -456,7 +422,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="11" rowCount="0">
-                        <Column editable="true" title="STT" type="java.lang.Object"/>
+                        <Column editable="false" title="STT" type="java.lang.Object"/>
                         <Column editable="false" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="false" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
@@ -759,7 +725,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch nh&#xe2;n vi&#xea;n &#x111;&#xe3; &#x1ea9;n"/>
+            <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch nh&#xe2;n vi&#xea;n &#x111;&#xe3; ngh&#x1ec9;"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
@@ -771,7 +737,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1010" y="690" width="200" height="40"/>
+              <AbsoluteConstraints x="1000" y="680" width="220" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

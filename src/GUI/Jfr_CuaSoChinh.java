@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.github.sarxos.webcam.Webcam;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -567,6 +568,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
         Jfr_KhachHang menu5 = new Jfr_KhachHang();
         jDesktopPane1.add(menu5).setVisible(true);
+
     }//GEN-LAST:event_btnKhachHangMouseClicked
 
     private void btnLichSuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLichSuMouseClicked
@@ -580,8 +582,9 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-         Jfr_DangNhap menu8 = new Jfr_DangNhap();
-         jDesktopPane1.add(menu8).setVisible(true);
+        this.dispose();
+        Jfr_DangNhap menu8 = new Jfr_DangNhap();
+        menu8.setVisible(true);
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked

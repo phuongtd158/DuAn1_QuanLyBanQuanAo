@@ -125,6 +125,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
             rs.getStatement().getConnection().close();
             return list;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }

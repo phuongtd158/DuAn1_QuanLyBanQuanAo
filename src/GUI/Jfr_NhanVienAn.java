@@ -15,15 +15,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class AnNhanVien extends javax.swing.JFrame {
+public class Jfr_NhanVienAn extends javax.swing.JFrame {
 
     NhanVienDAO nvdao = new NhanVienDAO();
+    Jfr_NhanVien form = new Jfr_NhanVien();
 
-    public AnNhanVien() {
+    public Jfr_NhanVienAn() {
         initComponents();
         setLocationRelativeTo(null);
         nhanVienDaAn();
-        NewClass.nv.fillTable();
+        form.fillTable();
     }
 
     /**
@@ -113,7 +114,7 @@ public class AnNhanVien extends javax.swing.JFrame {
             String id = (String) tbNhanVien.getValueAt(row, 1);
             nvdao.update_tt_1(id);
             nhanVienDaAn();
-
+            form.fillTable();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -158,20 +159,21 @@ public class AnNhanVien extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AnNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jfr_NhanVienAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AnNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jfr_NhanVienAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AnNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jfr_NhanVienAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AnNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jfr_NhanVienAn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AnNhanVien().setVisible(true);
+                new Jfr_NhanVienAn().setVisible(true);
             }
         });
     }
