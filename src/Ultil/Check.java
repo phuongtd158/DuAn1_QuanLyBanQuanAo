@@ -18,6 +18,7 @@ public class Check {
         if (txt.getText().trim().length() > 0) {
             return true;
         }else{
+            txt.requestFocus();
             MsgBox.alert(txt.getRootPane(), "Vui Lòng Không Để Trống");
             return false;
         }
@@ -29,20 +30,24 @@ public class Check {
         if (email.matches(format)) {
             return true;
         }else{
+            txt.requestFocus();
             MsgBox.alert(txt.getRootPane(), "Email Không Đúng Định Dạng");
             return false;
         }
     }
+    
     public static boolean checkSDT(JTextField txt){
         String sdt = txt.getText();
         String format = "0[3,9,8](\\d){8}";
         if (sdt.matches(format)) {
             return true;
         }else{
+            txt.requestFocus();
             MsgBox.alert(txt.getRootPane(), "Số Điện Thoại Không Đúng Định Dạng");
             return false;
         }
     }
+    
     public static boolean checkTrongJdate(JDateChooser txt){
         
         if (((JTextField) txt.getDateEditor().getUiComponent()).getText().equals("")) {
@@ -52,10 +57,12 @@ public class Check {
            return true;
         }
     }
+    
     public static boolean checkSoDuong(JTextField txt){
         try {
             int so = Integer.parseInt(txt.getText());
             if (so < 0) {
+                txt.requestFocus();
                 MsgBox.alert(txt.getRootPane(), "Vui Lòng Nhập Số Dương");
                 return false;
             }else{

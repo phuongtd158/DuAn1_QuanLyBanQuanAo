@@ -71,8 +71,13 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
     public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
+=======
+    
+      public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
+>>>>>>> 4e412b67ade1c792c4b657d4fca02a675663c713
         row = tblKH.getSelectedRow();
         txtMaKH.setText(model.getMaKH() + "");
         txtTenKH.setText(model.getTenKH());

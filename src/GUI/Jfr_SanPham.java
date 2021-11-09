@@ -15,6 +15,7 @@ import Entity.KichThuoc;
 import Entity.LoaiSP;
 import Entity.MauSac;
 import Entity.SanPham;
+import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.Color;
 import java.awt.List;
@@ -43,7 +44,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     ArrayList<ChatLieu> listCL = new ArrayList<>();
     ArrayList<KichThuoc> listKT = new ArrayList<>();
     ArrayList<LoaiSP> listLSP = new ArrayList<>();
-    ArrayList<SanPham> listSP = new ArrayList<>();
+    ArrayList<SanPham> listSP ;
 
     DefaultTableModel modelThuocTinh;
     DefaultTableModel modelSP;
@@ -289,7 +290,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             new String [] {
                 "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblSanPham.setRowHeight(25);
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -718,6 +727,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
         SanPham sp = new SanPham();
 
+        
         sp.setTenSP(txtTenSP.getText());
         sp.setTenKichThuoc(kt.getTenKT());
         sp.setTenChatLieu(cl.getTenChatLieu());
@@ -726,37 +736,64 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         sp.setGia(Double.valueOf(txtDonGia.getText()));
         sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
         sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
+        sp.setMaCTSP( Integer.valueOf( txtMaSP.getText() )  );
 
         return sp;
     }
 
     // Thêm SP ;
     private void ThemSP() {
+        
+        if( Check.checkTrongText( txtTenSP )  == false ){
+            return ; 
+        }
+        
+        if( Check.checkTrongText( txtDonGia) == false ){
+            return ;
+        }
+        
+        if (Check.checkTrongText(txtSoLuong) == false) {
+            return;
+        }
+
+//        if (Check.checkSoDuong( txtDonGia ) == false) {
+//            return;
+//        }
+        
+        if( Check.checkSoDuong( txtSoLuong ) == false ){
+            return ;
+        }
+        
         ChatLieu cl = (ChatLieu) cbbChatLieu.getSelectedItem();
         KichThuoc kt = (KichThuoc) cbbKichThuoc.getSelectedItem();
         LoaiSP lsp = (LoaiSP) cbbLoaiSanPham.getSelectedItem();
         MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
-        SanPham sp = GetForm();
-
+        SanPham sp = GetForm();        
+        
         try {
-            if (daoSP.SelectID_1(txtTenSP.getText()) == false) {
+            
+            if ( daoSP.SelectID_1( txtTenSP.getText() ) == false  ) {
                 daoSP.Insert_SP(txtTenSP.getText());
+                System.out.println(daoSP.SelectID_1( txtTenSP.getText() ) + " " + txtTenSP.getText());
+                sp.setMaSP( daoSP.SelectByIDSp( txtTenSP.getText() ) );
                 daoSP.Insert_SPCT(sp, lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL());
+                DoVaoTableChiTiet();
                 MsgBox.alert(this, "Thêm thành công");
             } else {
                 for (SanPham x : listSP) {
-                    if (x.getTenSP().equalsIgnoreCase(sp.getTenSP()) && x.getTenChatLieu().equalsIgnoreCase(sp.getTenChatLieu())
+                    if ( x.getTenSP().equalsIgnoreCase(sp.getTenSP()) && x.getTenChatLieu().equalsIgnoreCase(sp.getTenChatLieu())
                             && x.getTenKichThuoc().equalsIgnoreCase(x.getTenKichThuoc()) && x.getTenMauSac().equalsIgnoreCase(sp.getTenMauSac())
-                            && x.getTenLoai().equalsIgnoreCase(sp.getTenLoai())) {
+                            && x.getTenLoai().equalsIgnoreCase(sp.getTenLoai())   ) {
                         MsgBox.alert(this, "Sản phẩm đã tồn tại");
-                        return;
+                        return ;
                     }
                 }
 
-                daoSP.Insert_SPCT(sp, lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL());;
+                daoSP.Insert_SPCT( sp , lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL()) ;
+                DoVaoTableChiTiet();
                 MsgBox.alert(this, "Thêm thành công");
             }
-
+            
         } catch (Exception e) {
             MsgBox.alert(this, "Thêm thất bại");
         }
@@ -782,9 +819,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     // Xóa 
     private void XoaSP() {
         Index = tblSanPham.getSelectedRow();
-        SanPham sp = listSP.get(Index);
+        SanPham sp = listSP.get(Index -1);
 
-        if (MsgBox.confirm_2(this, "Ẩn", "Xóa") == 0) {
+        if (MsgBox.confirm_2(this, "Mời Bạn Chọn"  , "Ẩn", "Xóa") == 0) {
             daoSP.Update_2(sp);
             DoVaoTableChiTiet();
             MsgBox.alert(this, "Xóa thành công");
@@ -798,21 +835,23 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel14.setBackground(ClickColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
-
+        XoaSP();
     }//GEN-LAST:event_btnXoaMouseClicked
 
     // Hàm Sửa
-    private void Update() {
-        Index = tblSanPham.getSelectedRow();
-        SanPham sp = listSP.get(Index);
+    private void Update() {      
+        SanPham sp = GetForm() ;
+        
+        
 
         try {
+            System.out.println( sp.getMaCTSP() + " " + sp.getSoLuong() + " "  + sp.getGia() + " " + sp.getMaSP() + " " + sp.getTenSP() );
             daoSP.Update_1(sp);
             DoVaoTableChiTiet();
             MsgBox.alert(this, "Cập nhập thành công");
         } catch (Exception e) {
-            MsgBox.alert(this, "Cập nhật thất bại");
             e.printStackTrace();
+            MsgBox.alert(this, "Cập nhật thất bại");
         }
     }
 
@@ -965,9 +1004,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel9.setBackground(defualtColor);
         jPanel10.setBackground(defualtColor);
 
-        if (txtTenThuocTinh.getText().equals("")) {
-            MsgBox.alert(this, "Vui lòng nhâp thông tin đầy đủ");
-            txtTenThuocTinh.requestFocus();
+        if ( Check.checkTrongText( txtTenThuocTinh )) {
             return;
         }
 
@@ -1141,10 +1178,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         modelSP.setRowCount(1);
 
         for (SanPham x : listSP) {
-            if (x.isTrangThai() == true) {
+            if( x.getSoLuong() == 0 ){
+                daoSP.Update_2(x);
+            }
+            
+            if ( x.isTrangThai() == true) {
                 modelSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
+            
         }
 
     }
@@ -1158,7 +1200,13 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             return;
         }
 
-        SanPham sp = listSP.get(Index - 1);
+        SanPham sp = null ;
+        for( int i=0 ; i<listSP.size() ; i++ ){
+            if( listSP.get(i).getMaCTSP() == Integer.valueOf(tblSanPham.getValueAt( Index , 0 ).toString()) ){
+                sp = listSP.get(i);
+            }
+        }
+        
 
         txtMaSP.setText(String.valueOf(sp.getMaCTSP()));
         txtTenSP.setText(sp.getTenSP());
@@ -1167,6 +1215,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         setSelectedComboboxMauSac(tblSanPham.getValueAt(Index, 4).toString(), cbbMauSac);
         setSelectedComboboxTenLoai(tblSanPham.getValueAt(Index, 2).toString(), cbbLoaiSanPham);
         setSelectedComboboxKT(tblSanPham.getValueAt(Index, 3).toString(), cbbKichThuoc);
+        setSelectedComboboxCL( tblSanPham.getValueAt(Index, 5).toString() , cbbChatLieu );
+        
         cbbChatLieu.setSelectedItem(sp.getTenChatLieu());
         cbbKichThuoc.setSelectedItem(sp.getTenKichThuoc());
         cbbLoaiSanPham.setSelectedItem(sp.getTenLoai());
@@ -1200,7 +1250,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         for (int i = 0; i < cbb.getItemCount(); i++) {
             ChatLieu obj = (ChatLieu) cbb.getItemAt(i);
             if (obj != null) {
-                if (cbbselected.trim().equals(obj.getTenChatLieu())) {
+                if (cbbselected.trim().equals(obj.getTenChatLieu()) ) {
                     cbb.setSelectedItem(obj);
                 }
             }
