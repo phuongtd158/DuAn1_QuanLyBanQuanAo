@@ -181,6 +181,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi update");
         }
     }
+    
     public boolean checkTrungMa(JTextField txt){
         if (nvdao.selectByID(txt.getText()) == null) {
             return true;

@@ -147,5 +147,12 @@ CREATE TABLE HOADONCHITIET(
 
 select * from MAUSAC
 ALTER TABLE dbo.CHITIETSANPHAM
-ALTER COLUMN Gia FLOAT NULL
+ALTER COLUMN GiamGia FLOAT NULL
+
+select * from SANPHAM where TenSp = N'hahah'
+delete from SANPHAM where MaSP != 1 and MaSP != 2 and MaSP != 5 
+select * from CHITIETSANPHAM
+
+delete from CHITIETSANPHAM where MaCTSP between 32 and 42 
+update CHITIETSANPHAM set SoLuong = 50 , Gia = 200000 where MaCTSP = 7
 

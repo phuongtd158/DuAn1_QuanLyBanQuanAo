@@ -59,6 +59,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
+    
       public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
         row = tblKH.getSelectedRow();
         txtMaKH.setText(model.getMaKH() + "");

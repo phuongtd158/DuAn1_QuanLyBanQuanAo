@@ -22,8 +22,9 @@ public class SanPhamDAO extends Main< SanPham, String> {
     String Insert_1 = "Insert into CHITIETSANPHAM ( MaSP , MaLoai , MaMauSac , MaKichThuoc , MaChatLieu , SoLuong , Gia )"
             + " values ( ? , ? ,? , ? ,? ,? , ? )  ";
 
-    String Update = " Update SANPHAM set TenSp = ? and MaSP = ? "
-            + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
+    String Update = " Update SANPHAM set TenSp = ? where MaSP = ? "
+                  + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
+    
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
     String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = ?";
     String SelectAll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
@@ -53,8 +54,13 @@ public class SanPhamDAO extends Main< SanPham, String> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void Update_1(SanPham entity) {
-        JDBCHelper.Update(Update, entity.getTenSP(), entity.getMaSP(), entity.getSoLuong(), entity.getGia(), entity.getMaCTSP());
+    public void Update_1( SanPham entity ) {
+        try {
+            JDBCHelper.Update(Update, entity.getTenSP(), entity.getMaSP(), entity.getSoLuong(), entity.getGia() , entity.getMaCTSP() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void Update_2(SanPham entity) {
@@ -77,22 +83,31 @@ public class SanPhamDAO extends Main< SanPham, String> {
     }
 
     public Boolean SelectID_1(String k) {
-        ResultSet rs;
+        ResultSet rs  ;
         try {
-            rs = JDBCHelper.query(SelectID, k);
-
-            if (rs == null) {
-                return false;
+            rs = JDBCHelper.query( SelectID , k );
+            if( rs !=  null ){
+                return true ;
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            return false ; 
         }
-        return true;
+        return false ;
     }
 
     public int SelectByIDSp(String k) {
-        return JDBCHelper.Update(SelectID, k);
+        int sk = 0 ;
+        
+        try {
+            ResultSet rs = JDBCHelper.query( SelectID , k );
+            if( rs.next() ){
+                sk = rs.getInt("MaSP") ;
+            }
+
+        } catch (Exception e) {
+            return 0 ;
+        }
+        return sk  ;
     }
 
     @Override

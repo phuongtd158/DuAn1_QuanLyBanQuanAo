@@ -27,9 +27,9 @@ public class MsgBox {
         return result;
     }
     
-    public static int confirm_2 (Component parent , String ...message) {
+    public static int confirm_2 (Component parent , String message ,String ...args ) {
         int rs = JOptionPane.showOptionDialog( parent , message , "Hệ thống quản lý bán hàng ",  JOptionPane.DEFAULT_OPTION, 
-                JOptionPane.INFORMATION_MESSAGE , null , message, message[0] ) ;
+                JOptionPane.INFORMATION_MESSAGE , null , args , args[0] ) ;
         return rs ;
     }
     
