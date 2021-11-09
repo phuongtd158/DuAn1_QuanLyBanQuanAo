@@ -25,7 +25,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
     String Update = " Update SANPHAM set TenSp = ? and MaSP = ? "
             + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
-    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = 5";
+    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = ?";
     String SelectAll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"

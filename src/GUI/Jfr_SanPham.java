@@ -21,6 +21,7 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -232,13 +233,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel13.setText("Chất liệu");
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, 30));
 
-        cbbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 330, 30));
 
-        cbbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 430, 30));
 
-        cbbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 330, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -251,7 +249,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel16.setText("Loại sản phẩm");
         jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 30));
 
-        cbbMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -283,13 +280,13 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã CTSP", "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
+                "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
         ));
         tblSanPham.setRowHeight(25);
@@ -1144,7 +1141,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         for (SanPham x : listSP) {
             if (x.isTrangThai() == true) {
-                modelSP.addRow(new Object[]{x.getMaCTSP(), x.getMaSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
+                modelSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
         }
@@ -1160,16 +1157,64 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             return;
         }
 
-        SanPham sp = listSP.get(Index);
-        txtMaSP.setText(String.valueOf(sp.getMaSP()));
+        SanPham sp = listSP.get(Index - 1);
+
+        txtMaSP.setText(String.valueOf(sp.getMaCTSP()));
         txtTenSP.setText(sp.getTenSP());
         txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
         txtDonGia.setText(String.valueOf(sp.getGia()));
+        setSelectedComboboxMauSac(tblSanPham.getValueAt(Index, 4).toString(), cbbMauSac);
+        setSelectedComboboxTenLoai(tblSanPham.getValueAt(Index, 2).toString(), cbbLoaiSanPham);
+        setSelectedComboboxKT(tblSanPham.getValueAt(Index, 3).toString(), cbbKichThuoc);
         cbbChatLieu.setSelectedItem(sp.getTenChatLieu());
         cbbKichThuoc.setSelectedItem(sp.getTenKichThuoc());
         cbbLoaiSanPham.setSelectedItem(sp.getTenLoai());
         cbbMauSac.setSelectedItem(sp.getTenMauSac());
+        
+    }
 
+    public void setSelectedComboboxMauSac(String cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            MauSac obj = (MauSac) cbb.getItemAt(i);
+            if (obj != null) {
+                if (cbbselected.trim().equals(obj.getTenMau())) {
+                    cbb.setSelectedItem(obj);
+                }
+            }
+        }
+    }
+
+    public void setSelectedComboboxKT(String cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            KichThuoc m = (KichThuoc) cbb.getItemAt(i);
+            if (m != null) {
+                if (cbbselected.trim().equals(m.getTenKT())) {
+                    cbb.setSelectedItem(m);
+                }
+            }
+        }
+    }
+
+    public void setSelectedComboboxCL(String cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            ChatLieu obj = (ChatLieu) cbb.getItemAt(i);
+            if (obj != null) {
+                if (cbbselected.trim().equals(obj.getTenChatLieu())) {
+                    cbb.setSelectedItem(obj);
+                }
+            }
+        }
+    }
+
+    public void setSelectedComboboxTenLoai(String cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            LoaiSP obj = (LoaiSP) cbb.getItemAt(i);
+            if (obj != null) {
+                if (cbbselected.trim().equals(obj.getTenLoaiSP())) {
+                    cbb.setSelectedItem(obj);
+                }
+            }
+        }
     }
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked

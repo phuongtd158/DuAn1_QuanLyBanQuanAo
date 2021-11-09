@@ -369,6 +369,8 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
             Auth.user = nv;
             MsgBox.alert(this, "Bạn đã đăng nhập thành công!");
             this.dispose();
+            Jfr_CuaSoChinh cuaSoChinh = new Jfr_CuaSoChinh();
+            cuaSoChinh.setVisible(true);
         }
     }
 }
