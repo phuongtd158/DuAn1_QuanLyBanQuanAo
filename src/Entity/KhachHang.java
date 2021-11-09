@@ -12,19 +12,19 @@ import java.util.Date;
  * @author ADMIN
  */
 public class KhachHang {
-    private String MaKH ;
+   private int MaKH ;
     private String TenKH ;
     private Date NgaySinh ;
     private Boolean GioiTinh ;
     private String SDT ;
     private String DiaChi ;
-    private Boolean TrangThai ;
+    private Boolean TrangThai =true ;
 
-    public String getMaKH() {
+    public int getMaKH() {
         return MaKH;
     }
 
-    public void setMaKH(String MaKH) {
+    public void setMaKH(int MaKH) {
         this.MaKH = MaKH;
     }
 
@@ -75,6 +75,12 @@ public class KhachHang {
     public void setTrangThai(Boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
+//    public void setGioiTinh(String nam) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+    public boolean isGioiTinh(){
+       return GioiTinh;
+    }
     
 }

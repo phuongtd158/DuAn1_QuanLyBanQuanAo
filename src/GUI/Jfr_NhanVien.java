@@ -7,6 +7,7 @@ package GUI;
 
 import DAO.NhanVienDAO;
 import Entity.NhanVien;
+import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.Color;
 import java.util.List;
@@ -125,13 +126,13 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         dong = -1;
     }
 
-    public boolean check() {
-        if (((JTextField) txtNgaySinh.getDateEditor().getUiComponent()).getText().equals("")) {
-            MsgBox.alert(this, "Không được để trống");
-            return false;
-        }
-        return true;
-    }
+//    public boolean check() {
+//        if (((JTextField) txtNgaySinh.getDateEditor().getUiComponent()).getText().equals("")) {
+//            MsgBox.alert(this, "Không được để trống");
+//            return false;
+//        }
+//        return true;
+//    }
 
     NhanVien getFrom() {
         NhanVien nv = new NhanVien();
@@ -156,12 +157,12 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     void insert() {
         NhanVien nv = getFrom();
         try {
-            if (check()) {
+            
                 nvdao.insert(nv);
                 this.fillTable();
                 this.clearFrom();
                 MsgBox.alert(this, "Thêm Thành Công");
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi insert");
@@ -178,6 +179,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi update");
+        }
+    }
+    public boolean checkTrungMa(JTextField txt){
+        if (nvdao.selectByID(txt.getText()) == null) {
+            return true;
+        }else{
+            MsgBox.alert(txt.getRootPane(), "Trùng Mã");
+            return false;
         }
     }
 
@@ -517,7 +526,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        insert();
+        if (Check.checkTrongText(txtMaNV)&&Check.checkTrongText(txtDiaChi)&&Check.checkTrongText(txtEmail)&&Check.checkTrongText(txtMatKhau)&&
+                Check.checkTrongText(txtSDT)&&Check.checkTrongText(txtTenNhanVien)&&Check.checkTrongJdate(txtNgaySinh)) {
+            if (Check.checkEmail(txtEmail)&&Check.checkSDT(txtSDT)) {
+                if (checkTrungMa(txtMaNV)) {
+                    insert();
+                }
+            }
+        }
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
@@ -525,7 +541,12 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(ClickColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        update();
+        if (Check.checkTrongText(txtMaNV)&&Check.checkTrongText(txtDiaChi)&&Check.checkTrongText(txtEmail)&&Check.checkTrongText(txtMatKhau)&&
+                Check.checkTrongText(txtSDT)&&Check.checkTrongText(txtTenNhanVien)&&Check.checkTrongJdate(txtNgaySinh)) {
+            if (Check.checkEmail(txtEmail)&&Check.checkSDT(txtSDT)) {
+                update();
+            }
+        }
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
