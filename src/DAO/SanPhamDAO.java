@@ -26,7 +26,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
                   + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
     
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
-    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = ?";
+    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = ? ";
     String SelectAll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
@@ -82,18 +82,18 @@ public class SanPhamDAO extends Main< SanPham, String> {
         JDBCHelper.Update(Update_HienThiSanPham, id);
     }
 
-    public Boolean SelectID_1(String k) {
-        ResultSet rs  ;
-        try {
-            rs = JDBCHelper.query( SelectID , k );
-            if( rs !=  null ){
-                return true ;
-            }
-        } catch (Exception e) {
-            return false ; 
-        }
-        return false ;
-    }
+//    public Boolean SelectID_1(String k) {
+//        ResultSet rs  ;
+//        try {
+//            rs = JDBCHelper.query( SelectID , k );
+//            if( rs != null ){
+//                return true ;
+//            }
+//        } catch (Exception e) {
+//            return false ; 
+//        }
+//        return false ;
+//    }
 
     public int SelectByIDSp(String k) {
         int sk = 0 ;

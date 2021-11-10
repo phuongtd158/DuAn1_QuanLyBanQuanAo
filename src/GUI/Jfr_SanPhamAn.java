@@ -20,6 +20,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
 
     Color defaulColor, ClickColor;
     SanPhamDAO daoSp = new SanPhamDAO();
+    Jfr_SanPham sp ;
 
     /**
      * Creates new form Jfr_SanPhamAn
@@ -29,6 +30,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
+        sp = new Jfr_SanPham() ;
         sanPhamAn();
     }
 
@@ -104,13 +106,14 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         jPanel2.setBackground(ClickColor);
         int row = tblSanPhamAn.getSelectedRow();
         try {
-
             int id = (int) tblSanPhamAn.getValueAt(row, 0);
-            daoSp.hienThiSanPham(id);
+            daoSp.hienThiSanPham(id);      
             sanPhamAn();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+        sp.DoVaoTableChiTiet();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     public void sanPhamAn() {

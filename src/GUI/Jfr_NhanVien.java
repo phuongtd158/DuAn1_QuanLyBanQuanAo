@@ -30,7 +30,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
-    public Jfr_NhanVien() {
+    public Jfr_NhanVien(  ) {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
@@ -167,9 +167,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi update");
         }
     }
-<<<<<<< HEAD
-=======
-    
+
     public boolean checkTrungMa(JTextField txt){
         if (nvdao.selectByID(txt.getText()) == null) {
             return true;
@@ -178,7 +176,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             return false;
         }
     }
->>>>>>> 4e412b67ade1c792c4b657d4fca02a675663c713
 
     /**
      * This method is called from within the constructor to initialize the form.

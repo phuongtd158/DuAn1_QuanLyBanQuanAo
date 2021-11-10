@@ -736,8 +736,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         sp.setGia(Double.valueOf(txtDonGia.getText()));
         sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
         sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
-        sp.setMaCTSP( Integer.valueOf( txtMaSP.getText() )  );
-
+        if( !txtMaSP.getText().equals("") ){
+            sp.setMaCTSP( Integer.valueOf( txtMaSP.getText() )  );
+        }
+        
         return sp;
     }
 
@@ -772,9 +774,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         
         try {
             
-            if ( daoSP.SelectID_1( txtTenSP.getText() ) == false  ) {
+            if ( daoSP.SelectByIDSp(txtTenSP.getText() ) < 1  ) {
                 daoSP.Insert_SP(txtTenSP.getText());
-                System.out.println(daoSP.SelectID_1( txtTenSP.getText() ) + " " + txtTenSP.getText());
+//                System.out.println(daoSP.SelectID_1( txtTenSP.getText() ) + " " + txtTenSP.getText());
                 sp.setMaSP( daoSP.SelectByIDSp( txtTenSP.getText() ) );
                 daoSP.Insert_SPCT(sp, lsp.getMaLoaiSP(), ms.getMaMau(), kt.getMaKT(), cl.getMaCL());
                 DoVaoTableChiTiet();
@@ -1004,7 +1006,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel9.setBackground(defualtColor);
         jPanel10.setBackground(defualtColor);
 
-        if ( Check.checkTrongText( txtTenThuocTinh )) {
+        if ( Check.checkTrongText( txtTenThuocTinh ) == false ) {
             return;
         }
 
@@ -1173,7 +1175,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     // Dổ vào bảng sản Phẩm 
-    private void DoVaoTableChiTiet() {
+    public void DoVaoTableChiTiet() {
         listSP = (ArrayList<SanPham>) daoSP.selectAll();
         modelSP.setRowCount(1);
 
