@@ -23,10 +23,10 @@ public class SanPhamDAO extends Main< SanPham, String> {
             + " values ( ? , ? ,? , ? ,? ,? , ? )  ";
 
     String Update = " Update SANPHAM set TenSp = ? where MaSP = ? "
-                  + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
-    
+            + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
+
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
-    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1 WHERE MaCTSP = ? ";
+    String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1, SoLuong = ? WHERE MaCTSP = ? ";
     String SelectAll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
@@ -54,13 +54,13 @@ public class SanPhamDAO extends Main< SanPham, String> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void Update_1( SanPham entity ) {
+    public void Update_1(SanPham entity) {
         try {
-            JDBCHelper.Update(Update, entity.getTenSP(), entity.getMaSP(), entity.getSoLuong(), entity.getGia() , entity.getMaCTSP() );
+            JDBCHelper.Update(Update, entity.getTenSP(), entity.getMaSP(), entity.getSoLuong(), entity.getGia(), entity.getMaCTSP());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public void Update_2(SanPham entity) {
@@ -78,8 +78,12 @@ public class SanPhamDAO extends Main< SanPham, String> {
         return selectBySQL(SelectAll);
     }
 
-    public void hienThiSanPham(int id) {
-        JDBCHelper.Update(Update_HienThiSanPham, id);
+    public void hienThiSanPham(int id, int soLuong) {
+        if (soLuong > 0) {
+            JDBCHelper.Update(Update_HienThiSanPham, soLuong, id);
+        } else {
+            JDBCHelper.Update(Update_HienThiSanPham, 1, id);
+        }
     }
 
 //    public Boolean SelectID_1(String k) {
@@ -94,20 +98,19 @@ public class SanPhamDAO extends Main< SanPham, String> {
 //        }
 //        return false ;
 //    }
-
     public int SelectByIDSp(String k) {
-        int sk = 0 ;
-        
+        int sk = 0;
+
         try {
-            ResultSet rs = JDBCHelper.query( SelectID , k );
-            if( rs.next() ){
-                sk = rs.getInt("MaSP") ;
+            ResultSet rs = JDBCHelper.query(SelectID, k);
+            if (rs.next()) {
+                sk = rs.getInt("MaSP");
             }
 
         } catch (Exception e) {
-            return 0 ;
+            return 0;
         }
-        return sk  ;
+        return sk;
     }
 
     @Override

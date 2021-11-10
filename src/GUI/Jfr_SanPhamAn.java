@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class Jfr_SanPhamAn extends javax.swing.JFrame {
-    
+
     Color defaulColor, ClickColor;
     SanPhamDAO daoSp = new SanPhamDAO();
 
@@ -66,7 +66,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblSanPhamAn);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 17, 930, 390));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 17, 1010, 390));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -99,26 +99,25 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         jPanel2.setBackground(ClickColor);
         int row = tblSanPhamAn.getSelectedRow();
         try {
             int id = (int) tblSanPhamAn.getValueAt(row, 0);
-            daoSp.hienThiSanPham(id);             
+            daoSp.hienThiSanPham(id, (int) tblSanPhamAn.getValueAt(row, 8));
             sanPhamAn();
             Jfr_SanPham.sp.set("a");
-           
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jLabel1MouseClicked
-    
+
     public void sanPhamAn() {
         DefaultTableModel model = (DefaultTableModel) tblSanPhamAn.getModel();
         model.setRowCount(0);
-        
+
         List<SanPham> list = daoSp.selectAll();
         for (SanPham x : list) {
             if (x.isTrangThai() == false) {
@@ -126,7 +125,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
         }
-        
+
     }
 
     /**

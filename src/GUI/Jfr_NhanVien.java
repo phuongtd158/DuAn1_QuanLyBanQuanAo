@@ -22,17 +22,17 @@ import javax.swing.table.JTableHeader;
  * @author ADMIN
  */
 public class Jfr_NhanVien extends javax.swing.JInternalFrame {
-
+    
     Color defaulColor, ClickColor;
     NhanVienDAO nvdao = new NhanVienDAO();
     int dong = 0;
-
+    
     public static Jfr_NhanVien nv;
 
     /**
      * Creates new form NewJInternalFrame
      */
-    public Jfr_NhanVien(  ) {
+    public Jfr_NhanVien() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
@@ -46,14 +46,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         ClickColor = new Color(221, 221, 221);
         nv = this;
         fillTable();
-
+        
     }
-
+    
     public void hoverButton() {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
     }
-
+    
     public void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
@@ -93,14 +93,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Ẩn thất bại");
         }
     }
-
+    
     public void set(String s) {
         if (s.equals("a")) {
             fillTable();
         }
-
+        
     }
-
+    
     public void edit() {
         try {
             String maNV = (String) tbNhanVien.getValueAt(dong, 1);
@@ -113,7 +113,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi edit");
         }
     }
-
+    
     public void setForm(NhanVien nv) {
         txtMaNV.setText(nv.getMaNV());
         txtTenNhanVien.setText(nv.getTenNV());
@@ -126,7 +126,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         txtNgaySinh.setDate(nv.getNgaySinh());
         txtSDT.setText(nv.getSDT());
         txtEmail.setText(nv.getEmail());
-
+        
         if (nv.getVaiTro() == true) {
             rdQuanLy.setSelected(true);
         } else {
@@ -134,19 +134,19 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         }
         txtMatKhau.setText(nv.getMatKhau());
     }
-
+    
     public void clearFrom() {
         this.setForm(new NhanVien());
         dong = -1;
     }
-
+    
     NhanVien getFrom() {
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
         nv.setTenNV(txtTenNhanVien.getText());
         nv.setGioiTinh(rdNam.isSelected());
         nv.setDiaChi(txtDiaChi.getText());
-
+        
         nv.setNgaySinh(txtNgaySinh.getDate());
         nv.setSDT(txtSDT.getText());
         nv.setEmail(txtEmail.getText());
@@ -154,7 +154,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         nv.setMatKhau(txtMatKhau.getText());
         return nv;
     }
-
+    
     void insert() {
         NhanVien nv = getFrom();
         try {
@@ -162,13 +162,13 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             this.fillTable();
             this.clearFrom();
             MsgBox.alert(this, "Thêm Thành Công");
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Lỗi insert");
         }
     }
-
+    
     void update() {
         NhanVien nv = getFrom();
         try {
@@ -181,7 +181,6 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi update");
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -526,6 +525,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        txtMaNV.setEditable(true); 
         btnThem.setBackground(defaulColor);
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
