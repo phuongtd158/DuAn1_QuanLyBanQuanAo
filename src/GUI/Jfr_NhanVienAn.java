@@ -16,15 +16,14 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class Jfr_NhanVienAn extends javax.swing.JFrame {
-
+    
     NhanVienDAO nvdao = new NhanVienDAO();
-    Jfr_NhanVien form = new Jfr_NhanVien();
-
+    
     public Jfr_NhanVienAn() {
         initComponents();
         setLocationRelativeTo(null);
         nhanVienDaAn();
-        form.fillTable();
+        
     }
 
     /**
@@ -51,7 +50,15 @@ public class Jfr_NhanVienAn extends javax.swing.JFrame {
             new String [] {
                 "STT", "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Địa Chỉ", "Ngày Sinh", "Số Điện Thoại", "Email", "Trạng Thái", "Mật Khẩu", "Vai Trò"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -59,8 +66,26 @@ public class Jfr_NhanVienAn extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbNhanVien);
+        if (tbNhanVien.getColumnModel().getColumnCount() > 0) {
+            tbNhanVien.getColumnModel().getColumn(0).setHeaderValue("STT");
+            tbNhanVien.getColumnModel().getColumn(1).setHeaderValue("Mã Nhân Viên");
+            tbNhanVien.getColumnModel().getColumn(2).setHeaderValue("Tên Nhân Viên");
+            tbNhanVien.getColumnModel().getColumn(3).setHeaderValue("Giới Tính");
+            tbNhanVien.getColumnModel().getColumn(4).setHeaderValue("Địa Chỉ");
+            tbNhanVien.getColumnModel().getColumn(5).setHeaderValue("Ngày Sinh");
+            tbNhanVien.getColumnModel().getColumn(6).setHeaderValue("Số Điện Thoại");
+            tbNhanVien.getColumnModel().getColumn(7).setHeaderValue("Email");
+            tbNhanVien.getColumnModel().getColumn(8).setHeaderValue("Trạng Thái");
+            tbNhanVien.getColumnModel().getColumn(9).setHeaderValue("Mật Khẩu");
+            tbNhanVien.getColumnModel().getColumn(10).setHeaderValue("Vai Trò");
+        }
 
         jButton1.setText("Hiển thị lại nhân viên");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -109,21 +134,27 @@ public class Jfr_NhanVienAn extends javax.swing.JFrame {
     }//GEN-LAST:event_tbNhanVienMousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         int row = tbNhanVien.getSelectedRow();
         try {
             String id = (String) tbNhanVien.getValueAt(row, 1);
             nvdao.update_tt_1(id);
             nhanVienDaAn();
-            form.fillTable();
+            
+            Jfr_NhanVien.nv.set("a");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }//GEN-LAST:event_jButton1MouseClicked
+    
     public void nhanVienDaAn() {
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
-
+        
         try {
             List<NhanVien> list = nvdao.selectBytt();
             int count = 0;

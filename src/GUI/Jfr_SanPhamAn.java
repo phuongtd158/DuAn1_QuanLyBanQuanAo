@@ -17,10 +17,9 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class Jfr_SanPhamAn extends javax.swing.JFrame {
-
+    
     Color defaulColor, ClickColor;
     SanPhamDAO daoSp = new SanPhamDAO();
-    Jfr_SanPham sp ;
 
     /**
      * Creates new form Jfr_SanPhamAn
@@ -30,7 +29,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(221, 221, 221);
-        sp = new Jfr_SanPham() ;
+//        sp = new Jfr_SanPham() ;
         sanPhamAn();
     }
 
@@ -67,7 +66,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblSanPhamAn);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 17, 1010, 390));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 17, 930, 390));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -94,32 +93,32 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         jPanel2.setBackground(ClickColor);
         int row = tblSanPhamAn.getSelectedRow();
         try {
             int id = (int) tblSanPhamAn.getValueAt(row, 0);
-            daoSp.hienThiSanPham(id);      
+            daoSp.hienThiSanPham(id);             
             sanPhamAn();
-            
+            Jfr_SanPham.sp.set("a");
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sp.DoVaoTableChiTiet();
     }//GEN-LAST:event_jLabel1MouseClicked
-
+    
     public void sanPhamAn() {
         DefaultTableModel model = (DefaultTableModel) tblSanPhamAn.getModel();
         model.setRowCount(0);
-
+        
         List<SanPham> list = daoSp.selectAll();
         for (SanPham x : list) {
             if (x.isTrangThai() == false) {
@@ -127,7 +126,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
         }
-
+        
     }
 
     /**

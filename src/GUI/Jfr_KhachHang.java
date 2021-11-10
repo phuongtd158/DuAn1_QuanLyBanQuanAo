@@ -9,14 +9,8 @@ import DAO.KhachHangDAO;
 import Entity.KhachHang;
 import Ultil.Check;
 import Ultil.MsgBox;
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
-import com.github.sarxos.webcam.WebcamResolution;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -32,12 +26,14 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     KhachHangDAO dao = new KhachHangDAO();
     int row = 0;
+    public static Jfr_KhachHang kh;
 
     /**
      * Creates new form Jfr_KhachHang
      */
     public Jfr_KhachHang() {
         initComponents();
+        kh = this;
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -51,6 +47,12 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     public void hoverButton() {
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
+    }
+
+    public void hienThi(String s) {
+        if (s.equals("a")) {
+            fillToTable();
+        }
     }
 
     //ĐỔ VÀO BẢNG
@@ -72,9 +74,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         }
     }
 
-    
-      public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
-
+    public void setForm(KhachHang model) {//hiển thị khách hàng có sẵn lên from 
         row = tblKH.getSelectedRow();
         txtMaKH.setText(model.getMaKH() + "");
         txtTenKH.setText(model.getTenKH());
@@ -143,6 +143,10 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
 
     public void delete() {
         row = tblKH.getSelectedRow();
+        if (row < 0) {
+            MsgBox.alert(this, "Vui lòng chọn khách hàng cần xóa");
+            return;
+        }
         if (MsgBox.comfirm(this, "Bạn có thực sự muốn ẩn khách hàng này không?")) {
             int id = (int) tblKH.getValueAt(row, 0);
             try {
@@ -192,11 +196,9 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtDST = new javax.swing.JTextField();
         jDateNgaySinh = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKH = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnThem = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -210,13 +212,15 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(1267, 788));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quản Lý Khách Hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 16), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mã Khách Hàng");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
@@ -224,6 +228,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel2.add(txtMaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 340, 34));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tên Khách Hàng");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
 
@@ -235,17 +240,20 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel2.add(txtTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, 370, 34));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Giới Tính");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
         jPanel2.add(txtDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 110, 370, 34));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Địa Chỉ");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, -1, -1));
 
         rdoNam.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoNam);
         rdoNam.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdoNam.setForeground(new java.awt.Color(0, 0, 0));
         rdoNam.setSelected(true);
         rdoNam.setText("Nam");
         jPanel2.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, -1));
@@ -253,14 +261,17 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         rdoNu.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoNu);
         rdoNu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdoNu.setForeground(new java.awt.Color(0, 0, 0));
         rdoNu.setText("Nữ");
         jPanel2.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Ngày Sinh");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Số Điện Thoại");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, -1, -1));
         jPanel2.add(txtDST, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 370, 34));
@@ -269,14 +280,10 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jDateNgaySinh.setDateFormatString("dd-MM-yyyy");
         jPanel2.add(jDateNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 340, 34));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel1.setText("Quản Lý Khách Hàng");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 21, 1195, 240));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Khách Hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 16), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -305,16 +312,13 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 44, 1150, 340));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel8.setText("Thông Tin Khách Hàng");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 279, 1195, 402));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnThem.setText("Thêm");
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -340,6 +344,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnSua.setForeground(new java.awt.Color(0, 0, 0));
         btnSua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnSua.setText("Sửa");
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -365,6 +370,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(0, 0, 0));
         btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnXoa.setText("Ẩn");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -390,6 +396,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnMoi.setForeground(new java.awt.Color(0, 0, 0));
         btnMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnMoi.setText("Mới");
         btnMoi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -445,7 +452,9 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         try {
 
             if (Check.checkTrongText(txtDST) && Check.checkTrongText(txtTenKH)) {
-                this.insert();
+                if (Check.checkSDT(txtDST)) {
+                    this.insert();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -460,7 +469,9 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jPanel7.setBackground(defaulColor);
         try {
             if (Check.checkTrongText(txtDST) && Check.checkTrongText(txtTenKH)) {
-                this.update();
+                if (Check.checkSDT(txtDST)) {
+                    this.update();
+                }
             }
         } catch (Exception e) {
         }
@@ -487,8 +498,9 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTenKHActionPerformed
 
     private void tblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKHMouseClicked
-        // TODO add your handling code here:
+        txtMaKH.setEditable(false);
         if (evt.getClickCount() == 1) {
+
             row = tblKH.rowAtPoint(evt.getPoint());
             edit();
         }
@@ -508,14 +520,12 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateNgaySinh;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
