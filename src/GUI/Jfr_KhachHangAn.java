@@ -109,6 +109,7 @@ public class Jfr_KhachHangAn extends javax.swing.JFrame {
             int id = (int) tblKH.getValueAt(row, 0);
             dao.delete_1(id);
             fillToTable();
+            Jfr_KhachHang.kh.hienThi("a");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,9 +17,10 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class Jfr_SanPhamAn extends javax.swing.JFrame {
-
+    
     Color defaulColor, ClickColor;
     SanPhamDAO daoSp = new SanPhamDAO();
+    Jfr_SanPham sp = new Jfr_SanPham();
 
     /**
      * Creates new form Jfr_SanPhamAn
@@ -104,19 +105,20 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         jPanel2.setBackground(ClickColor);
         int row = tblSanPhamAn.getSelectedRow();
         try {
-
+            
             int id = (int) tblSanPhamAn.getValueAt(row, 0);
             daoSp.hienThiSanPham(id);
             sanPhamAn();
+            sp.hienThiLai("a"); 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jLabel1MouseClicked
-
+    
     public void sanPhamAn() {
         DefaultTableModel model = (DefaultTableModel) tblSanPhamAn.getModel();
         model.setRowCount(0);
-
+        
         List<SanPham> list = daoSp.selectAll();
         for (SanPham x : list) {
             if (x.isTrangThai() == false) {
@@ -124,7 +126,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
         }
-
+        
     }
 
     /**

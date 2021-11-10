@@ -77,73 +77,73 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="11" rowCount="0">
-                    <Column editable="true" title="STT" type="java.lang.Object"/>
-                    <Column editable="true" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
-                    <Column editable="true" title="T&#xea;n Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x110;&#x1ecb;a Ch&#x1ec9;" type="java.lang.Object"/>
-                    <Column editable="true" title="Ng&#xe0;y Sinh" type="java.lang.Object"/>
-                    <Column editable="true" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
-                    <Column editable="true" title="Email" type="java.lang.Object"/>
-                    <Column editable="true" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
+                    <Column editable="false" title="STT" type="java.lang.Object"/>
+                    <Column editable="false" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
+                    <Column editable="false" title="T&#xea;n Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
+                    <Column editable="false" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
+                    <Column editable="false" title="&#x110;&#x1ecb;a Ch&#x1ec9;" type="java.lang.Object"/>
+                    <Column editable="false" title="Ng&#xe0;y Sinh" type="java.lang.Object"/>
+                    <Column editable="false" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
+                    <Column editable="false" title="Email" type="java.lang.Object"/>
+                    <Column editable="false" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
                     <Column editable="true" title="M&#x1ead;t Kh&#x1ea9;u" type="java.lang.Object"/>
-                    <Column editable="true" title="Vai Tr&#xf2;" type="java.lang.Object"/>
+                    <Column editable="false" title="Vai Tr&#xf2;" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="STT"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="M&#xe3; Nh&#xe2;n Vi&#xea;n"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="T&#xea;n Nh&#xe2;n Vi&#xea;n"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Gi&#x1edb;i T&#xed;nh"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="&#x110;&#x1ecb;a Ch&#x1ec9;"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Ng&#xe0;y Sinh"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Email"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Tr&#x1ea1;ng Th&#xe1;i"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="M&#x1ead;t Kh&#x1ea9;u"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Vai Tr&#xf2;"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
@@ -167,6 +167,7 @@
             <Property name="text" type="java.lang.String" value="Hi&#x1ec3;n th&#x1ecb; l&#x1ea1;i nh&#xe2;n vi&#xea;n"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>

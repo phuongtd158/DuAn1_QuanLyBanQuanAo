@@ -60,8 +60,11 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder position="2" title="Qu&#x1ea3;n L&#xfd; Nh&#xe2;n Vi&#xea;n">
+                  <Font PropertyName="font" name="Segoe UI" size="16" style="1"/>
+                  <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -92,9 +95,6 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaNV">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="150" y="50" width="340" height="34"/>
@@ -331,22 +331,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="20" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Nh&#xe2;n Vi&#xea;n"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="10" width="-1" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="txtNgaySinh">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -388,8 +372,11 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder position="2" title="Th&#xf4;ng Tin Nh&#xe2;n Vi&#xea;n">
+                  <Font PropertyName="font" name="Segoe UI" size="16" style="1"/>
+                  <Color PropertyName="color" blue="0" green="0" red="0" type="rgb"/>
+                </TitledBorder>
               </Border>
             </Property>
           </Properties>
@@ -409,7 +396,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="17" y="50" width="1160" height="270"/>
+                  <AbsoluteConstraints x="20" y="40" width="1160" height="270"/>
                 </Constraint>
               </Constraints>
 
@@ -508,22 +495,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel11">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="20" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Th&#xf4;ng Tin Nh&#xe2;n Vi&#xea;n"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="10" width="-1" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="btnThem">
