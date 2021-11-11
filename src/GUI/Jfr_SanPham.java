@@ -708,14 +708,14 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
         SanPham sp = new SanPham();
 
-        sp.setTenSP(txtTenSP.getText());
+        sp.setTenSP(txtTimKiem.getText());
         sp.setTenKichThuoc(kt.getTenKT());
         sp.setTenChatLieu(cl.getTenChatLieu());
         sp.setTenLoai(lsp.getTenLoaiSP());
         sp.setTenMauSac(ms.getTenMau());
         sp.setGia(Double.valueOf(txtDonGia.getText()));
         sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
-        sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
+        sp.setMaSP(daoSP.SelectByIDSp(txtTimKiem.getText()));
         if (!txtMaSP.getText().equals("")) {
             sp.setMaCTSP(Integer.valueOf(txtMaSP.getText()));
         }
@@ -880,7 +880,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         txtDonGia.setText("");
         txtMaSP.setText("");
         txtSoLuong.setText("");
-        txtTenSP.setText("");
+        txtTimKiem.setText("");
         txtTenThuocTinh.setText("");
         cbbChatLieu.setSelectedIndex(0);
         cbbKichThuoc.setSelectedIndex(0);
