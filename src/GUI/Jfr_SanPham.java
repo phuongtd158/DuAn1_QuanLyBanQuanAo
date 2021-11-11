@@ -159,12 +159,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cbbMauSac = new javax.swing.JComboBox<>();
-        txtTenSP1 = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
-        txtTenSP = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         btnSua = new javax.swing.JLabel();
@@ -259,7 +259,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         cbbMauSac.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
-        jPanel5.add(txtTenSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
+        jPanel5.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -300,7 +300,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblSanPham);
 
         jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1180, 260));
-        jPanel12.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 350, 30));
+        jPanel12.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 350, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -1320,7 +1320,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
-    private javax.swing.JTextField txtTenSP1;
     private javax.swing.JTextField txtTenThuocTinh;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }
