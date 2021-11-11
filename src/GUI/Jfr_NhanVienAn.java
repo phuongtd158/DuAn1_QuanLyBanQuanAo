@@ -42,6 +42,8 @@ public class Jfr_NhanVienAn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         tbNhanVien.setForeground(new java.awt.Color(0, 0, 0));
         tbNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +82,8 @@ public class Jfr_NhanVienAn extends javax.swing.JFrame {
             tbNhanVien.getColumnModel().getColumn(10).setHeaderValue("Vai Trò");
         }
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Hiển thị lại nhân viên");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

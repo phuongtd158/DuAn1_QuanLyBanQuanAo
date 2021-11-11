@@ -145,9 +145,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         txtMaSP = new javax.swing.JTextField();
-        txtTenSP = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -161,18 +159,13 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cbbMauSac = new javax.swing.JComboBox<>();
+        txtTenSP1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
+        txtTenSP = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         btnSua = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
@@ -215,14 +208,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quản lý sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 16), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Mã sản phẩm");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
-
         txtMaSP.setEditable(false);
         jPanel5.add(txtMaSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 430, 30));
-        jPanel5.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -272,28 +259,18 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         cbbMauSac.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
+        jPanel5.add(txtTenSP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Mã sản phẩm");
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 30));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1200, 290));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 16), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
-        jPanel3.add(jTextField2);
-        jPanel3.add(jTextField3);
-        jPanel3.add(jTextField5);
-        jPanel3.add(jTextField7);
-        jPanel3.add(jTextField8);
-        jPanel3.add(jTextField6);
-
-        jTextField1.setEditable(false);
-        jPanel3.add(jTextField1);
-
-        jTextField4.setEditable(false);
-        jPanel3.add(jTextField4);
-
-        jPanel12.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1180, 30));
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -322,7 +299,13 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblSanPham);
 
-        jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1180, 280));
+        jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1180, 260));
+        jPanel12.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 350, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Tìm kiếm sản phẩm");
+        jPanel12.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, 30));
 
         jPanel2.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 1200, 330));
 
@@ -1193,7 +1176,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     // Dổ vào bảng sản Phẩm 
     public void DoVaoTableChiTiet() {
         listSP = (ArrayList<SanPham>) daoSP.selectAll();
-        modelSP.setRowCount(1);
+        modelSP.setRowCount(0);
 
         for (SanPham x : listSP) {
             if (x.getSoLuong() == 0) {
@@ -1303,6 +1286,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -1317,7 +1301,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1326,14 +1309,6 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JRadioButton rbChatLieu;
     private javax.swing.JRadioButton rbKichThuoc;
     private javax.swing.JRadioButton rbLoaiSP;
@@ -1345,6 +1320,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
+    private javax.swing.JTextField txtTenSP1;
     private javax.swing.JTextField txtTenThuocTinh;
     // End of variables declaration//GEN-END:variables
 }

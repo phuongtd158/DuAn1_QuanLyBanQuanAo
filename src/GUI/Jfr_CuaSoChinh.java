@@ -492,19 +492,25 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
         Jfr_TrangChu menu1 = new Jfr_TrangChu();
         jDesktopPane1.add(menu1).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnTrangChuMouseClicked
 
     private void btnSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSanPhamMouseClicked
         Jfr_SanPham menu2 = new Jfr_SanPham();
         jDesktopPane1.add(menu2).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnSanPhamMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
         Jfr_NhanVien menu3 = new Jfr_NhanVien();
         jDesktopPane1.add(menu3).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnNhanVienMouseClicked
 
     private void btnKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMousePressed
@@ -574,27 +580,33 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
         Jfr_HoaDon menu4 = new Jfr_HoaDon();
-        jDesktopPane1.add(menu4).setVisible(true);
+       jDesktopPane1.add(menu4).setVisible(true);
 
     }//GEN-LAST:event_btnHoaDonMouseClicked
 
     private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
         Jfr_KhachHang menu5 = new Jfr_KhachHang();
         jDesktopPane1.add(menu5).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
 
     }//GEN-LAST:event_btnKhachHangMouseClicked
 
     private void btnLichSuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLichSuMouseClicked
         Jfr_LichSuGiaoDich menu6 = new Jfr_LichSuGiaoDich();
         jDesktopPane1.add(menu6).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnLichSuMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
         Jfr_DoiMatKhau menu7 = new Jfr_DoiMatKhau();
         jDesktopPane1.add(menu7).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
@@ -606,7 +618,9 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
         Jfr_ThongKe menu9 = new Jfr_ThongKe();
         jDesktopPane1.add(menu9).setVisible(true);
-        Jfr_HoaDon.webcam.close();
+        if (Jfr_HoaDon.webcam != null) {
+            Jfr_HoaDon.webcam.close();
+        }
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     public static void main(String args[]) {
