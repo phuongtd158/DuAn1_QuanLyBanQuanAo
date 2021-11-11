@@ -129,6 +129,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jTable1 = new javax.swing.JTable();
         btnXoa = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jTextField11 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -211,15 +220,23 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "MaSP", "Tên sản phẩm", "Số lượng ", "Đơn Giá", "Giảm Giá", "Thành Tiền", ""
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jPanel11.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 910, 160));
@@ -235,17 +252,38 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 16), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.add(jTextField4);
+        jPanel8.add(jTextField5);
+        jPanel8.add(jTextField6);
+        jPanel8.add(jTextField8);
+        jPanel8.add(jTextField9);
+        jPanel8.add(jTextField10);
+        jPanel8.add(jTextField11);
+        jPanel8.add(jTextField7);
+
+        jPanel12.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 910, 30));
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã SP", "Tên sản phẩm", "Thể loại", "Chất liệu", "Kích thước", "Màu sắc", "Số lượng", "Đơn giá"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setRowHeight(25);
         jScrollPane3.setViewportView(jTable2);
 
         jPanel12.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 910, 220));
@@ -432,6 +470,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -442,8 +481,16 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lbTongTien;
     private javax.swing.JLabel lbTongTien1;
     private javax.swing.JLabel lbTongTien2;
