@@ -580,7 +580,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
         Jfr_HoaDon menu4 = new Jfr_HoaDon();
-       jDesktopPane1.add(menu4).setVisible(true);
+        jDesktopPane1.add(menu4).setVisible(true);
 
     }//GEN-LAST:event_btnHoaDonMouseClicked
 
