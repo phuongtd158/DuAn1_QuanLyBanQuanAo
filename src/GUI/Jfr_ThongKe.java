@@ -5,7 +5,14 @@
  */
 package GUI;
 
+import java.awt.Color;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -13,12 +20,14 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
+    ChartPanel c;
+
     /**
      * Creates new form Jfr_ThongKe
      */
     public Jfr_ThongKe() {
         initComponents();
-         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
     }
@@ -32,12 +41,22 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
@@ -47,24 +66,116 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"1", "5", "1000", "100", "999"},
+                {"2", "2", "23", null, "888"},
+                {"3", "3", "3", "3", "777"},
+                {"4", "4", "4", "3", "666"},
+                {"5", "2131", "223", null, "111"},
+                {"6", "333", "3333", null, "334"},
+                {"7", "43", "333", null, "545"},
+                {"8", "2342", "434", null, "545"},
+                {"9", "43", "44", null, "542"},
+                {"10", "66", null, null, "656"},
+                {"11", "55", "35", null, "567"},
+                {"12", null, "77", null, "11"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tháng", "Sản phẩm bán", "Tổng giá bán", "Tổng giá giảm", "Doanh thu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 1060, -1));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Chi tiết doanh thu");
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1210, 680));
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 993, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(416, 416, 416)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(338, Short.MAX_VALUE))
+        );
+
+        jPanel6.add(jPanel8);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel6.add(jPanel7);
+
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 720));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1010, 720));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Lựa chọn hiển thị");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021" }));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 210, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Năm");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Biểu đồ");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setSelected(true);
+        jRadioButton2.setText("Bảng");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton2MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jTabbedPane1.addTab("Doanh thu", jPanel2);
 
@@ -82,7 +193,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Khách hàng", jPanel4);
@@ -103,13 +214,58 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
+        jPanel7.setVisible(false);
+        jPanel8.setVisible(true);
+
+    }//GEN-LAST:event_jRadioButton2MouseClicked
+
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+        jPanel8.setVisible(false);
+        jPanel7.setVisible(true);
+        DefaultCategoryDataset set = new DefaultCategoryDataset();
+
+        set.setValue(Float.parseFloat(jTable1.getValueAt(0, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(0, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(1, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(1, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(2, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(2, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(3, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(3, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(4, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(4, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(5, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(5, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(6, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(6, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(7, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(7, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(8, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(8, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(9, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(9, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(10, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(10, 0)));
+        set.setValue(Float.parseFloat(jTable1.getValueAt(11, 4).toString()), "Doanh thu", String.valueOf(jTable1.getValueAt(11, 0)));
+
+        JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "Tháng", "Tổng doanh thu", set, PlotOrientation.VERTICAL, true, true, true);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.ORANGE);
+        c = new ChartPanel(chart);
+
+        jPanel7.removeAll();
+        jPanel7.add(c);
+        jTable1.updateUI();
+        jPanel7.updateUI();
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
