@@ -24,6 +24,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     public Jfr_CuaSoChinh() {
         initComponents();
         setLocationRelativeTo(null);
+        
         Jfr_TrangChu menu1 = new Jfr_TrangChu();
         jDesktopPane1.add(menu1).setVisible(true);
         defualtColor = new Color(41, 182, 246);

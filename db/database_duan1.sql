@@ -149,7 +149,7 @@ select * from MAUSAC
 ALTER TABLE dbo.CHITIETSANPHAM
 ALTER COLUMN GiamGia FLOAT NULL
 
-select * from SANPHAM where TenSp = N'hahah'
+select * from SANPHAM where TenSp = N'%Áo len%'
 delete from SANPHAM where MaSP != 1 and MaSP != 2 and MaSP != 5 
 select * from CHITIETSANPHAM
 
@@ -157,3 +157,12 @@ delete from CHITIETSANPHAM where MaCTSP between 32 and 42
 update CHITIETSANPHAM set SoLuong = 50 , Gia = 200000 where MaCTSP = 7
 
 SELECT * FROM dbo.CHITIETSANPHAM
+
+select * from NHANVIEN
+
+select * from HINHTHUCTHANHTOAN
+
+insert into HINHTHUCTHANHTOAN ( TenHTTT ) 
+values (N'Tiền mặt') , 
+       (N'Quẹt thẻ') ,
+	   (N'Chuyển khoản' )

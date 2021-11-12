@@ -17,16 +17,17 @@ import java.util.List;
  */
 public class KhachHangDAO extends Main< KhachHang, String> {
 
-    final String INSERT_SQL = " insert into KHACHHANG(TenKH, NgaySinh, GioiTinh, SoDienThoai, DiaChi,TrangThai) values( ?, ?, ?, ?,?,?)";
+    final String INSERT_SQL = " insert into KHACHHANG(TenKH, SoDienThoai, DiaChi ) values( ?, ?, ? )";
     final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
     final String DELETE_SQL_0 = "update KHACHHANG set TrangThai = 0 where MaKH = ?";
     final String DELETE_SQL_1 = "update KHACHHANG set TrangThai = 1 where MaKH = ?";
     final String SELECT_ALL_SQL = "select * from KHACHHANG";
     final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
+    String SelectByID = "select * from KHACHHANG where SoDienThoai = ? " ;
 
     @Override
     public void insert(KhachHang entity) {
-        JDBCHelper.Update(INSERT_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai());
+         JDBCHelper.Update(INSERT_SQL, entity.getTenKH() , entity.getSDT() , entity.getDiaChi() );
     }
 
     @Override
@@ -54,11 +55,24 @@ public class KhachHangDAO extends Main< KhachHang, String> {
 
     @Override
     public KhachHang selectByID(String id) {
-        List<KhachHang> list = selectBySQL(SELECY_BY_ID_SQL, Integer.valueOf(id));
+        List<KhachHang> list = selectBySQL(SELECY_BY_ID_SQL, id );
         if (list.isEmpty()) {
             return null;
         }
         return list.get(0);
+    }
+    
+    public int selectByID_2( String id ){
+        int k = 0 ;
+        try {
+            ResultSet rs = JDBCHelper.query( SelectByID , id );
+            
+            if( rs.next() ){
+                k = rs.getInt("MaKH") ;
+            }
+        } catch (Exception e) {
+        }
+        return k ;
     }
 
     @Override

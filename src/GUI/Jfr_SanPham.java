@@ -300,6 +300,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblSanPham);
 
         jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1180, 260));
+
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
         jPanel12.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 350, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -886,6 +892,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         cbbKichThuoc.setSelectedIndex(0);
         cbbLoaiSanPham.setSelectedIndex(0);
         cbbMauSac.setSelectedIndex(0);
+        txtTimKiem.setText("");
         Index = -1;
     }
 
@@ -1175,7 +1182,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     // Dổ vào bảng sản Phẩm 
     public void DoVaoTableChiTiet() {
-        listSP = (ArrayList<SanPham>) daoSP.selectAll();
+        listSP = (ArrayList<SanPham>) daoSP.selectAll_2( txtTimKiem.getText() ) ;
         modelSP.setRowCount(0);
 
         for (SanPham x : listSP) {
@@ -1266,6 +1273,10 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
         DoNguocNenForm();
     }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        DoVaoTableChiTiet();
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

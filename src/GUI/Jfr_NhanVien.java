@@ -346,6 +346,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             }
         });
         tbNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbNhanVien.setRowHeight(25);
         tbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbNhanVienMouseClicked(evt);
