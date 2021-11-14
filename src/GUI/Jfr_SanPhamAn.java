@@ -119,13 +119,12 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         model.setRowCount(0);
 
         List<SanPham> list = daoSp.selectAll();
-        for (SanPham x : list) {
+        for (SanPham x : list ) {
             if (x.isTrangThai() == false) {
                 model.addRow(new Object[]{x.getMaCTSP(), x.getMaSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
         }
-
     }
 
     /**

@@ -18,6 +18,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien )"
             + " values ( ? , ? , ? , ? , ? , ? ) ";
     String selectByID = "select * from HOADONCHITIET where MaHD =  ?";
+    String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
 
     @Override
     public void insert(HoaDonCT entity) {
@@ -35,6 +36,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
+    // Các câu select
     @Override
     public List<HoaDonCT> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); 
@@ -46,7 +48,11 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
 
     @Override
     public HoaDonCT selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        List<HoaDonCT> list = this.selectBySQL( selectByID2 , id );
+        if( list.isEmpty() ){
+            return null ;
+        }
+        return list.get(0) ;
     }
 
     @Override

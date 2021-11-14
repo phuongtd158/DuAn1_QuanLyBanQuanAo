@@ -23,7 +23,6 @@ public class ChatLieuDAO extends Main< ChatLieu , String > {
     String Update_2 = "Update CHATLIEU set TrangThai = 0  where TenChatLieu = ? " ;
     final String SELECT_ALL = "SELECT * FROM dbo.CHATLIEU where TrangThai = 1";
     String SELECT_ALL_1 = "SELECT * FROM dbo.CHATLIEU" ;
-    final String SELECT_BY_ID = "SELECT * FROM dbo.CHATLIEU where ";
 
     @Override
     public void insert(ChatLieu entity) {

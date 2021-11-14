@@ -17,9 +17,18 @@ import Entity.MauSac;
 import Entity.SanPham;
 import Ultil.Check;
 import Ultil.MsgBox;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.awt.Color;
 import java.awt.List;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -714,14 +723,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         MauSac ms = (MauSac) cbbMauSac.getSelectedItem();
         SanPham sp = new SanPham();
 
-        sp.setTenSP(txtTimKiem.getText());
+        sp.setTenSP(txtTenSP.getText());
         sp.setTenKichThuoc(kt.getTenKT());
         sp.setTenChatLieu(cl.getTenChatLieu());
         sp.setTenLoai(lsp.getTenLoaiSP());
         sp.setTenMauSac(ms.getTenMau());
         sp.setGia(Double.valueOf(txtDonGia.getText()));
         sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
-        sp.setMaSP(daoSP.SelectByIDSp(txtTimKiem.getText()));
+        sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
+        System.out.println("" + daoSP.SelectByIDSp(txtTenSP.getText()));
         if (!txtMaSP.getText().equals("")) {
             sp.setMaCTSP(Integer.valueOf(txtMaSP.getText()));
         }
@@ -792,6 +802,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
         ThemSP();
+
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
@@ -886,7 +897,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         txtDonGia.setText("");
         txtMaSP.setText("");
         txtSoLuong.setText("");
-        txtTimKiem.setText("");
+        txtTenSP.setText("");
         txtTenThuocTinh.setText("");
         cbbChatLieu.setSelectedIndex(0);
         cbbKichThuoc.setSelectedIndex(0);
@@ -1182,7 +1193,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
     // Dổ vào bảng sản Phẩm 
     public void DoVaoTableChiTiet() {
-        listSP = (ArrayList<SanPham>) daoSP.selectAll_2( txtTimKiem.getText() ) ;
+        listSP = (ArrayList<SanPham>) daoSP.selectAll_2(txtTimKiem.getText());
         modelSP.setRowCount(0);
 
         for (SanPham x : listSP) {
@@ -1194,9 +1205,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                 modelSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
                     x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
             }
-
         }
-
     }
 
     // Hiển thị ngược nên 

@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Ultil.Auth;
+import Ultil.MsgBox;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -483,7 +485,6 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         btnThongKe.setBackground(defualtColor);
         btnDoiMatKhau.setBackground(defualtColor);
         btnDangXuat.setBackground(defualtColor);
-
     }//GEN-LAST:event_btnHoaDonMousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -507,10 +508,14 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSanPhamMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
-        Jfr_NhanVien menu3 = new Jfr_NhanVien();
-        jDesktopPane1.add(menu3).setVisible(true);
-        if (Jfr_HoaDon.webcam != null) {
-            Jfr_HoaDon.webcam.close();
+        if (Auth.user.getVaiTro() == true ) {
+            Jfr_NhanVien menu3 = new Jfr_NhanVien();
+            jDesktopPane1.add(menu3).setVisible(true);
+            if (Jfr_HoaDon.webcam != null) {
+                Jfr_HoaDon.webcam.close();
+            }
+        }else{
+            MsgBox.alert( this , "Bạn không có quyền truy cập vào chức năng này");
         }
     }//GEN-LAST:event_btnNhanVienMouseClicked
 

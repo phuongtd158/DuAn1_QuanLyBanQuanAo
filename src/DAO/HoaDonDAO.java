@@ -16,13 +16,13 @@ import java.sql.* ;
  */
 public class HoaDonDAO extends Main< HoaDon, String >{
     private String selectAll = "select * from HOADON" ;
-    private String Insert = "Insert into HOADON ( MaKH , MaNV , MaHTTT ) values ( ? , ? , ? ) " ;
+    private String Insert = "Insert into HOADON ( MaKH , MaNV , MaHTTT , TrangThai ) values ( ? , ? , ? , ?) " ;
     private String selectByID = "select * from HOADON where MaHD like ? " ; 
-    String Update = "Update HOADON set TrangThai = 1 where MaHD = ? " ;
+    String Update = "Update HOADON set TrangThai = 1 where MaHD like ? " ;
     
     @Override
     public void insert(HoaDon entity) {
-        JDBCHelper.Update(Insert, entity.getMaKH() , entity.getMaHD() , entity.getMaHTTT() ) ;
+        JDBCHelper.Update(Insert, entity.getMaKH() , entity.getMaNV() , entity.getMaHTTT() , entity.getTrangThai() ) ;
     }
 
     @Override

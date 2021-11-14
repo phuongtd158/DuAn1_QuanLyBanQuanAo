@@ -26,34 +26,44 @@ public class SanPhamDAO extends Main< SanPham, String> {
             + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
 
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
+    String Update_3 = " Update CHITIETSANPHAM set SoLuong = ?  where MaCTSP = ? "; 
+    
     String Update_HienThiSanPham = " UPDATE dbo.CHITIETSANPHAM SET TrangThai = 1, SoLuong = ? WHERE MaCTSP = ? ";
 
-    String SelectID = "select * from SANPHAM where TenSp = ? ";   
+    String SelectID = "select * from SANPHAM where TenSp like ? ";
     String SelectID_1 = "select * from SANPHAM where MaCTSP = ? ";
+    
+    String SelectAlll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
+            + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
+            + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
+            + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
+            + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP ";
     
     String SelectAll = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
             + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
             + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
-            + " where TenSp like ? ";   
-    
+            + " where TenSp like ? ";
+
     String SelectAll_2 = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
             + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
             + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
             + " where TenSp like ? and CHITIETSANPHAM.MaCTSP like ? and TenMauSac like ? and TenChatLieu like ? and KichThuoc like ? and TenLoai like ? ";
-    
+
     String SelectAll_3 = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
             + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
             + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
             + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
             + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
-            + " where MaCTSP like ? ";  
+            + " where MaCTSP like ? ";
 // Insert
+
     @Override
     public void insert(SanPham entity) {
+        JDBCHelper.Update( Update_3, entity.getSoLuong() , entity.getMaCTSP() ) ;
     }
 
     public void Insert_SP(String k) {
@@ -68,7 +78,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
     // Update
     @Override
     public void update(SanPham entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.Update( Update_3, entity.getSoLuong() , entity.getMaCTSP() );
     }
 
     public void Update_1(SanPham entity) {
@@ -92,22 +102,21 @@ public class SanPhamDAO extends Main< SanPham, String> {
     // Các câu select
     @Override
     public List<SanPham> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectBySQL(SelectAlll);
     }
-    
-    public List<SanPham> selectAll_2( String k ) {
-        return selectBySQL( SelectAll  , "%" + k + "%" );
+
+    public List<SanPham> selectAll_2(String k) {
+        return selectBySQL(SelectAll, "%" + k + "%");
     }
-    
-    public List<SanPham> selectAll_3( String ...k ) {
-        return selectBySQL( SelectAll_2  , "%" + k[0] + "%" , "%" + k[1] + "%" , "%" + k[2] + "%" ,
-                           "%" + k[3] + "%" , "%" + k[4] + "%" , "%" + k[5] + "%" );
+
+    public List<SanPham> selectAll_3(String... k) {
+        return selectBySQL(SelectAll_2, "%" + k[0] + "%", "%" + k[1] + "%", "%" + k[2] + "%",
+                "%" + k[3] + "%", "%" + k[4] + "%", "%" + k[5] + "%");
     }
-    
+
 //    public List<SanPham> selectAll_4( String k ) {
 //        return selectBySQL( SelectAll_3  , "%" + k + "%" );
 //    } 
-
     public void hienThiSanPham(int id, int soLuong) {
         if (soLuong > 0) {
             JDBCHelper.Update(Update_HienThiSanPham, soLuong, id);
@@ -126,6 +135,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
         return sk;
@@ -134,7 +144,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
     @Override
     public SanPham selectByID(String id) {
         try {
-            List<SanPham> list = this.selectBySQL( SelectID_1 , id);
+            List<SanPham> list = this.selectBySQL(SelectID_1, id);
             if (list.isEmpty()) {
                 return null;
             }
@@ -142,12 +152,12 @@ public class SanPhamDAO extends Main< SanPham, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null ;
+        return null;
     }
 
     public SanPham selectByID2(String id) {
         try {
-            List<SanPham> list = this.selectBySQL( SelectAll_3 , id);
+            List<SanPham> list = this.selectBySQL(SelectAll_3, id);
             if (list.isEmpty()) {
                 return null;
             }

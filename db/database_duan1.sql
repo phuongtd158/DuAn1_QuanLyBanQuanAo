@@ -166,3 +166,12 @@ insert into HINHTHUCTHANHTOAN ( TenHTTT )
 values (N'Tiền mặt') , 
        (N'Quẹt thẻ') ,
 	   (N'Chuyển khoản' )
+
+select * from HOADON
+select * from HOADONCHITIET
+select * from KHACHHANG
+
+
+delete from KHACHHANG 
+delete from HOADON
+
