@@ -76,5 +76,21 @@ public class HoaDonDAO extends Main< HoaDon, String >{
             throw new RuntimeException() ;
         }
     }
+    public List<Integer> getYear() {
+        String sql = "SELECT DISTINCT YEAR(NgayKhoiTao) AS Nam FROM dbo.HOADON \n"
+                + "ORDER BY YEAR(NgayKhoiTao) DESC";
+        List<Integer> list = new ArrayList<>();
+        ResultSet rs;
+        try {
+            rs = JDBCHelper.query(sql);
+            while (rs.next()) {
+                list.add(rs.getInt("Nam"));
+            }
+            rs.getStatement().getConnection().close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
     
 }

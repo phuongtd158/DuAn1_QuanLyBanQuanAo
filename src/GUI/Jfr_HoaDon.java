@@ -1018,7 +1018,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             SanPham sp = daoSP.selectByID2(tbGioHang.getValueAt(i, 1).toString());
             sp.setSoLuong(sp.getSoLuong() - soLuong);
             daoSP.update(sp);
-            if (daoHD.selectByID(tbGioHang.getValueAt(i, 1).toString()) != null) {
+            if (daoHD.selectByID(tbGioHang.getValueAt(i, 1).toString()) == null) {
                 hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(i, 1).toString()));
                 hdct.setSoLuong(soLuong);
                 hdct.setGia(Double.valueOf(tbGioHang.getValueAt(i, 4).toString()));
@@ -1033,9 +1033,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         int k = tbDanhSachHD.getSelectedRow();
 
-        if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã thanh toán")) {
-            MsgBox.alert(this, "Hóa đơn đã được thanh toán");
-        } else {
+//        if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã thanh toán")) {
+//            MsgBox.alert(this, "Hóa đơn đã được thanh toán");
+//        } else {
             if (k >= 0) {
                 String MaHD = tbDanhSachHD.getValueAt( k , 1).toString();
 //                HoaDon hd = daoHD.selectByID(MaHD);
@@ -1047,7 +1047,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 ThemVaoHoaDonCT(0);
             }
             MsgBox.alert( this , "Thanh toán thành công");
-        }
+        
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void ThemHoaDon2(Boolean tthai) {
