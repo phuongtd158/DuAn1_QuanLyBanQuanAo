@@ -7,6 +7,7 @@ package GUI;
 
 import DAO.HoaDonDAO;
 import DAO.ThongKeDAO;
+import Ultil.Auth;
 import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.Color;
@@ -33,7 +34,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author ADMIN
  */
 public class Jfr_ThongKe extends javax.swing.JInternalFrame {
-
+    
     ChartPanel c;
     ThongKeDAO dao_tk = new ThongKeDAO();
     HoaDonDAO dao_hd = new HoaDonDAO();
@@ -51,8 +52,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         doVaoCbbNam();
         doVaoCbbTG();
-        if (Float.parseFloat(lbTongDoanhThu.getText()) > 100000) {
+        if (lbTongDoanhThu.getText().length() >= 5) {
             lbTongDoanhThu.setFont(new Font("Segoe UI", Font.PLAIN, 26));
+        }
+        if (Auth.user.getVaiTro() == false) {
+            jTabbedPane1.remove(0);
+            lbTongDoanhThu.setText("0");
+            cbbLoaiThoiGian.removeItemAt(1);
         }
     }
 
@@ -61,17 +67,17 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         try {
             model_cbbNam = (DefaultComboBoxModel) cbbNam_DoanhThu.getModel();
             model_cbbNam_sp = (DefaultComboBoxModel) cbbNam_SanPham.getModel();
-
+            
             model_cbbNam.removeAllElements();
             model_cbbNam_sp.removeAllElements();
-
+            
             List<Integer> list = dao_hd.getYear();
-
+            
             for (Integer x : list) {
                 model_cbbNam.addElement(x);
                 model_cbbNam_sp.addElement(x);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +118,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             if (cbbNam_DoanhThu.getSelectedItem() != null) {
                 int nam = (Integer) cbbNam_SanPham.getSelectedItem();
                 List<Object[]> list = dao_tk.getSanPham(nam);
-
+                
                 for (Object[] x : list) {
                     model.addRow(x);
                 }
@@ -141,10 +147,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     //Hiển thị sô lượng lên các label thống kê
     private void thongKe() {
         try {
-
+            
             int tongNhanVien = dao_tk.getTongNhanVien();
             lbTongNhanVien.setText(String.valueOf(tongNhanVien));
-
+            
             String ngayBatDau = ((JTextField) txtNgayBatDau.getDateEditor().getUiComponent()).getText();
             String ngayKetThuc = ((JTextField) txtNgayKetThuc.getDateEditor().getUiComponent()).getText();
             if (cbbLoaiThoiGian.getSelectedItem() != null) {
@@ -152,30 +158,30 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     hide_();
                     int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
                     lbTongDonHang.setText(String.valueOf(tongDonHang));
-
+                    
                     float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                     lbTongDoanhThu.setText(String.valueOf(tongDoanhThu));
-
+                    
                     int tongSanPham = dao_tk.getTongSanPham_ngay(LocalDate.now().toString());
                     lbTongSanPham.setText(String.valueOf(tongSanPham));
                 } else {
                     show_();
                     int tongDonHang = dao_tk.getTongDonHang(ngayBatDau, ngayKetThuc);
                     lbTongDonHang.setText(String.valueOf(tongDonHang));
-
+                    
                     float tongDoanhThu = dao_tk.getTongDoanhThu(ngayBatDau, ngayKetThuc);
                     lbTongDoanhThu.setText(String.valueOf(tongDoanhThu));
-
+                    
                     int tongSanPham = dao_tk.getTongSanPham(ngayBatDau, ngayKetThuc);
                     lbTongSanPham.setText(String.valueOf(tongSanPham));
                 }
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     private void show_() {
         txtNgayBatDau.setVisible(true);
         txtNgayKetThuc.setVisible(true);
@@ -183,7 +189,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel18.setVisible(true);
         jButton1.setVisible(true);
     }
-
+    
     private void hide_() {
         txtNgayBatDau.setVisible(false);
         txtNgayKetThuc.setVisible(false);
@@ -510,7 +516,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel10.setText("Tổng doanh thu");
         jPanel18.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbTongDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThu.setText("0");
         jPanel18.add(lbTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 40));
@@ -640,12 +646,12 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         for (int i = 0; i < tblDoanhThu.getRowCount(); i++) {
             set.setValue(Float.parseFloat(tblDoanhThu.getValueAt(i, 4).toString()), "Doanh thu", String.valueOf(tblDoanhThu.getValueAt(i, 0)));
         }
-
+        
         JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "Tháng", "Tổng doanh thu", set, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.ORANGE);
         c = new ChartPanel(chart);
-
+        
         jPanel7.removeAll();
         jPanel7.add(c);
         tblDoanhThu.updateUI();
@@ -663,22 +669,22 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel11.setVisible(false);
         jPanel12.setVisible(true);
         DefaultCategoryDataset set = new DefaultCategoryDataset();
-
+        
         for (int i = 0; i < tblSanPham.getRowCount(); i++) {
             set.setValue(Integer.parseInt(tblSanPham.getValueAt(i, 3).toString()), "Sản phẩm", String.valueOf(tblSanPham.getValueAt(i, 2)));
         }
-
+        
         JFreeChart chart = ChartFactory.createBarChart("Top 10 sản phẩm bán chạy", "Tên sản phẩm", "Số lượng sản phẩm", set, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.ORANGE);
         c = new ChartPanel(chart);
-
+        
         jPanel12.removeAll();
         jPanel12.add(c);
         tblSanPham.updateUI();
         jPanel12.updateUI();
     }//GEN-LAST:event_jRadioButton4MouseClicked
-
+    
 
     private void cbbNam_DoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNam_DoanhThuActionPerformed
         doVaoDoanhThu();
@@ -699,7 +705,11 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         if (Check.checkTrongJdate(txtNgayBatDau) && Check.checkTrongJdate(txtNgayKetThuc)) {
             if (checkNgay()) {
-                thongKe();
+                if (Auth.user.getVaiTro() == false) {
+                    lbTongDoanhThu.setText("0");
+                } else {
+                    thongKe();
+                }
             }
         }
     }//GEN-LAST:event_jButton1MouseClicked
