@@ -11,14 +11,19 @@ import Ultil.Auth;
 import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.Color;
-import static java.awt.Color.pink;
-import static java.awt.Color.white;
-import java.awt.Font;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +39,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author ADMIN
  */
 public class Jfr_ThongKe extends javax.swing.JInternalFrame {
-    
+
     ChartPanel c;
     ThongKeDAO dao_tk = new ThongKeDAO();
     HoaDonDAO dao_hd = new HoaDonDAO();
@@ -52,32 +57,75 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         doVaoCbbNam();
         doVaoCbbTG();
-        if (lbTongDoanhThu.getText().length() >= 5) {
-            lbTongDoanhThu.setFont(new Font("Segoe UI", Font.PLAIN, 26));
-        }
         if (Auth.user.getVaiTro() == false) {
             jTabbedPane1.remove(0);
-            lbTongDoanhThu.setText("0");
+
+            lbTongDoanhThuThang.setText("0" + " VND");
+            lbTongDoanhThuNam.setText("0" + " VND");
             cbbLoaiThoiGian.removeItemAt(1);
+        } else {
+            jButton2.setVisible(false);
         }
     }
 
-    //Đổ vào cbb năm
+    //Gửi email
+    public void sendEmail() {
+        try {
+            Calendar c1 = Calendar.getInstance();
+            c1.get(Calendar.DATE);
+            String host = "smtp.gmail.com";
+            String user = "quanlybanquanaopoly@gmail.com";
+            String pass = "Poly123456";
+            String to = "phuongtdph13747@fpt.edu.vn";
+            String subjectString = "Báo cáo doanh thu ngày" + "(" + java.time.LocalDate.now() + ")";
+            String message = "Tổng đơn hàng của ngày hôm nay: " + ": " + lbTongDonHang.getText() + "\n" + "Tổng doanh thu của ngày hôm nay: " + ": " + lbTongDoanhThuNgay.getText() + "\n" + "Nhân viên bán hàng: " + Auth.user.getTenNV();
+            boolean sessionDebug = false;
+            Properties pros = System.getProperties();
+            pros.put("mail.smtp.starttls.enable", "true");
+            pros.put("mail.smtp.host", "host");
+            pros.put("mail.smtp.port", "587");
+            pros.put("mail.smtp.auth", "true");
+            pros.put("mail.smtp.starttls.required", "true");
+//        java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+
+            Session mailSession = Session.getDefaultInstance(pros, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(user));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subjectString);
+            msg.setText(message);
+            Transport transport = mailSession.getTransport("smtps");
+
+            transport.connect(host, user, pass);
+            transport.sendMessage(msg, msg.getAllRecipients());
+
+            transport.close();
+            MsgBox.alert(this, "Báo cáo thành công");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+            ex.printStackTrace();
+        }
+
+    }
+
+//Đổ vào cbb năm
     private void doVaoCbbNam() {
         try {
             model_cbbNam = (DefaultComboBoxModel) cbbNam_DoanhThu.getModel();
             model_cbbNam_sp = (DefaultComboBoxModel) cbbNam_SanPham.getModel();
-            
+
             model_cbbNam.removeAllElements();
             model_cbbNam_sp.removeAllElements();
-            
+
             List<Integer> list = dao_hd.getYear();
-            
+
             for (Integer x : list) {
                 model_cbbNam.addElement(x);
                 model_cbbNam_sp.addElement(x);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +166,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             if (cbbNam_DoanhThu.getSelectedItem() != null) {
                 int nam = (Integer) cbbNam_SanPham.getSelectedItem();
                 List<Object[]> list = dao_tk.getSanPham(nam);
-                
+
                 for (Object[] x : list) {
                     model.addRow(x);
                 }
@@ -147,41 +195,58 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     //Hiển thị sô lượng lên các label thống kê
     private void thongKe() {
         try {
-            
-            int tongNhanVien = dao_tk.getTongNhanVien();
-            lbTongNhanVien.setText(String.valueOf(tongNhanVien));
-            
+
+            //Lấy ngày tháng từ textfield
             String ngayBatDau = ((JTextField) txtNgayBatDau.getDateEditor().getUiComponent()).getText();
             String ngayKetThuc = ((JTextField) txtNgayKetThuc.getDateEditor().getUiComponent()).getText();
+
+            //Lấy tháng, năm hiện tại ở máy tính
+            Calendar c1 = Calendar.getInstance();
+            int thang = c1.get(Calendar.MONTH) + 1;
+            int nam = c1.get(Calendar.YEAR);
+
+            float tongDoanhThuThang = dao_tk.getTongDoanhThuThang(thang);
+            lbTongDoanhThuThang.setText(String.valueOf(tongDoanhThuThang) + " VND");
+
+            float tongDoanhThuNam = dao_tk.getTongDoanhThuNam(nam);
+            lbTongDoanhThuNam.setText(String.valueOf(tongDoanhThuNam) + " VND");
+
             if (cbbLoaiThoiGian.getSelectedItem() != null) {
                 if (cbbLoaiThoiGian.getSelectedItem().toString().equals("Hôm nay")) {
                     hide_();
-                    int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
-                    lbTongDonHang.setText(String.valueOf(tongDonHang));
-                    
-                    float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
-                    lbTongDoanhThu.setText(String.valueOf(tongDoanhThu));
-                    
-                    int tongSanPham = dao_tk.getTongSanPham_ngay(LocalDate.now().toString());
-                    lbTongSanPham.setText(String.valueOf(tongSanPham));
+                    if (Auth.user.getVaiTro() == false) {
+                        int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
+                        lbTongDonHang.setText(String.valueOf(tongDonHang));
+                        float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
+                        lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+                        lbTongDoanhThuThang.setText("0" + " VND");
+                        lbTongDoanhThuNam.setText("0" + " VND");
+
+                    } else {
+                        int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
+                        lbTongDonHang.setText(String.valueOf(tongDonHang));
+
+                        float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
+                        lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+                    }
+
                 } else {
                     show_();
                     int tongDonHang = dao_tk.getTongDonHang(ngayBatDau, ngayKetThuc);
                     lbTongDonHang.setText(String.valueOf(tongDonHang));
-                    
+
                     float tongDoanhThu = dao_tk.getTongDoanhThu(ngayBatDau, ngayKetThuc);
-                    lbTongDoanhThu.setText(String.valueOf(tongDoanhThu));
-                    
-                    int tongSanPham = dao_tk.getTongSanPham(ngayBatDau, ngayKetThuc);
-                    lbTongSanPham.setText(String.valueOf(tongSanPham));
+                    lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
+    //Hiển thị ô nhập ngày tháng
     private void show_() {
         txtNgayBatDau.setVisible(true);
         txtNgayKetThuc.setVisible(true);
@@ -189,7 +254,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel18.setVisible(true);
         jButton1.setVisible(true);
     }
-    
+
+    //Ẩn ô nhập ngày tháng
     private void hide_() {
         txtNgayBatDau.setVisible(false);
         txtNgayKetThuc.setVisible(false);
@@ -208,6 +274,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -236,6 +303,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         tblSanPham = new javax.swing.JTable();
         jLabel21 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -244,15 +312,15 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        lbTongDoanhThu = new javax.swing.JLabel();
+        lbTongDoanhThuNgay = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        lbTongNhanVien = new javax.swing.JLabel();
+        lbTongDoanhThuNam = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        lbTongSanPham = new javax.swing.JLabel();
+        lbTongDoanhThuThang = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cbbLoaiThoiGian = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
@@ -323,8 +391,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jPanel6.add(jPanel8);
@@ -398,7 +466,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel20.setText("Lựa chọn hiển thị");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
-        buttonGroup1.add(jRadioButton3);
+        buttonGroup2.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Bảng");
         jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -407,7 +476,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         });
         jPanel3.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        buttonGroup1.add(jRadioButton4);
+        buttonGroup2.add(jRadioButton4);
         jRadioButton4.setText("Biểu đồ");
         jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -431,9 +500,17 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán"
+                "STT", "Tên sản phẩm", "Số lượng bán"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblSanPham.setRowHeight(25);
         jScrollPane2.setViewportView(tblSanPham);
         if (tblSanPham.getColumnModel().getColumnCount() > 0) {
@@ -464,8 +541,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel11);
@@ -477,6 +554,16 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 510));
 
         jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 1010, 720));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton2.setText("Báo cáo doanh thu");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 210, 50));
 
         jTabbedPane1.addTab("Sản phẩm", jPanel3);
 
@@ -513,13 +600,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Tổng doanh thu");
+        jLabel10.setText("Tổng doanh thu theo ngày");
         jPanel18.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lbTongDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
-        lbTongDoanhThu.setText("0");
-        jPanel18.add(lbTongDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 40));
+        lbTongDoanhThuNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbTongDoanhThuNgay.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDoanhThuNgay.setText("0");
+        jPanel18.add(lbTongDoanhThuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
 
         jPanel16.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 270, 130));
 
@@ -531,13 +618,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Tổng nhân viên");
+        jLabel14.setText("Tổng doanh thu theo năm");
         jPanel20.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbTongNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lbTongNhanVien.setForeground(new java.awt.Color(255, 255, 255));
-        lbTongNhanVien.setText("0");
-        jPanel20.add(lbTongNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 40));
+        lbTongDoanhThuNam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbTongDoanhThuNam.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDoanhThuNam.setText("0");
+        jPanel20.add(lbTongDoanhThuNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, 40));
 
         jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 260, 130));
 
@@ -549,13 +636,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Tổng sản phẩm");
+        jLabel12.setText("Tổng doanh thu theo tháng");
         jPanel19.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbTongSanPham.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lbTongSanPham.setForeground(new java.awt.Color(255, 255, 255));
-        lbTongSanPham.setText("0");
-        jPanel19.add(lbTongSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 40));
+        lbTongDoanhThuThang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbTongDoanhThuThang.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDoanhThuThang.setText("0");
+        jPanel19.add(lbTongDoanhThuThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, 40));
 
         jPanel16.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 270, 130));
 
@@ -646,12 +733,12 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         for (int i = 0; i < tblDoanhThu.getRowCount(); i++) {
             set.setValue(Float.parseFloat(tblDoanhThu.getValueAt(i, 4).toString()), "Doanh thu", String.valueOf(tblDoanhThu.getValueAt(i, 0)));
         }
-        
+
         JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "Tháng", "Tổng doanh thu", set, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.ORANGE);
         c = new ChartPanel(chart);
-        
+
         jPanel7.removeAll();
         jPanel7.add(c);
         tblDoanhThu.updateUI();
@@ -669,22 +756,22 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel11.setVisible(false);
         jPanel12.setVisible(true);
         DefaultCategoryDataset set = new DefaultCategoryDataset();
-        
+
         for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-            set.setValue(Integer.parseInt(tblSanPham.getValueAt(i, 3).toString()), "Sản phẩm", String.valueOf(tblSanPham.getValueAt(i, 2)));
+            set.setValue(Integer.parseInt(tblSanPham.getValueAt(i, 2).toString()), "Sản phẩm", String.valueOf(tblSanPham.getValueAt(i, 1)));
         }
-        
+
         JFreeChart chart = ChartFactory.createBarChart("Top 10 sản phẩm bán chạy", "Tên sản phẩm", "Số lượng sản phẩm", set, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.ORANGE);
         c = new ChartPanel(chart);
-        
+
         jPanel12.removeAll();
         jPanel12.add(c);
         tblSanPham.updateUI();
         jPanel12.updateUI();
     }//GEN-LAST:event_jRadioButton4MouseClicked
-    
+
 
     private void cbbNam_DoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNam_DoanhThuActionPerformed
         doVaoDoanhThu();
@@ -706,7 +793,9 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         if (Check.checkTrongJdate(txtNgayBatDau) && Check.checkTrongJdate(txtNgayKetThuc)) {
             if (checkNgay()) {
                 if (Auth.user.getVaiTro() == false) {
-                    lbTongDoanhThu.setText("0");
+
+                    lbTongDoanhThuThang.setText("0" + " VND");
+                    lbTongDoanhThuNam.setText("0" + " VND");
                 } else {
                     thongKe();
                 }
@@ -730,13 +819,21 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         thongKe();
     }//GEN-LAST:event_cbbLoaiThoiGianActionPerformed
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+        sendEmail();
+
+    }//GEN-LAST:event_jButton2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbLoaiThoiGian;
     private javax.swing.JComboBox<String> cbbNam_DoanhThu;
     private javax.swing.JComboBox<String> cbbNam_SanPham;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -777,10 +874,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lbTongDoanhThu;
+    private javax.swing.JLabel lbTongDoanhThuNam;
+    private javax.swing.JLabel lbTongDoanhThuNgay;
+    private javax.swing.JLabel lbTongDoanhThuThang;
     private javax.swing.JLabel lbTongDonHang;
-    private javax.swing.JLabel lbTongNhanVien;
-    private javax.swing.JLabel lbTongSanPham;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblSanPham;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
