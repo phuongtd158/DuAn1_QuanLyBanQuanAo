@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
             <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DoiMatKhau.java</file>
             <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_NhanVien.java</file>
             <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
+=======
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonDAO.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPhamAn.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/listHDCT.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/ThongKeDAO.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_ThongKe.java</file>
+>>>>>>> 264caa9e6da733f59722cdd0230dcd16e1461f35
         </group>
     </open-files>
 </project-private>

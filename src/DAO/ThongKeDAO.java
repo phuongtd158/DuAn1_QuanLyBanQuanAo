@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-
 /**
  *
  * @author ADMIN
@@ -48,7 +47,7 @@ public class ThongKeDAO {
                 rs = JDBCHelper.query(sql, nam);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("STT"), rs.getInt("MaSP"), rs.getString("TenSP"), rs.getInt("SoLuongBan")
+                        rs.getInt("STT"), rs.getString("TenSP"), rs.getInt("SoLuongBan")
                     });
                 }
                 rs.getStatement().getConnection().close();
@@ -125,51 +124,36 @@ public class ThongKeDAO {
         return tongDoanhThu;
     }
 
-    public int getTongSanPham(String ngayBatDau, String ngayKetThuc) {
-        int tongSanPham = 0;
-        String sql = "{CALL SP_TONGSANPHAM(?, ?)}";
+    public float getTongDoanhThuThang(int thang) {
+        float tongDoanhThu = 0;
+        String sql = "{CALL SP_DOANHTHUTHANG(?)}";
         ResultSet rs = null;
         try {
-            rs = JDBCHelper.query(sql, ngayBatDau, ngayKetThuc);
+            rs = JDBCHelper.query(sql, thang);
             while (rs.next()) {
-                tongSanPham = rs.getInt("TongSanPham");
+                tongDoanhThu = rs.getInt("DoanhThuThang");
             }
             rs.getStatement().getConnection().close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tongSanPham;
+        return tongDoanhThu;
     }
-
-    public int getTongSanPham_ngay(String ngayBatDau) {
-        int tongSanPham = 0;
-        String sql = "{CALL SP_TONGSANPHAM_Ngay(?)}";
+    
+     public float getTongDoanhThuNam(int nam) {
+        float tongDoanhThu = 0;
+        String sql = "{CALL SP_DOANHTHUNAM(?)}";
         ResultSet rs = null;
         try {
-            rs = JDBCHelper.query(sql, ngayBatDau);
+            rs = JDBCHelper.query(sql, nam);
             while (rs.next()) {
-                tongSanPham = rs.getInt("TongSanPham");
+                tongDoanhThu = rs.getInt("DoanhThuNam");
             }
             rs.getStatement().getConnection().close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return tongSanPham;
-    }
-
-    public int getTongNhanVien() {
-        int tongNhanVien = 0;
-        String sql = "SELECT COUNT(MaNV) AS TongNhanVien FROM dbo.NHANVIEN WHERE TrangThai = 1";
-        try {
-            ResultSet rs = null;
-            rs = JDBCHelper.query(sql);
-            while (rs.next()) {
-                tongNhanVien = rs.getInt("TongNhanVien");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return tongNhanVien;
+        return tongDoanhThu;
     }
 
 }

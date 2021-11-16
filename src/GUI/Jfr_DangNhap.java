@@ -216,12 +216,17 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
 
         jLabel5.setForeground(new java.awt.Color(81, 81, 81));
         jLabel5.setText("Quên mật khẩu ?");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Be Vietnam Pro ExtraBold", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(81, 81, 81));
         jLabel7.setText("Đăng nhập");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 120, 40));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 110, 40));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_user_20px.png"))); // NOI18N
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 20, -1));
@@ -298,6 +303,13 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
             dangnhap();
         }
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        Jfr_QuenMatKhau mk = new Jfr_QuenMatKhau();
+        mk.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
