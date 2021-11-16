@@ -40,6 +40,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -171,8 +172,18 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             try {
                 result = new MultiFormatReader().decode(bitmap);
                 
-                ThemSPVaoGioHang(result.getText());
-                XapXepLaiGioHang();
+                String sk = JOptionPane.showInputDialog( this , "Nhập số lượng", "Hệ thống quản lý", JOptionPane.YES_NO_OPTION ) ;
+                try {
+                    int so = Integer.valueOf(sk);
+                    if (so < 0) {
+                        MsgBox.alert(this, "Vui lòng nhập số dương");
+                    } else {
+                        ThemSPVaoGioHang(result.getText() , so );
+                        XapXepLaiGioHang();
+                    }
+                } catch (Exception e) {
+                    MsgBox.alert(this, "Vui lòng nhập số");
+                }
             } catch (NotFoundException e) {
 
             }
@@ -206,7 +217,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     }
 
     // Đổ dữ liệu vào giỏ hàng 
-    private void ThemSPVaoGioHang(String Ma) {
+    private void ThemSPVaoGioHang( String Ma , int k  ) {
 //        int count=0 ;
         try {
             if (model_tableGioHang.getRowCount() > 0) {
@@ -220,8 +231,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
 //            model_tableHoaDon.setRowCount(count);
             SanPham sp = daoSP.selectByID2(Ma);
-            model_tableGioHang.addRow(new Object[]{count + 1, sp.getMaCTSP(), sp.getTenSP(), 1, sp.getGia(),
-                sp.getGiamGia(), 1 * sp.getGia() * (1 - sp.getGiamGia() / 100), false});
+            model_tableGioHang.addRow(new Object[]{count + 1, sp.getMaCTSP(), sp.getTenSP(), k , sp.getGia(),
+                sp.getGiamGia(), k * sp.getGia() * (1 - sp.getGiamGia() / 100), false});
             TinhTien();
             count++;
 
@@ -535,9 +546,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel52.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         txtKhachDua.setText("0");
-        txtKhachDua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKhachDuaActionPerformed(evt);
+        txtKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKhachDuaKeyReleased(evt);
             }
         });
         jPanel52.add(txtKhachDua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 130, -1));
@@ -611,7 +622,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 jButton13ActionPerformed(evt);
             }
         });
-        jPanel52.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, 120, 60));
+        jPanel52.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, 120, 60));
 
         jButton15.setBackground(new java.awt.Color(255, 255, 255));
         jButton15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -622,7 +633,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 jButton15ActionPerformed(evt);
             }
         });
-        jPanel52.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 250, 60));
+        jPanel52.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 120, 60));
 
         jButton16.setBackground(new java.awt.Color(255, 255, 255));
         jButton16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -633,7 +644,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 jButton16ActionPerformed(evt);
             }
         });
-        jPanel52.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 120, 60));
+        jPanel52.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 260, 60));
 
         tabHoaDon.addTab("Hóa đơn", jPanel52);
 
@@ -652,9 +663,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel54.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         txtKhachDua2.setText("0");
-        txtKhachDua2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKhachDua2ActionPerformed(evt);
+        txtKhachDua2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKhachDua2KeyReleased(evt);
             }
         });
         jPanel54.add(txtKhachDua2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 130, -1));
@@ -836,16 +847,12 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         count = 0;
     }
 
-    private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
-        LamTrangForm();
-    }//GEN-LAST:event_btnTaoHDActionPerformed
-
     // Click vào bảng danh sách hóa đơn để đổ vào giỏ hàng
     private void tbDanhSachSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachSPMouseClicked
         Index = tbDanhSachSP.getSelectedRow();
 
         if (MsgBox.comfirm(this, "Bạn có muốn thêm không")) {
-            ThemSPVaoGioHang(tbDanhSachSP.getValueAt(Index, 0).toString());
+            ThemSPVaoGioHang(tbDanhSachSP.getValueAt(Index, 0).toString() , 1 );
             XapXepLaiGioHang();
         }
     }//GEN-LAST:event_tbDanhSachSPMouseClicked
@@ -853,11 +860,11 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     // Hàng cập nhập thông tin
     private void tbGioHangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbGioHangKeyReleased
         Index = tbGioHang.getSelectedRow();
-        SanPham sp = daoSP.selectByID2( tbGioHang.getValueAt( Index , 1).toString() );
-        
-        if( sp.getSoLuong() <  Integer.valueOf(tbGioHang.getValueAt( Index, 3).toString())   ){
-            MsgBox.alert( this , "Số lượng sản phẩm còn " + sp.getSoLuong() );
-            tbGioHang.setValueAt( sp.getSoLuong() , Index , 3 );
+        SanPham sp = daoSP.selectByID2(tbGioHang.getValueAt(Index, 1).toString());
+
+        if (sp.getSoLuong() < Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString())) {
+            MsgBox.alert(this, "Số lượng sản phẩm còn " + sp.getSoLuong());
+            tbGioHang.setValueAt(sp.getSoLuong(), Index, 3);
         }
 
         Double SoLuong = Double.valueOf(tbGioHang.getValueAt(Index, 3).toString());
@@ -866,7 +873,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         tbGioHang.setValueAt(SoLuong * DonGia * (1 - GiamGia / 100), Index, 6);
         TinhTien();
-        
+
     }//GEN-LAST:event_tbGioHangKeyReleased
 
     //Hàm xóa ở giỏ hàng 
@@ -945,18 +952,10 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         lbKhachTra2.setText(String.valueOf(tk * (1 - b / 100)));
     }
 
-    // hàm thêm hóa đơn
-//    private void ThemHoaDonTaiCho() {
-//        Index = cbbHTThanhToan.getSelectedIndex();
-//        if (Check.checkTrongText(txtTenKH) && Check.checkTrongText(txtSDT)) {
-//            if (Index > 0) {
-//
-//            }
-//        }
-//    }
-
     // nút thanh toán ở form hóa đơn
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        ThemHoaDon(false);
+        LuuHoaDonCT();
         LamTrangForm();
     }//GEN-LAST:event_jButton15ActionPerformed
 
@@ -973,24 +972,24 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         kh.setDiaChi("Not");
         kh.setTrangThai(tthai);
         try {
-            if ( daoKH.selectByID_2(txtSDT.getText()) < 1 ) {
+            if (daoKH.selectByID_2(txtSDT.getText()) < 1) {
                 daoKH.insert(kh);
             }
-            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT() , tthai );
+            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai);
         } catch (Exception e) {
         }
     }
 
     //Thêm vào hóa đơn
-    private void ThemVaoHoaDon(String SDT, int HTTT , Boolean tt) {
+    private void ThemVaoHoaDon(String SDT, int HTTT, Boolean tt) {
         int k = daoKH.selectByID_2(SDT);
 
         HoaDon hd = new HoaDon();
         hd.setMaKH(k);
         hd.setMaHTTT(HTTT);
-        hd.setMaNV( Auth.user.getMaNV() );
+        hd.setMaNV(Auth.user.getMaNV());
         hd.setTrangThai(tt);
-        
+
         daoHD.insert(hd);
         DoVaoTableDanhSachHD();
     }
@@ -998,8 +997,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     // Hàm Sp 
     private void LuuHoaDonCT() {
         HoaDonCT hdct = new HoaDonCT();
-        
-        
+
         hdct.setMaHD(Integer.valueOf(tbDanhSachHD.getValueAt(0, 1).toString()));
         for (int i = 0; i < tbGioHang.getRowCount(); i++) {
             hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(i, 1).toString()));
@@ -1010,9 +1008,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             daoCTHD.insert(hdct);
         }
     }
-    
+
     // Thêm vào hóa đơn chi tiết
-    private void ThemVaoHoaDonCT( int k ) {
+    private void ThemVaoHoaDonCT(int k) {
         HoaDonCT hdct = new HoaDonCT();
 
         hdct.setMaHD(k);
@@ -1029,36 +1027,32 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 hdct.setGiamGia(Double.valueOf(tbGioHang.getValueAt(i, 5).toString()));
                 hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(i, 6).toString()));
                 daoCTHD.insert(hdct);
-            }
+                }
         }
     }
-
-    // Nút thành toán 
+        // Nút thành toán 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         int k = tbDanhSachHD.getSelectedRow();
-        listHD = (ArrayList<HoaDon>) daoHD.selectAll() ;
+        listHD = (ArrayList<HoaDon>) daoHD.selectAll();
 
-
-//        if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã thanh toán")) {
-
-//        if ( tbDanhSachHD.getValueAt( k, 4 ).toString().equalsIgnoreCase("Đã thanh toán") && k >= 0) {
-//            MsgBox.alert(this, "Hóa đơn đã được thanh toán");
-//        } else {
+        if (tbGioHang.getRowCount() == 0) {
+            MsgBox.alert( this , "Giỏ hàng trống không thể thanh toán");
+        } else {
             if (k >= 0) {
-                String MaHD = tbDanhSachHD.getValueAt( k , 1).toString();
+                String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
 //                HoaDon hd = daoHD.selectByID(MaHD);
-                daoHD.update1( MaHD );
-                ThemVaoHoaDonCT( Integer.valueOf(MaHD) );
+                daoHD.update1(MaHD);
+                ThemVaoHoaDonCT(Integer.valueOf(MaHD));
                 DoVaoTableDanhSachHD();
             } else {
                 ThemHoaDon(true);
-                int skk = listHD.get( listHD.size() - 1 ).getMaHD() ;
-                ThemVaoHoaDonCT( skk );
+                int skk = listHD.get(listHD.size() - 1).getMaHD();
+                ThemVaoHoaDonCT(skk);
             }
             LamTrangForm();
-            MsgBox.alert( this , "Thanh toán thành công");
+            MsgBox.alert(this, "Thanh toán thành công");
+        }
 
-//        }
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void ThemHoaDon2(Boolean tthai) {
@@ -1074,7 +1068,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         kh.setTrangThai(tthai);
         try {
             daoKH.insert(kh);
-            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT() , tthai );
+            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai);
         } catch (Exception e) {
         }
     }
@@ -1084,30 +1078,30 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         ThemHoaDon2(false);
         LuuHoaDonCT();
         LamTrangForm();
-        MsgBox.alert( this , "Bắt đầu giao hàng");
+        MsgBox.alert(this, "Bắt đầu giao hàng");
     }//GEN-LAST:event_jButton18ActionPerformed
 
     // nút lưu hóa đơn
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        ThemHoaDon(false);
-        LuuHoaDonCT();
-        MsgBox.alert( this , "Lưu thành công");
+//        ThemHoaDon(false);
+//        LuuHoaDonCT();
+//        MsgBox.alert(this, "Lưu thành công");
     }//GEN-LAST:event_jButton13ActionPerformed
 
     // Nút xác nhận đơn hàng đã được giao
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        int k = tbDanhSachHD.getSelectedRow() ;
-        
-        if( tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã giao hàng") ){
-            MsgBox.alert( this , "Hàng đã được giao");
-        }else{
-            String MaHD = tbDanhSachHD.getValueAt( k , 1).toString();  
+        int k = tbDanhSachHD.getSelectedRow();
+
+        if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã giao hàng")) {
+            MsgBox.alert(this, "Hàng đã được giao");
+        } else {
+            String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
             daoHD.update1(MaHD);
-            ThemVaoHoaDonCT( Integer.valueOf(MaHD) );
+            ThemVaoHoaDonCT(Integer.valueOf(MaHD));
             DoVaoTableDanhSachHD();
-            MsgBox.alert( this , "Khách đã nhận được hàng");
+            MsgBox.alert(this, "Khách đã nhận được hàng");
         }
-        
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     // click ở form danh sách hóa óaơn
@@ -1143,13 +1137,20 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         HienThiNguoc();
     }//GEN-LAST:event_tbDanhSachHDMouseClicked
 
-    private void txtKhachDua2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhachDua2ActionPerformed
-        lbTienThua2.setText(String.valueOf(Double.valueOf(txtKhachDua2.getText()) - Double.valueOf(lbTongTienHang2.getText())));
-    }//GEN-LAST:event_txtKhachDua2ActionPerformed
-
-    private void txtKhachDuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhachDuaActionPerformed
+    private void txtKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDuaKeyReleased
+        // TODO add your handling code here:
         lbTienThua.setText(String.valueOf(Double.valueOf(txtKhachDua.getText()) - Double.valueOf(lbTongTienHang.getText())));
-    }//GEN-LAST:event_txtKhachDuaActionPerformed
+    }//GEN-LAST:event_txtKhachDuaKeyReleased
+
+    private void txtKhachDua2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDua2KeyReleased
+        // TODO add your handling code here:
+        lbTienThua2.setText(String.valueOf(Double.valueOf(txtKhachDua2.getText()) - Double.valueOf(lbTongTienHang2.getText())));
+    }//GEN-LAST:event_txtKhachDua2KeyReleased
+
+    private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
+        // TODO add your handling code here:
+        LamTrangForm();
+    }//GEN-LAST:event_btnTaoHDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
