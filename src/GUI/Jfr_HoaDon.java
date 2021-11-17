@@ -743,6 +743,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         btnTaoHD.setBackground(new java.awt.Color(255, 255, 255));
         btnTaoHD.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnTaoHD.setForeground(new java.awt.Color(0, 0, 0));
+        btnTaoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_create_25px.png"))); // NOI18N
         btnTaoHD.setText("Tạo hóa đơn");
         btnTaoHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -752,8 +753,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel54.add(btnTaoHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 250, 60));
 
         jButton18.setBackground(new java.awt.Color(255, 255, 255));
-        jButton18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton18.setForeground(new java.awt.Color(0, 0, 0));
+        jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_shopping_cart_20px_1.png"))); // NOI18N
         jButton18.setText("Giao hàng");
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -765,6 +767,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jButton14.setBackground(new java.awt.Color(255, 255, 255));
         jButton14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton14.setForeground(new java.awt.Color(0, 0, 0));
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_paid_bill_20px.png"))); // NOI18N
         jButton14.setText("Đã giao");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
