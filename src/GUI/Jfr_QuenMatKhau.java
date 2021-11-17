@@ -425,7 +425,7 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
         pros.put("mail.smtp.port", "587");
         pros.put("mail.smtp.auth", "true");
         pros.put("mail.smtp.starttls.required", "true");
-        java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+
         Session  mailSession = Session.getDefaultInstance(pros,null);
         mailSession.setDebug(sessionDebug);
         Message msg = new MimeMessage(mailSession);
