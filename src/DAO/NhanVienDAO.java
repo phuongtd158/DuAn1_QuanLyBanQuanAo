@@ -26,7 +26,9 @@ public class NhanVienDAO extends Main<NhanVien, String> {
     final String SELECT_BYTT = "SELECT*FROM dbo.NHANVIEN WHERE TrangThai = 0";
     final String SELECT_ALL = "SELECT*FROM dbo.NHANVIEN";
     final String SELECT_BYID = "SELECT*FROM dbo.NHANVIEN WHERE MaNV = ?";
-
+    
+        final String UPDATE_MK ="UPDATE NHANVIEN SET MatKhau=? where Email=? ";
+        final String checkemaiString= "SELECT*FROM dbo.NHANVIEN where Email=? ";
     @Override
     public void insert(NhanVien entity) {
         JDBCHelper.Update(INSERT, entity.getMaNV(), entity.getTenNV(), entity.getDiaChi(), entity.getGioiTinh(), entity.getEmail(), entity.getSDT(), entity.getNgaySinh(), entity.getVaiTro(), entity.getMatKhau(), entity.getTrangThai());
@@ -40,6 +42,9 @@ public class NhanVienDAO extends Main<NhanVien, String> {
     @Override
     public void delete(String id) {
 
+    }
+    public void updatemk(String id , String matkhau) {
+        JDBCHelper.Update(UPDATE_MK,matkhau, id);
     }
 
     public void update_tt(String id) {
@@ -58,6 +63,13 @@ public class NhanVienDAO extends Main<NhanVien, String> {
     @Override
     public NhanVien selectByID(String id) {
         List<NhanVien> list = selectBySQL(SELECT_BYID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+    public NhanVien checkemai(String email){
+        List<NhanVien> list = selectBySQL(checkemaiString, email);
         if (list.isEmpty()) {
             return null;
         }

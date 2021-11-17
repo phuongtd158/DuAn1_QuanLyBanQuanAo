@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPhamAn.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/listHDCT.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/ThongKeDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_ThongKe.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_QuenMatKhau.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/DAO/NhanVienDAO.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/Ultil/Check.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
+            <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_KhachHang.java</file>
         </group>
     </open-files>
 </project-private>
