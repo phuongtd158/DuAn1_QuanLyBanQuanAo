@@ -26,7 +26,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     public Jfr_CuaSoChinh() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         Jfr_TrangChu menu1 = new Jfr_TrangChu();
         jDesktopPane1.add(menu1).setVisible(true);
         defualtColor = new Color(41, 182, 246);
@@ -508,14 +508,14 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSanPhamMouseClicked
 
     private void btnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhanVienMouseClicked
-        if (Auth.user.getVaiTro() == true ) {
+        if (Auth.user.getVaiTro() == true) {
             Jfr_NhanVien menu3 = new Jfr_NhanVien();
             jDesktopPane1.add(menu3).setVisible(true);
             if (Jfr_HoaDon.webcam != null) {
                 Jfr_HoaDon.webcam.close();
             }
-        }else{
-            MsgBox.alert( this , "Bạn không có quyền truy cập vào chức năng này");
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập vào chức năng này");
         }
     }//GEN-LAST:event_btnNhanVienMouseClicked
 

@@ -248,12 +248,15 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, -1, 30));
 
         cbbChatLieu.setBackground(new java.awt.Color(255, 255, 255));
+        cbbChatLieu.setForeground(new java.awt.Color(0, 0, 0));
         jPanel5.add(cbbChatLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 150, 330, 30));
 
         cbbLoaiSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        cbbLoaiSanPham.setForeground(new java.awt.Color(0, 0, 0));
         jPanel5.add(cbbLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 430, 30));
 
         cbbKichThuoc.setBackground(new java.awt.Color(255, 255, 255));
+        cbbKichThuoc.setForeground(new java.awt.Color(0, 0, 0));
         jPanel5.add(cbbKichThuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 100, 330, 30));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -267,6 +270,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, 30));
 
         cbbMauSac.setBackground(new java.awt.Color(255, 255, 255));
+        cbbMauSac.setForeground(new java.awt.Color(0, 0, 0));
         jPanel5.add(cbbMauSac, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 330, 30));
         jPanel5.add(txtTenSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 430, 30));
 
@@ -486,6 +490,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbMauSac);
         rbMauSac.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbMauSac.setForeground(new java.awt.Color(0, 0, 0));
         rbMauSac.setText("Màu sắc");
         rbMauSac.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -495,6 +500,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbKichThuoc);
         rbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbKichThuoc.setForeground(new java.awt.Color(0, 0, 0));
         rbKichThuoc.setText("Kích thước");
         rbKichThuoc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -504,6 +510,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbChatLieu);
         rbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbChatLieu.setForeground(new java.awt.Color(0, 0, 0));
         rbChatLieu.setText("Chất liệu");
         rbChatLieu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -517,6 +524,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_product_25px.png"))); // NOI18N
         jLabel8.setText("Thêm");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -541,6 +549,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_refresh_25px.png"))); // NOI18N
         jLabel9.setText("Sửa");
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -565,6 +574,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_delete_trash_25px.png"))); // NOI18N
         jLabel10.setText("Ẩn");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -585,6 +595,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbLoaiSP);
         rbLoaiSP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        rbLoaiSP.setForeground(new java.awt.Color(0, 0, 0));
         rbLoaiSP.setText("Tên loại sản phẩm");
         rbLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

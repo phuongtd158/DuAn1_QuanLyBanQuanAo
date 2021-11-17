@@ -28,11 +28,13 @@ import javax.swing.JOptionPane;
  * @author ADMIN
  */
 public class Jfr_QuenMatKhau extends javax.swing.JFrame {
+
     int randomCode;
+
     /**
      * Creates new form Jfr_QuenMatKhau
      */
-    
+
     public Jfr_QuenMatKhau() {
         initComponents();
         setLocationRelativeTo(null);
@@ -249,32 +251,31 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCodeMouseClicked
-        if (Integer.valueOf(txtMaXacNhan.getText())==randomCode) {
+        if (Integer.valueOf(txtMaXacNhan.getText()) == randomCode) {
             JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới");
-             jLabel10.setVisible(true);
-        txtMatKhau.setVisible(true);
-        btnCode.setVisible(true);
-        jSeparator5.setVisible(true);
+            jLabel10.setVisible(true);
+            txtMatKhau.setVisible(true);
+            btnCode.setVisible(true);
+            jSeparator5.setVisible(true);
 
-        jLabel11.setVisible(true);
-        txtXacNhanMatKhau.setVisible(true);
-        btnCode.setVisible(true);
-        jSeparator3.setVisible(true);
+            jLabel11.setVisible(true);
+            txtXacNhanMatKhau.setVisible(true);
+            btnCode.setVisible(true);
+            jSeparator3.setVisible(true);
 
-        btnXacNhan.setVisible(true);
-        }else{
+            btnXacNhan.setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(this, "code sai");
         }
-      
+
     }//GEN-LAST:event_btnCodeMouseClicked
 
     private void btnEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailMouseClicked
-          try {
+        try {
 
-            if (chektontai()==false) {
+            if (chektontai() == false) {
                 this.sendcode();
-            }
-            else{
+            } else {
                 MsgBox.alert(this, "email không tồn tại");
             }
         } catch (Exception e) {
@@ -307,19 +308,19 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
 
     private void btnCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodeActionPerformed
 //         TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnCodeActionPerformed
 
     private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_btnEmailActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
-        
-            doiMK();
-             
+
+        doiMK();
+
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -381,34 +382,36 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtMatKhau;
     private javax.swing.JPasswordField txtXacNhanMatKhau;
     // End of variables declaration//GEN-END:variables
-   
+
     NhanVienDAO dao = new NhanVienDAO();
+
     private void doiMK() {
         NhanVien nv = new NhanVien();
         String emai = new String(txtEmail.getText());
         String mkMoi = new String(txtMatKhau.getPassword());
         String mkMoi2 = new String(txtXacNhanMatKhau.getPassword());
-        
-         if(!mkMoi.equals(mkMoi2)){
+
+        if (!mkMoi.equals(mkMoi2)) {
             MsgBox.alert(this, "Xác nhận mật khẩu không khớp");
-        }
-        else{
-             nv.setMatKhau(mkMoi2);
-            dao.updatemk(emai,mkMoi2);
+        } else {
+            nv.setMatKhau(mkMoi2);
+            dao.updatemk(emai, mkMoi2);
             MsgBox.alert(this, "Đổi mật khẩu thành công");
             Jfr_DangNhap dn = new Jfr_DangNhap();
-        dn.setVisible(true);
-        this.dispose();
+            dn.setVisible(true);
+            this.dispose();
         }
     }
-    public boolean chektontai(){
-        if (dao.checkemai(txtEmail.getText())!=null) {
+
+    public boolean chektontai() {
+        if (dao.checkemai(txtEmail.getText()) != null) {
             return false;
         }
         return true;
     }
 
     private void sendcode() {
+<<<<<<< HEAD
         try{
         Random rand = new Random();
         randomCode= rand.nextInt(99999);
@@ -444,9 +447,45 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
         btnCode.setVisible(true);
         jSeparator4.setVisible(true);
         }catch(Exception ex){
+=======
+        try {
+            Random rand = new Random();
+            randomCode = rand.nextInt(99999);
+            String host = "smtp.gmail.com";
+            String user = "quanlybanquanaopoly@gmail.com";
+            String pass = "Poly123456";
+            String to = txtEmail.getText();
+            String subjectString = "Resteting Code";
+            String message = "Code của mày đây " + randomCode;
+            boolean sessionDebug = false;
+            Properties pros = System.getProperties();
+            pros.put("mail.smtp.starttls.enable", "true");
+            pros.put("mail.smtp.host", "host");
+            pros.put("mail.smtp.port", "587");
+            pros.put("mail.smtp.auth", "true");
+            pros.put("mail.smtp.starttls.required", "true");
+
+            Session mailSession = Session.getDefaultInstance(pros, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(user));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subjectString);
+            msg.setText(message);
+            Transport transport = mailSession.getTransport("smtps");
+            transport.connect(host, user, pass);
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            JOptionPane.showMessageDialog(this, "mã đã dc gửi đến email");
+            jLabel9.setVisible(true);
+            txtMaXacNhan.setVisible(true);
+            btnCode.setVisible(true);
+            jSeparator4.setVisible(true);
+        } catch (Exception ex) {
+>>>>>>> a40d7fa832ea30db9e0b165401c758e9e5081b72
 //            JOptionPane.showMessageDialog(rootPane, ex);
             ex.printStackTrace();
         }
     }
 }
-
