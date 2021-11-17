@@ -17,7 +17,16 @@ public class HoaDon {
     private String MaNV ;
     private int MaHTTT ;
     private Date NgayTao ;
+    private String ghiChu ;
     private Boolean TrangThai ;
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 
     public int getMaHD() {
         return MaHD;

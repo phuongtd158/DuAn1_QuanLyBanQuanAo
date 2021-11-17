@@ -16,13 +16,18 @@ import java.sql.* ;
  */
 public class HoaDonDAO extends Main< HoaDon, String >{
     private String selectAll = "select * from HOADON" ;
-    private String Insert = "Insert into HOADON ( MaKH , MaNV , MaHTTT , TrangThai ) values ( ? , ? , ? , ?) " ;
+    private String Insert = "Insert into HOADON ( MaKH , MaNV , MaHTTT , TrangThai , GhiChu ) values ( ? , ? , ? , ? , ? ) " ;
     private String selectByID = "select * from HOADON where MaHD like ? " ; 
     String Update = "Update HOADON set TrangThai = 1 where MaHD like ? " ;
+    String Update_1 = "Update HOADON set GhiChu = ? where MaHD like ? " ;
     
+    public void update2(String a, String b) {
+        JDBCHelper.Update(Update_1, a, b);
+    }
+
     @Override
     public void insert(HoaDon entity) {
-        JDBCHelper.Update(Insert, entity.getMaKH() , entity.getMaNV() , entity.getMaHTTT() , entity.getTrangThai() ) ;
+        JDBCHelper.Update(Insert, entity.getMaKH() , entity.getMaNV() , entity.getMaHTTT() , entity.getTrangThai() , entity.getGhiChu() ) ;
     }
 
     @Override
@@ -67,6 +72,7 @@ public class HoaDonDAO extends Main< HoaDon, String >{
                 hd.setMaHTTT( rs.getInt("MaHTTT") );
                 hd.setMaNV( rs.getString("MaNV"));
                 hd.setNgayTao( rs.getDate("NgayKhoiTao"));
+                hd.setGhiChu( rs.getString("GhiChu"));
                 hd.setTrangThai( rs.getBoolean("TrangThai"));
                 list.add(hd);
             }
