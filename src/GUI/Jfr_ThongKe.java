@@ -410,6 +410,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         cbbNam_DoanhThu.setBackground(new java.awt.Color(255, 255, 255));
+        cbbNam_DoanhThu.setForeground(new java.awt.Color(0, 0, 0));
         cbbNam_DoanhThu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2021" }));
         cbbNam_DoanhThu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,6 +425,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton1.setText("Biểu đồ");
         jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -433,6 +435,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel2.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
         buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("Bảng");
         jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -453,6 +456,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         cbbNam_SanPham.setBackground(new java.awt.Color(255, 255, 255));
+        cbbNam_SanPham.setForeground(new java.awt.Color(0, 0, 0));
         cbbNam_SanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbNam_SanPhamActionPerformed(evt);
@@ -466,6 +470,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         buttonGroup2.add(jRadioButton3);
+        jRadioButton3.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton3.setSelected(true);
         jRadioButton3.setText("Bảng");
         jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -476,6 +481,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel3.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         buttonGroup2.add(jRadioButton4);
+        jRadioButton4.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton4.setText("Biểu đồ");
         jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -556,6 +562,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_stop_graph_report_25px.png"))); // NOI18N
         jButton2.setText("Báo cáo doanh thu");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -650,6 +658,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel16.setText("Ngày bắt đầu");
         jPanel16.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, 30));
 
+        cbbLoaiThoiGian.setBackground(new java.awt.Color(255, 255, 255));
+        cbbLoaiThoiGian.setForeground(new java.awt.Color(0, 0, 0));
         cbbLoaiThoiGian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbLoaiThoiGian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -694,6 +704,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel16.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, -1, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_search_25px.png"))); // NOI18N
         jButton1.setText("Tìm kiếm");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

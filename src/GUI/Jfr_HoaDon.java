@@ -627,16 +627,16 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel52.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, 120, 60));
 
         jButton15.setBackground(new java.awt.Color(255, 255, 255));
-        jButton15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButton15.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton15.setForeground(new java.awt.Color(0, 0, 0));
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_create_50px.png"))); // NOI18N
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_create_25px.png"))); // NOI18N
         jButton15.setText("Tạo hóa đơn");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
             }
         });
-        jPanel52.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 120, 60));
+        jPanel52.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 130, 60));
 
         jButton16.setBackground(new java.awt.Color(255, 255, 255));
         jButton16.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
