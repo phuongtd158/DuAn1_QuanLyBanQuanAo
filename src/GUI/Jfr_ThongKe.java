@@ -86,7 +86,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             pros.put("mail.smtp.port", "587");
             pros.put("mail.smtp.auth", "true");
             pros.put("mail.smtp.starttls.required", "true");
-
+//            pros.put("mail.smtp.ssl.trust", "*");
+            
             Session mailSession = Session.getDefaultInstance(pros, null);
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);
@@ -103,7 +104,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             transport.close();
             MsgBox.alert(this, "Báo cáo thành công");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex);
+
             ex.printStackTrace();
         }
 
