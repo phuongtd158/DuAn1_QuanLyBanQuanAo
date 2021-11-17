@@ -229,7 +229,7 @@ Color defaulColor, ClickColor;
         else{
             doiMK();
         }
-        
+    
     }//GEN-LAST:event_btnLuuThayDoiMouseClicked
 
     private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
