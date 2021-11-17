@@ -320,6 +320,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_administrator_25px.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -335,7 +336,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 700, 110, 30));
@@ -346,6 +347,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         btnSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnSua.setForeground(new java.awt.Color(0, 0, 0));
         btnSua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_refresh_25px.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -372,6 +374,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(0, 0, 0));
         btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_delete_database_25px.png"))); // NOI18N
         btnXoa.setText("Ẩn");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -398,6 +401,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         btnMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnMoi.setForeground(new java.awt.Color(0, 0, 0));
         btnMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_broom_25px.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -421,6 +425,7 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_hide_25px.png"))); // NOI18N
         jButton1.setText("Danh sách khách hàng đã ẩn");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {

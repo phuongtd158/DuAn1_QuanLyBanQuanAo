@@ -3,12 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_QuenMatKhau.java</file>
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/DAO/NhanVienDAO.java</file>
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/Ultil/Check.java</file>
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
             <file>file:/C:/Users/namlh/OneDrive/Máy%20tính/New%20folder%20(5)/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_KhachHang.java</file>
+=======
+            <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DoiMatKhau.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_NhanVien.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%201/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
+>>>>>>> c4f74c8caa5b9c4d4eaf69b1618dc578c6e82a22
         </group>
     </open-files>
 </project-private>
