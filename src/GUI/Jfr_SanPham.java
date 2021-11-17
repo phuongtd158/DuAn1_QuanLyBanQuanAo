@@ -330,6 +330,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnSua.setForeground(new java.awt.Color(0, 0, 0));
         btnSua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_refresh_25px.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -361,6 +362,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnXoa.setForeground(new java.awt.Color(0, 0, 0));
         btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_delete_trash_25px.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -390,6 +392,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnMoi.setForeground(new java.awt.Color(0, 0, 0));
         btnMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_broom_25px.png"))); // NOI18N
         btnMoi.setText("Mới");
         btnMoi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -421,6 +424,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_product_25px.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -447,6 +451,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnHienThi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnHienThi.setForeground(new java.awt.Color(0, 0, 0));
         btnHienThi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnHienThi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_hide_25px.png"))); // NOI18N
         btnHienThi.setText("Hiển thị các sản phẩm đã ẩn");
         btnHienThi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -458,14 +463,14 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+            .addComponent(btnHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 660, 200, -1));
+        jPanel2.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 660, 230, -1));
 
         tabs.addTab("Thông tin chi tiết", jPanel2);
 

@@ -763,7 +763,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/img/icons8_staff_70px.png"/>
+                      <Image iconType="3" name="/img/icons8_minus_1_year_70px.png"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -825,7 +825,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/img/icons8_box_70px.png"/>
+                      <Image iconType="3" name="/img/icons8_minus_1_month_70px.png"/>
                     </Property>
                   </Properties>
                   <Constraints>

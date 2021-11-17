@@ -612,7 +612,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel20.setBackground(new java.awt.Color(255, 153, 153));
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_staff_70px.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_minus_1_year_70px.png"))); // NOI18N
         jPanel20.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, 50));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -630,7 +630,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel19.setBackground(new java.awt.Color(255, 143, 0));
         jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_box_70px.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_minus_1_month_70px.png"))); // NOI18N
         jPanel19.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, 50));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
