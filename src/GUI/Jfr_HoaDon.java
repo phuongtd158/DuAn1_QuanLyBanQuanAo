@@ -131,7 +131,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         int k = 0;
 
         for (int i = listHD.size() - 1; i >= 0; i--) {
-            if (listHD.get(i).getTrangThai() == false) {
+            if (listHD.get(i).getTrangThai() == false && listHD.get(i).getGhiChu().length() <= 4  ) {
                 HoaDon hd = listHD.get(i);
                 KhachHang kh = daoKH.selectByID(String.valueOf(hd.getMaKH()));
                 NhanVien nv = daoNV.selectByID(String.valueOf(hd.getMaNV()));
@@ -959,15 +959,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         lbKhachTra2.setText(String.valueOf(tk * (1 - b / 100)));
     }
 
-    // nút thanh toán ở form hóa đơn
+    // nút tạo hóa đơn
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        ThemHoaDon(false);
+        ThemHoaDon(false , "Not");
         LuuHoaDonCT();
         LamTrangForm();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     // Thêm vào danh sách hóa đơn
-    private void ThemHoaDon(Boolean tthai) {
+    private void ThemHoaDon(Boolean tthai , String ghiChu) {
         if (Check.checkTrongText(txtTenKH) == false || Check.checkTrongText(txtSDT) == false) {
             return;
         }
@@ -982,19 +982,20 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             if (daoKH.selectByID_2(txtSDT.getText()) < 1) {
                 daoKH.insert(kh);
             }
-            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai);
+            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai ,ghiChu );
         } catch (Exception e) {
         }
     }
 
     //Thêm vào hóa đơn
-    private void ThemVaoHoaDon(String SDT, int HTTT, Boolean tt) {
+    private void ThemVaoHoaDon(String SDT, int HTTT, Boolean tt ,  String ghiChu) {
         int k = daoKH.selectByID_2(SDT);
 
         HoaDon hd = new HoaDon();
         hd.setMaKH(k);
         hd.setMaHTTT(HTTT);
         hd.setMaNV(Auth.user.getMaNV());
+        hd.setGhiChu(ghiChu);
         hd.setTrangThai(tt);
 
         daoHD.insert(hd);
@@ -1052,7 +1053,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 ThemVaoHoaDonCT(Integer.valueOf(MaHD));
                 DoVaoTableDanhSachHD();
             } else {
-                ThemHoaDon(true);
+                ThemHoaDon(true , "Not");
                 int skk = listHD.get(listHD.size() - 1).getMaHD();
                 ThemVaoHoaDonCT(skk);
             }
@@ -1075,7 +1076,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         kh.setTrangThai(tthai);
         try {
             daoKH.insert(kh);
-            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai);
+            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai , "not");
         } catch (Exception e) {
         }
     }
@@ -1088,11 +1089,20 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         MsgBox.alert(this, "Bắt đầu giao hàng");
     }//GEN-LAST:event_jButton18ActionPerformed
 
-    // nút lưu hóa đơn
+    //  nút hủy
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-//        ThemHoaDon(false);
-//        LuuHoaDonCT();
-//        MsgBox.alert(this, "Lưu thành công");
+        int k = tbDanhSachHD.getSelectedRow() ;
+        
+        if (k >= 0) {
+            if (MsgBox.comfirm(this, "Bạn có muốn hủy không")) {
+                String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT );
+                daoHD.update2( ghiChu , tbDanhSachHD.getValueAt( k, 1).toString());
+                LamTrangForm();
+                DoVaoTableDanhSachHD();
+            }
+        }else{
+            MsgBox.alert( this , "Vui lòng chọn hóa đơn muốn hủy");
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     // Nút xác nhận đơn hàng đã được giao

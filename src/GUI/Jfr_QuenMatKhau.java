@@ -411,43 +411,6 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     }
 
     private void sendcode() {
-<<<<<<< HEAD
-        try{
-        Random rand = new Random();
-        randomCode= rand.nextInt(99999);
-        String host = "smtp.gmail.com";
-        String user = "quanlybanquanaopoly@gmail.com";
-        String pass = "Poly123456";
-        String to = txtEmail.getText();
-        String subjectString="Resteting Code";
-        String message = "Code của mày đây " + randomCode;
-        boolean sessionDebug = false;
-        Properties pros = System.getProperties();
-        pros.put("mail.smtp.starttls.enable", "true");
-        pros.put("mail.smtp.host", "host");
-        pros.put("mail.smtp.port", "587");
-        pros.put("mail.smtp.auth", "true");
-        pros.put("mail.smtp.starttls.required", "true");
-
-        Session  mailSession = Session.getDefaultInstance(pros,null);
-        mailSession.setDebug(sessionDebug);
-        Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress(user));
-        InternetAddress [] address = {new InternetAddress(to)};
-        msg.setRecipients(Message.RecipientType.TO, address);
-        msg.setSubject(subjectString);
-        msg.setText(message);
-        Transport transport = mailSession.getTransport("smtps");
-        transport.connect(host, user, pass);
-        transport.sendMessage(msg, msg.getAllRecipients());
-        transport.close();
-        JOptionPane.showMessageDialog(this, "mã đã dc gửi đến email");
-        jLabel9.setVisible(true);
-        txtMaXacNhan.setVisible(true);
-        btnCode.setVisible(true);
-        jSeparator4.setVisible(true);
-        }catch(Exception ex){
-=======
         try {
             Random rand = new Random();
             randomCode = rand.nextInt(99999);
@@ -483,7 +446,6 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
             btnCode.setVisible(true);
             jSeparator4.setVisible(true);
         } catch (Exception ex) {
->>>>>>> a40d7fa832ea30db9e0b165401c758e9e5081b72
 //            JOptionPane.showMessageDialog(rootPane, ex);
             ex.printStackTrace();
         }
