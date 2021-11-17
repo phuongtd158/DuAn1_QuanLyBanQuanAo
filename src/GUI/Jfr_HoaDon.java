@@ -100,7 +100,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void initWebcam() {
         Dimension size = WebcamResolution.QVGA.getSize();
-        webcam = Webcam.getWebcams().get(0); //0 is default webcam
+        webcam = Webcam.getWebcams().get(1); //0 is default webcam
         webcam.setViewSize(size);
 
         panel = new WebcamPanel(webcam);

@@ -16,7 +16,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author ADMIN
  */
 public class Jfr_DoiMatKhau extends javax.swing.JInternalFrame {
-Color defaulColor, ClickColor;
+
+    Color defaulColor, ClickColor;
+
     public Jfr_DoiMatKhau() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -32,7 +34,7 @@ Color defaulColor, ClickColor;
         defaulColor = new Color(255, 255, 255);
         ClickColor = new Color(225, 225, 225);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,13 +225,10 @@ Color defaulColor, ClickColor;
     private void btnLuuThayDoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuThayDoiMouseClicked
         jPanel2.setBackground(ClickColor);
         jPanel3.setBackground(defaulColor);
-        if (checkTrong()) {
-            return;
-        }
-        else{
+        
             doiMK();
-        }
-    
+        
+
     }//GEN-LAST:event_btnLuuThayDoiMouseClicked
 
     private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
@@ -268,41 +267,49 @@ Color defaulColor, ClickColor;
     private javax.swing.JPasswordField txtXNMKhau;
     // End of variables declaration//GEN-END:variables
     NhanVienDAO dao = new NhanVienDAO();
-    void doiMK(){
+
+    void doiMK() {
         String manv = txtTaiKhoan.getText();
         String mk = new String(txtMKCu.getPassword());
         String mkMoi = new String(txtMKMoi.getPassword());
         String mkMoi2 = new String(txtXNMKhau.getPassword());
-        if (!manv.equalsIgnoreCase(Auth.user.getMaNV())) {
+        if (txtTaiKhoan.getText().trim().equals("")) {
+            MsgBox.alert(this, "Tên đăng nhập không để trống");
+        } else if (txtMKCu.getText().trim().equals("")) {
+            MsgBox.alert(this, "Mật khẩu hiện tại không để trống");
+        } else if (txtMKMoi.getText().trim().equals("")) {
+            MsgBox.alert(this, "Mật khẩu mới không để trống");
+        } else if (txtXNMKhau.getText().trim().equals("")) {
+            MsgBox.alert(this, "Xác nhận mật khẩu không để trống");
+        } else if (!manv.equalsIgnoreCase(Auth.user.getMaNV())) {
             MsgBox.alert(this, "Sai tên đăng nhập");
-        }
-        else if(!mkMoi.equals(mkMoi2)){
+        } else if (!mk.equalsIgnoreCase(Auth.user.getMatKhau())) {
+            MsgBox.alert(this, "Sai mật khẩu");
+        } else if (!mkMoi.equals(mkMoi2)) {
             MsgBox.alert(this, "Xác nhận mật khẩu không khớp");
-        }
-        else{
+        } else {
             Auth.user.setMatKhau(mkMoi);
             dao.update(Auth.user);
             MsgBox.alert(this, "Đổi mật khẩu thành công");
         }
-    }
+    }}
+
     //check trống
-    boolean checkTrong(){
-        if (txtTaiKhoan.getText().equals("")) {
-          MsgBox.alert(this, "Tên đăng nhập không để trống");
-          return true;
-        }
-        if(txtMKCu.getPassword().equals("")){
-            MsgBox.alert(this, "Mật khẩu hiện tại không để trống");
-            return true;
-        }
-        else if(txtMKMoi.getPassword().equals("")){
-            MsgBox.alert(this, "Mật khẩu mới không để trống");
-            return true;
-        }
-        else if(txtXNMKhau.getPassword().equals("")){
-            MsgBox.alert(this, "Xác nhận mật khẩu không để trống");
-            return true;
-        }
-        return false;
-    }
-}
+//    boolean checkTrong() {
+//        if (txtTaiKhoan.getText().equals("")) {
+//            MsgBox.alert(this, "Tên đăng nhập không để trống");
+//            return true;
+//        }
+//        if (txtMKCu.getPassword().equals("")) {
+//            MsgBox.alert(this, "Mật khẩu hiện tại không để trống");
+//            return true;
+//        } else if (txtMKMoi.getPassword().equals("")) {
+//            MsgBox.alert(this, "Mật khẩu mới không để trống");
+//            return true;
+//        } else if (txtXNMKhau.getPassword().equals("")) {
+//            MsgBox.alert(this, "Xác nhận mật khẩu không để trống");
+//            return true;
+//        }
+//        return false;
+//    }
+//}
