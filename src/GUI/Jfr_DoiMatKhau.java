@@ -49,15 +49,15 @@ Color defaulColor, ClickColor;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         txtMKMoi = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
+        txtXNMKhau = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         txtMKCu = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        txtXNMKhau = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         btnLuuThayDoi = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -77,47 +77,39 @@ Color defaulColor, ClickColor;
         jPanel1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jPanel1.setMinimumSize(new java.awt.Dimension(1226, 730));
         jPanel1.setPreferredSize(new java.awt.Dimension(1226, 730));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setText("Đổi mật khẩu");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Tài khoản");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 111, -1));
-        jPanel4.add(txtTaiKhoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 340, 34));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel3.setText("Mật khẩu mới");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 111, -1));
 
         txtMKMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMKMoiActionPerformed(evt);
             }
         });
-        jPanel4.add(txtMKMoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 339, 34));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel4.setText("Mật khẩu cũ");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 111, -1));
-
-        txtMKCu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMKCuActionPerformed(evt);
-            }
-        });
-        jPanel4.add(txtMKCu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 339, 34));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel5.setText("Xác nhận mật khẩu");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel3.setText("Mật khẩu mới");
 
         txtXNMKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtXNMKhauActionPerformed(evt);
             }
         });
-        jPanel4.add(txtXNMKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 339, 34));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel4.setText("Mật khẩu cũ");
+
+        txtMKCu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMKCuActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setText("Xác nhận mật khẩu");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -136,16 +128,10 @@ Color defaulColor, ClickColor;
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btnLuuThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
-=======
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLuuThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
->>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,8 +139,6 @@ Color defaulColor, ClickColor;
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnLuuThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -174,14 +158,9 @@ Color defaulColor, ClickColor;
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 44, Short.MAX_VALUE))
-=======
                 .addContainerGap()
                 .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,11 +222,6 @@ Color defaulColor, ClickColor;
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
-<<<<<<< HEAD
-        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, 30));
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1220, 730));
-=======
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -330,7 +304,6 @@ Color defaulColor, ClickColor;
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(210, 210, 210))
         );
->>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,13 +315,9 @@ Color defaulColor, ClickColor;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-=======
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
                 .addContainerGap())
->>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
         );
 
         pack();
@@ -383,17 +352,14 @@ Color defaulColor, ClickColor;
         captcha ch = new captcha();
         txtMaCaptcha.setText(ch.getCaptcha());
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnLuuThayDoi;
     private javax.swing.JLabel btnThoat;
-<<<<<<< HEAD
-=======
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
->>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
