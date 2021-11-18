@@ -3,6 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DoiMatKhau.java</file>
+            <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_QuenMatKhau.java</file>
+=======
+<<<<<<< HEAD
+>>>>>>> a3d5f8dc8e5de48a6981f4b3514c5bfbabea1180
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/SanPhamDAO.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_QuenMatKhau.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonDAO.java</file>
@@ -18,6 +26,21 @@
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
             <file>file:/C:/Users/ADMIN/Desktop/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_ThongKe.java</file>
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/DELL/OneDrive/Máy%20tính/Duan1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Users/DELL/OneDrive/Máy%20tính/Duan1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DoiMatKhau.java</file>
+            <file>file:/C:/Users/DELL/OneDrive/Máy%20tính/Duan1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_QuenMatKhau.java</file>
+            <file>file:/C:/Users/DELL/OneDrive/Máy%20tính/Duan1/DuAn1_QuanLyBanQuanAo/src/Entity/captcha.java</file>
+=======
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_LichSuGiaoDich.java</file>
+>>>>>>> d86e63b6287df1fa2417d34d34414c1dd5863f06
+>>>>>>> 6aeb7de8d6567a413ecb62766f25462a95d3b2d2
+>>>>>>> 108ba5c61bd1bfa392363c67aeb2d5cd0d83d05f
+>>>>>>> a3d5f8dc8e5de48a6981f4b3514c5bfbabea1180
         </group>
     </open-files>
 </project-private>
