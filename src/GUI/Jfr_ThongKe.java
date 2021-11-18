@@ -7,12 +7,16 @@ package GUI;
 
 import DAO.HoaDonDAO;
 import DAO.ThongKeDAO;
+import Entity.SanPham;
 import Ultil.Auth;
 import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -23,9 +27,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -46,12 +53,14 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     DefaultComboBoxModel<Object> model_cbbNam;
     DefaultComboBoxModel<Object> model_cbbNam_sp;
+    public static Jfr_ThongKe tk;
 
     /**
      * Creates new form Jfr_ThongKe
      */
     public Jfr_ThongKe() {
         initComponents();
+        tk = this;
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -66,6 +75,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         } else {
             jButton2.setVisible(false);
         }
+        doVaoSanPham();
     }
 
     //Gửi email
@@ -87,7 +97,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             pros.put("mail.smtp.auth", "true");
             pros.put("mail.smtp.starttls.required", "true");
 //            pros.put("mail.smtp.ssl.trust", "*");
-            
+
             Session mailSession = Session.getDefaultInstance(pros, null);
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);
@@ -104,7 +114,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             transport.close();
             MsgBox.alert(this, "Báo cáo thành công");
         } catch (Exception ex) {
-
             ex.printStackTrace();
         }
 
@@ -114,16 +123,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private void doVaoCbbNam() {
         try {
             model_cbbNam = (DefaultComboBoxModel) cbbNam_DoanhThu.getModel();
-            model_cbbNam_sp = (DefaultComboBoxModel) cbbNam_SanPham.getModel();
 
             model_cbbNam.removeAllElements();
-            model_cbbNam_sp.removeAllElements();
 
             List<Integer> list = dao_hd.getYear();
 
             for (Integer x : list) {
                 model_cbbNam.addElement(x);
-                model_cbbNam_sp.addElement(x);
             }
 
         } catch (Exception e) {
@@ -146,6 +152,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblDoanhThu.getModel();
             model.setRowCount(0);
+
+            changeColor();
             if (cbbNam_DoanhThu.getSelectedItem() != null) {
                 int nam = (Integer) cbbNam_DoanhThu.getSelectedItem();
                 List<Object[]> list = dao_tk.getDoanhThu(nam);
@@ -158,18 +166,50 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         }
     }
 
+    //Đổi màu table theo số lượng sản phẩm
+    public void changeColor() {
+        tblSanPham.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                Color c = Color.WHITE;
+                int soLuong = Integer.parseInt(table.getValueAt(row, 7).toString());
+                if (soLuong < 10) {
+                    c = Color.RED;
+                    label.setBackground(c);
+                    tblSanPham.setSelectionForeground(Color.BLACK);
+                    return label;
+                } else if (soLuong < 20) {
+                    c = Color.YELLOW;
+                    label.setBackground(c);
+                    tblSanPham.setSelectionForeground(Color.BLACK);
+                    return label;
+                } else {
+                    label.setBackground(c);
+                    tblSanPham.setSelectionForeground(Color.BLACK);
+                    return label;
+                }
+
+            }
+
+        });
+    }
+
+    public void sapXep() {
+        List<SanPham> list = new ArrayList<>();
+        Collections.sort(list, (a, b) -> (int) (a.getSoLuong() - b.getSoLuong()));
+    }
+
     //Đổ vào table sản phẩm
     private void doVaoSanPham() {
         try {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
-            if (cbbNam_DoanhThu.getSelectedItem() != null) {
-                int nam = (Integer) cbbNam_SanPham.getSelectedItem();
-                List<Object[]> list = dao_tk.getSanPham(nam);
+            List<Object[]> list = dao_tk.getSanPham();
 
-                for (Object[] x : list) {
-                    model.addRow(x);
-                }
+            for (Object[] x : list) {
+                model.addRow(x);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -291,11 +331,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        cbbNam_SanPham = new javax.swing.JComboBox<>();
-        jLabel20 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -451,46 +486,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("Năm");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
-
-        cbbNam_SanPham.setBackground(new java.awt.Color(255, 255, 255));
-        cbbNam_SanPham.setForeground(new java.awt.Color(0, 0, 0));
-        cbbNam_SanPham.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbNam_SanPhamActionPerformed(evt);
-            }
-        });
-        jPanel3.add(cbbNam_SanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 210, -1));
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("Lựa chọn hiển thị");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
-
-        buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Bảng");
-        jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButton3MouseClicked(evt);
-            }
-        });
-        jPanel3.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
-
-        buttonGroup2.add(jRadioButton4);
-        jRadioButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton4.setText("Biểu đồ");
-        jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButton4MouseClicked(evt);
-            }
-        });
-        jPanel3.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
-
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -506,11 +501,11 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "STT", "Tên sản phẩm", "Số lượng bán"
+                "STT", "Mã SP", "Số lượng bán", "Tên SP", "Chất liệu", "Màu sắc", "Kích thước", "Số lượng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -525,7 +520,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("Top 10 sản phẩm bán chạy");
+        jLabel21.setText("Thông tin chi tiết sản phẩm");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -571,7 +566,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                 jButton2MouseClicked(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 210, 50));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 210, 50));
 
         jTabbedPane1.addTab("Sản phẩm", jPanel3);
 
@@ -632,7 +627,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         lbTongDoanhThuNam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTongDoanhThuNam.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThuNam.setText("0");
-        jPanel20.add(lbTongDoanhThuNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, 40));
+        jPanel20.add(lbTongDoanhThuNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, 40));
 
         jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 260, 130));
 
@@ -757,41 +752,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel7.updateUI();
     }//GEN-LAST:event_jRadioButton1MouseClicked
 
-    //Radio show table thông kê sản phẩm
-    private void jRadioButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton3MouseClicked
-        jPanel12.setVisible(false);
-        jPanel11.setVisible(true);
-    }//GEN-LAST:event_jRadioButton3MouseClicked
-
-    //Radio show biểu đồ thống kê sản phẩm 
-    private void jRadioButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton4MouseClicked
-        jPanel11.setVisible(false);
-        jPanel12.setVisible(true);
-        DefaultCategoryDataset set = new DefaultCategoryDataset();
-
-        for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-            set.setValue(Integer.parseInt(tblSanPham.getValueAt(i, 2).toString()), "Sản phẩm", String.valueOf(tblSanPham.getValueAt(i, 1)));
-        }
-
-        JFreeChart chart = ChartFactory.createBarChart("Top 10 sản phẩm bán chạy", "Tên sản phẩm", "Số lượng sản phẩm", set, PlotOrientation.VERTICAL, true, true, true);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.ORANGE);
-        c = new ChartPanel(chart);
-
-        jPanel12.removeAll();
-        jPanel12.add(c);
-        tblSanPham.updateUI();
-        jPanel12.updateUI();
-    }//GEN-LAST:event_jRadioButton4MouseClicked
-
 
     private void cbbNam_DoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNam_DoanhThuActionPerformed
         doVaoDoanhThu();
     }//GEN-LAST:event_cbbNam_DoanhThuActionPerformed
-
-    private void cbbNam_SanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNam_SanPhamActionPerformed
-        doVaoSanPham();
-    }//GEN-LAST:event_cbbNam_SanPhamActionPerformed
 
     private void txtNgayKetThucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNgayKetThucKeyPressed
 
@@ -843,7 +807,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbbLoaiThoiGian;
     private javax.swing.JComboBox<String> cbbNam_DoanhThu;
-    private javax.swing.JComboBox<String> cbbNam_SanPham;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -853,9 +816,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -881,8 +842,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

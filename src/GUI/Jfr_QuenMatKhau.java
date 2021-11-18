@@ -8,6 +8,7 @@ package GUI;
 import DAO.NhanVienDAO;
 import Entity.NhanVien;
 import Ultil.Auth;
+import Ultil.Check;
 import Ultil.MsgBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,7 +35,6 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     /**
      * Creates new form Jfr_QuenMatKhau
      */
-
     public Jfr_QuenMatKhau() {
         initComponents();
         setLocationRelativeTo(null);
@@ -251,21 +251,23 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCodeMouseClicked
-        if (Integer.valueOf(txtMaXacNhan.getText()) == randomCode) {
-            JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới");
-            jLabel10.setVisible(true);
-            txtMatKhau.setVisible(true);
-            btnCode.setVisible(true);
-            jSeparator5.setVisible(true);
+        if (Check.checkSoDuong(txtMaXacNhan)) {
+            if (Integer.valueOf(txtMaXacNhan.getText()) == randomCode) {
+                JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới");
+                jLabel10.setVisible(true);
+                txtMatKhau.setVisible(true);
+                btnCode.setVisible(true);
+                jSeparator5.setVisible(true);
 
-            jLabel11.setVisible(true);
-            txtXacNhanMatKhau.setVisible(true);
-            btnCode.setVisible(true);
-            jSeparator3.setVisible(true);
+                jLabel11.setVisible(true);
+                txtXacNhanMatKhau.setVisible(true);
+                btnCode.setVisible(true);
+                jSeparator3.setVisible(true);
 
-            btnXacNhan.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "code sai");
+                btnXacNhan.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "code sai");
+            }
         }
 
     }//GEN-LAST:event_btnCodeMouseClicked

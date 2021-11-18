@@ -131,7 +131,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         int k = 0;
 
         for (int i = listHD.size() - 1; i >= 0; i--) {
-            if (listHD.get(i).getTrangThai() == false && listHD.get(i).getGhiChu().length() <= 4  ) {
+            if (listHD.get(i).getTrangThai() == false && listHD.get(i).getGhiChu().length() <= 4) {
                 HoaDon hd = listHD.get(i);
                 KhachHang kh = daoKH.selectByID(String.valueOf(hd.getMaKH()));
                 NhanVien nv = daoNV.selectByID(String.valueOf(hd.getMaNV()));
@@ -171,14 +171,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
             try {
                 result = new MultiFormatReader().decode(bitmap);
-                
-                String sk = JOptionPane.showInputDialog( this , "Nhập số lượng", "Hệ thống quản lý", JOptionPane.YES_NO_OPTION ) ;
+
+                String sk = JOptionPane.showInputDialog(this, "Nhập số lượng", "Hệ thống quản lý", JOptionPane.YES_NO_OPTION);
                 try {
                     int so = Integer.valueOf(sk);
                     if (so < 0) {
                         MsgBox.alert(this, "Vui lòng nhập số dương");
                     } else {
-                        ThemSPVaoGioHang(result.getText() , so );
+                        ThemSPVaoGioHang(result.getText(), so);
                         XapXepLaiGioHang();
                     }
                 } catch (Exception e) {
@@ -217,7 +217,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     }
 
     // Đổ dữ liệu vào giỏ hàng 
-    private void ThemSPVaoGioHang( String Ma , int k  ) {
+    private void ThemSPVaoGioHang(String Ma, int k) {
 //        int count=0 ;
         try {
             if (model_tableGioHang.getRowCount() > 0) {
@@ -231,7 +231,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
 //            model_tableHoaDon.setRowCount(count);
             SanPham sp = daoSP.selectByID2(Ma);
-            model_tableGioHang.addRow(new Object[]{count + 1, sp.getMaCTSP(), sp.getTenSP(), k , sp.getGia(),
+            model_tableGioHang.addRow(new Object[]{count + 1, sp.getMaCTSP(), sp.getTenSP(), k, sp.getGia(),
                 sp.getGiamGia(), k * sp.getGia() * (1 - sp.getGiamGia() / 100), false});
             TinhTien();
             count++;
@@ -859,7 +859,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         Index = tbDanhSachSP.getSelectedRow();
 
         if (MsgBox.comfirm(this, "Bạn có muốn thêm không")) {
-            ThemSPVaoGioHang(tbDanhSachSP.getValueAt(Index, 0).toString() , 1 );
+            ThemSPVaoGioHang(tbDanhSachSP.getValueAt(Index, 0).toString(), 1);
             XapXepLaiGioHang();
         }
     }//GEN-LAST:event_tbDanhSachSPMouseClicked
@@ -961,13 +961,13 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     // nút tạo hóa đơn
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        ThemHoaDon(false , "Not");
+        ThemHoaDon(false, "Not");
         LuuHoaDonCT();
         LamTrangForm();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     // Thêm vào danh sách hóa đơn
-    private void ThemHoaDon(Boolean tthai , String ghiChu) {
+    private void ThemHoaDon(Boolean tthai, String ghiChu) {
         if (Check.checkTrongText(txtTenKH) == false || Check.checkTrongText(txtSDT) == false) {
             return;
         }
@@ -982,13 +982,13 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             if (daoKH.selectByID_2(txtSDT.getText()) < 1) {
                 daoKH.insert(kh);
             }
-            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai ,ghiChu );
+            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai, ghiChu);
         } catch (Exception e) {
         }
     }
 
     //Thêm vào hóa đơn
-    private void ThemVaoHoaDon(String SDT, int HTTT, Boolean tt ,  String ghiChu) {
+    private void ThemVaoHoaDon(String SDT, int HTTT, Boolean tt, String ghiChu) {
         int k = daoKH.selectByID_2(SDT);
 
         HoaDon hd = new HoaDon();
@@ -1028,23 +1028,23 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             sp.setSoLuong(sp.getSoLuong() - soLuong);
             daoSP.update(sp);
 
-            if ( daoHD.selectByID(tbGioHang.getValueAt(i, 1).toString()) == null ) {
+            if (daoHD.selectByID(tbGioHang.getValueAt(i, 1).toString()) == null) {
                 hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(i, 1).toString()));
                 hdct.setSoLuong(soLuong);
                 hdct.setGia(Double.valueOf(tbGioHang.getValueAt(i, 4).toString()));
                 hdct.setGiamGia(Double.valueOf(tbGioHang.getValueAt(i, 5).toString()));
                 hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(i, 6).toString()));
                 daoCTHD.insert(hdct);
-                }
+            }
         }
     }
-        // Nút thành toán 
+    // Nút thành toán 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         int k = tbDanhSachHD.getSelectedRow();
         listHD = (ArrayList<HoaDon>) daoHD.selectAll();
 
         if (tbGioHang.getRowCount() == 0) {
-            MsgBox.alert( this , "Giỏ hàng trống không thể thanh toán");
+            MsgBox.alert(this, "Giỏ hàng trống không thể thanh toán");
         } else {
             if (k >= 0) {
                 String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
@@ -1053,7 +1053,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 ThemVaoHoaDonCT(Integer.valueOf(MaHD));
                 DoVaoTableDanhSachHD();
             } else {
-                ThemHoaDon(true , "Not");
+                ThemHoaDon(true, "Not");
                 int skk = listHD.get(listHD.size() - 1).getMaHD();
                 ThemVaoHoaDonCT(skk);
             }
@@ -1076,7 +1076,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         kh.setTrangThai(tthai);
         try {
             daoKH.insert(kh);
-            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai , "not");
+            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai, "not");
         } catch (Exception e) {
         }
     }
@@ -1091,17 +1091,17 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     //  nút hủy
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        int k = tbDanhSachHD.getSelectedRow() ;
-        
+        int k = tbDanhSachHD.getSelectedRow();
+
         if (k >= 0) {
             if (MsgBox.comfirm(this, "Bạn có muốn hủy không")) {
-                String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT );
-                daoHD.update2( ghiChu , tbDanhSachHD.getValueAt( k, 1).toString());
+                String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT);
+                daoHD.update2(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
                 LamTrangForm();
                 DoVaoTableDanhSachHD();
             }
-        }else{
-            MsgBox.alert( this , "Vui lòng chọn hóa đơn muốn hủy");
+        } else {
+            MsgBox.alert(this, "Vui lòng chọn hóa đơn muốn hủy");
         }
     }//GEN-LAST:event_jButton13ActionPerformed
 

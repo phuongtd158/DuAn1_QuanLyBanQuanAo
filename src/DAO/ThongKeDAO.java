@@ -38,16 +38,17 @@ public class ThongKeDAO {
         return list;
     }
 
-    public List<Object[]> getSanPham(Integer nam) {
+    public List<Object[]> getSanPham() {
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = null;
             try {
-                String sql = "{CALL SP_SANPHAM(?)}";
-                rs = JDBCHelper.query(sql, nam);
+                String sql = "{CALL SP_SANPHAM}";
+                rs = JDBCHelper.query(sql);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("STT"), rs.getString("TenSP"), rs.getInt("SoLuongBan")
+                        rs.getInt("STT"), rs.getString("MaSP"),rs.getString("TenLoai"), rs.getString("TenSP"), rs.getString("ChatLieu") ,
+                        rs.getString("MauSac"), rs.getString("KichThuoc"),rs.getInt("SoLuong")
                     });
                 }
                 rs.getStatement().getConnection().close();

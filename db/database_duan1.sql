@@ -27,7 +27,7 @@ CREATE TABLE KHACHHANG(
 	MaKH INT IDENTITY(1, 1),
 	TenKH NVARCHAR(30) NOT NULL,
 	NgaySinh DATE,
-	GioiTinh BIT DEFAULT 1 NOT NULL,
+	GioiTinh BIT DEFAULT 1 NULL,
 	SoDienThoai VARCHAR(12) NOT NULL,
 	DiaChi NVARCHAR(50),
 	TrangThai BIT DEFAULT 1 NOT NULL
@@ -35,28 +35,7 @@ CREATE TABLE KHACHHANG(
 	PRIMARY KEY(MaKH)
 )
 
-INSERT INTO dbo.KHACHHANG
-(
-    TenKH,
-    NgaySinh,
-    GioiTinh,
-    SoDienThoai,
-    DiaChi,
-    TrangThai
-)
-VALUES
-(   N'Phương',       -- TenKH - nvarchar(30)
-    GETDATE(), -- NgaySinh - date
-    DEFAULT,      -- GioiTinh - bit
-    '0385606567',        -- SoDienThoai - varchar(12)
-    NULL,       -- DiaChi - nvarchar(50)
-    DEFAULT       -- TrangThai - bit
-    )
 
-	ALTER TABLE dbo.KHACHHANG
-	DROP COLUMN DiaChi
-	ALTER TABLE dbo.KHACHHANG
-	ADD DiaChi NVARCHAR(50) NULL
 CREATE TABLE HINHTHUCTHANHTOAN(
 	MaHTTT INT IDENTITY(1, 1)NOT NULL,
 	TenHTTT NVARCHAR(30) NOT NULL,
@@ -64,6 +43,23 @@ CREATE TABLE HINHTHUCTHANHTOAN(
 
 	PRIMARY KEY(MaHTTT)
 )
+
+INSERT INTO dbo.HINHTHUCTHANHTOAN
+(
+    TenHTTT,
+    TrangThai
+)
+VALUES
+(   N'Tiền mặt', -- TenHTTT - nvarchar(30)
+    DEFAULT -- TrangThai - bit
+    ),
+	(   N'Quẹt thẻ', -- TenHTTT - nvarchar(30)
+    DEFAULT -- TrangThai - bit
+    ),
+	(   N'Chuyển khoản', -- TenHTTT - nvarchar(30)
+    DEFAULT -- TrangThai - bit
+    )
+
 
 CREATE TABLE SANPHAM(
 	MaSP INT IDENTITY(1, 1) NOT NULL,
@@ -120,7 +116,7 @@ CREATE TABLE CHITIETSANPHAM(
 	MaChatLieu INT NOT NULL,
 	SoLuong INT NOT NULL,
 	Gia FLOAT NOT NULL,
-	GiamGia FLOAT NULL,
+	GiamGia FLOAT DEFAULT 0 NULL,
 	TrangThai BIT DEFAULT 1
 
 	PRIMARY KEY(MaCTSP)
@@ -138,7 +134,8 @@ CREATE TABLE HOADON(
 	MaNV VARCHAR(10) NOT NULL,	
 	MaHTTT INT NOT NULL,
 	NgayKhoiTao DATE DEFAULT(GETDATE()) NOT NULL,
-	TrangThai BIT DEFAULT 1 NOT NULL
+	TrangThai NVARCHAR(30) NOT NULL,
+	GhiChu NVARCHAR(100) NULL
 
 	PRIMARY KEY(MaHD)
 	FOREIGN KEY(MaKH) REFERENCES dbo.KHACHHANG(MaKH),
@@ -155,137 +152,14 @@ CREATE TABLE HOADONCHITIET(
 	Gia FLOAT NOT NULL,
 	GiamGia FLOAT NULL,
 	ThanhTien FLOAT NOT NULL,
-	TrangThai BIT DEFAULT 1 NOT NULL,
-	GhiChu NVARCHAR(100) NULL
+	TrangThai BIT DEFAULT 1 NOT NULL
+	
 
 	PRIMARY KEY(MaHDCT)
 	FOREIGN KEY(MaHD) REFERENCES dbo.HOADON(MaHD),
 	FOREIGN KEY(MaCTSP) REFERENCES dbo.CHITIETSANPHAM(MaCTSP)
 )
 
-ALTER TABLE dbo.HOADONCHITIET
-ADD GhiChu NVARCHAR(100) NULL
-
-
-
-
-INSERT INTO dbo.HINHTHUCTHANHTOAN
-(
-    TenHTTT,
-    TrangThai
-)
-VALUES
-(   N'Tiền mặt', -- TenHTTT - nvarchar(30)
-    DEFAULT -- TrangThai - bit
-    )
-	INSERT INTO dbo.HINHTHUCTHANHTOAN
-(
-    TenHTTT,
-    TrangThai
-)
-VALUES
-(   N'Quẹt thẻ', -- TenHTTT - nvarchar(30)
-    DEFAULT -- TrangThai - bit
-    )
-	INSERT INTO dbo.HINHTHUCTHANHTOAN
-(
-    TenHTTT,
-    TrangThai
-)
-VALUES
-(   N'Chuyển khoản', -- TenHTTT - nvarchar(30)
-    DEFAULT -- TrangThai - bit
-    )
-select * from MAUSAC
-ALTER TABLE dbo.CHITIETSANPHAM
-ALTER COLUMN GiamGia FLOAT NULL
-
-select * from SANPHAM where TenSp = N'hahah'
-delete from SANPHAM where MaSP != 1 and MaSP != 2 and MaSP != 5 
-select * from CHITIETSANPHAM
-
-delete from CHITIETSANPHAM where MaCTSP between 32 and 42 
-update CHITIETSANPHAM set SoLuong = 50 , Gia = 200000 where MaCTSP = 7
-INSERT INTO dbo.CHITIETSANPHAM
-(
-    MaSP,
-    MaLoai,
-    MaMauSac,
-    MaKichThuoc,
-    MaChatLieu,
-    SoLuong,
-    Gia,
-    GiamGia,
-    TrangThai
-)
-VALUES
-(   0,   -- MaSP - int
-    0,   -- MaLoai - int
-    0,   -- MaMauSac - int
-    0,   -- MaKichThuoc - int
-    0,   -- MaChatLieu - int
-    0,   -- SoLuong - int
-    0.0, -- Gia - float
-    0.0, -- GiamGia - float
-    NULL -- TrangThai - bit
-    )
-INSERT INTO dbo.HOADON
-(
-    MaKH,
-    MaNV,
-    MaHTTT,
-    NgayKhoiTao,
-    TrangThai
-)
-VALUES
-(   40,         -- MaKH - int
-    'admin',        -- MaNV - varchar(10)
-    2,         -- MaHTTT - int
-    '2021-10-01', -- NgayKhoiTao - date
-    DEFAULT       -- TrangThai - bit
-    )
-INSERT INTO dbo.HOADONCHITIET
-(
-    MaHD,
-    MaCTSP,
-    SoLuong,
-    Gia,
-    GiamGia,
-    ThanhTien,
-    TrangThai
-)
-VALUES
-(   1375352,   -- MaHD - int
-    4,   -- MaCTSP - int
-    10,   -- SoLuong - int
-    10, -- Gia - float
-    0.0, -- GiamGia - float
-    100.0, -- ThanhTien - float
-    DEFAULT -- TrangThai - bit
-    )
-SELECT * FROM dbo.HOADON
-INSERT INTO dbo.HOADONCHITIET
-(
-    MaHD,
-    MaCTSP,
-    SoLuong,
-    Gia,
-    GiamGia,
-    ThanhTien,
-    TrangThai
-)
-VALUES
-(   1375338,   -- MaHD - int
-    1,   -- MaCTSP - int
-    9,   -- SoLuong - int
-    1.0, -- Gia - float
-    5, -- GiamGia - float
-    9.0, -- ThanhTien - float
-    DEFAULT -- TrangThai - bit
-    )
-SELECT * FROM dbo.CHITIETSANPHAM
-SELECT * FROM dbo.HOADON
-SELECT * FROM dbo.HOADONCHITIET
 
 --SP doanh thu theo năm
 CREATE PROC SP_DOANHTHU(@NAM int)
@@ -302,22 +176,30 @@ AS BEGIN
 END
 GO
 
---SP top 10 sản phẩm bán chạy
-CREATE PROC SP_SANPHAM(@NAM int)
+
+--Thống kê sản phẩm
+CREATE PROC SP_SANPHAM
 AS BEGIN
 	SELECT 
 	ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS STT,
+	CHITIETSANPHAM.MaSP AS MaSP,
+	TenLoai AS TenLoai,
 	TenSp AS TenSP,
-	SUM(HOADONCHITIET.SoLuong) AS SoLuongBan
-	FROM dbo.CHITIETSANPHAM JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaCTSP = CHITIETSANPHAM.MaCTSP
-							JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP
-							JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE YEAR(NgayKhoiTao) = @NAM AND dbo.CHITIETSANPHAM.TrangThai = 1
-	GROUP BY dbo.SANPHAM.TenSp
-	ORDER BY SUM(HOADONCHITIET.SoLuong) DESC
+	TenChatLieu AS ChatLieu,
+	TenMauSac AS MauSac,
+	KichThuoc AS KichThuoc,
+	SoLuong AS SoLuong
+	FROM dbo.CHITIETSANPHAM 
+	JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac
+	JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu
+	JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc
+	JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai
+	JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP
+	WHERE CHITIETSANPHAM.TrangThai = 1 AND SoLuong > 0
+	ORDER BY SoLuong 
+	
 END
 GO
-
 
 
 --SP tìm kiếm tổng đơn hàng
@@ -377,73 +259,3 @@ AS BEGIN
 END
 
 
-CREATE PROC SP_TONGDONHANG(@NgayBatDau date, @NgayKetThuc date)
-AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHang
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc
-END
-
-CREATE PROC SP_TONGDONHANG_Ngay(@NgayBatDau date)
-AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHang
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao = @NgayBatDau
-END
-
-CREATE PROC SP_TONGDOANHTHU(@NgayBatDau date, @NgayKetThuc date)
-AS BEGIN
-	SELECT SUM(SoLuong * Gia) - SUM(GiamGia) AS TongDoanhThu
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao >=  @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc
-END
-
-CREATE PROC SP_TONGDOANHTHU_Ngay(@NgayBatDau date)
-AS BEGIN
-	SELECT SUM(SoLuong * Gia) - SUM(GiamGia) AS TongDoanhThu
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao =  @NgayBatDau
-END
-
-CREATE PROC SP_TONGSANPHAM(@NgayBatDau date, @NgayKetThuc date)
-AS BEGIN
-	SELECT SUM(SoLuong) AS TongSanPham
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao >=  @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc
-END
-
-CREATE PROC SP_TONGSANPHAM_Ngay(@NgayBatDau date)
-AS BEGIN
-	SELECT SUM(SoLuong) AS TongSanPham
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao = @NgayBatDau
-END
-
-CREATE PROC SP_DOANHTHU(@NAM int)
-AS BEGIN
-	SELECT MONTH(NgayKhoiTao) AS Thang, 
-	SUM(SoLuong) AS SanPhamBan, 
-	SUM(SoLuong * Gia) AS TongGiaBan,
-	SUM(GiamGia) AS GiamGia, 
-	SUM(SoLuong * Gia) - SUM(GiamGia) AS DoanhThu
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE YEAR(NgayKhoiTao) = @NAM
-	GROUP BY MONTH(NgayKhoiTao) 
-	ORDER BY MONTH(NgayKhoiTao) ASC
-END
-
-
-CREATE PROC SP_SANPHAM(@NAM int)
-AS BEGIN
-	SELECT 
-	ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS STT,
-	dbo.HOADONCHITIET.MaCTSP AS MaSP,
-	TenSp AS TenSP,
-	SUM(HOADONCHITIET.SoLuong) AS SoLuongBan
-	FROM dbo.CHITIETSANPHAM JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaCTSP = CHITIETSANPHAM.MaCTSP
-							JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP
-							JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE YEAR(NgayKhoiTao) = @NAM
-	GROUP BY HOADONCHITIET.MaCTSP, TenSp
-	ORDER BY SUM(HOADONCHITIET.SoLuong) DESC
-END
