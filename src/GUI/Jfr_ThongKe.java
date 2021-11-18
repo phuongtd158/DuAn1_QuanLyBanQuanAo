@@ -81,11 +81,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             String message = "Tổng đơn hàng của ngày hôm nay: " + ": " + lbTongDonHang.getText() + "\n" + "Tổng doanh thu của ngày hôm nay: " + ": " + lbTongDoanhThuNgay.getText() + "\n" + "Nhân viên bán hàng: " + Auth.user.getTenNV();
             boolean sessionDebug = false;
             Properties pros = System.getProperties();
+             pros.put("mail.smtp.ssl.trust", "*");
             pros.put("mail.smtp.starttls.enable", "true");
             pros.put("mail.smtp.host", "host");
-            pros.put("mail.smtp.port", "587");
+            pros.put("mail.smtp.port", "896");
             pros.put("mail.smtp.auth", "true");
             pros.put("mail.smtp.starttls.required", "true");
+
 
             Session mailSession = Session.getDefaultInstance(pros, null);
             mailSession.setDebug(sessionDebug);

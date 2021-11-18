@@ -492,17 +492,17 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         tbDanhSachHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã HĐ", "Tên NV", "Tên KH", "Trạng thái"
+                "STT", "Mã HĐ", "Tên NV", "Tên KH", "Trạng thái", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
