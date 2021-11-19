@@ -25,6 +25,8 @@ public class SanPhamDAO extends Main< SanPham, String> {
     String Update = " Update SANPHAM set TenSp = ? where MaSP = ? "
             + " Update CHITIETSANPHAM set SoLuong = ?  , Gia = ? where MaCTSP = ? ";
 
+    String Update_1 = " Update CHITIETSANPHAM set SoLuong = ? where MaCTSP = ?" ;
+    
     String Update_2 = " Update CHITIETSANPHAM set TrangThai = 0 where MaCTSP = ? ";
     String Update_3 = " Update CHITIETSANPHAM set SoLuong = ?  where MaCTSP = ? "; 
     
@@ -84,6 +86,15 @@ public class SanPhamDAO extends Main< SanPham, String> {
     public void Update_1(SanPham entity) {
         try {
             JDBCHelper.Update(Update, entity.getTenSP(), entity.getMaSP(), entity.getSoLuong(), entity.getGia(), entity.getMaCTSP());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void Update_1_1(SanPham entity) {
+        try {
+            JDBCHelper.Update(Update_1, entity.getSoLuong() , entity.getMaCTSP());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -18,8 +18,17 @@ public class HoaDon {
     private int MaHTTT ;
     private Date NgayTao ;
     private String ghiChu ;
-    private Boolean TrangThai ;
+    private String TrangThai ;
+    private Double TienShip ;
 
+    public Double getTienShip() {
+        return TienShip;
+    }
+
+    public void setTienShip(Double TienShip) {
+        this.TienShip = TienShip;
+    }
+    
     public String getGhiChu() {
         return ghiChu;
     }
@@ -68,11 +77,11 @@ public class HoaDon {
         this.NgayTao = NgayTao;
     }
 
-    public Boolean getTrangThai() {
+    public String getTrangThai() {
         return TrangThai;
     }
 
-    public void setTrangThai(Boolean TrangThai) {
+    public void setTrangThai(String TrangThai) {
         this.TrangThai = TrangThai;
     }
     

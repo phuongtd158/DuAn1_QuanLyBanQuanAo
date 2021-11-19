@@ -156,6 +156,10 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
     }
     
     void insert() {
+        if (nvdao.selectByID(txtMaNV.getText())!=null) {
+            MsgBox.alert(this, "Trùng mã");
+            return;
+        }
         NhanVien nv = getFrom();
         try {
             nvdao.insert(nv);

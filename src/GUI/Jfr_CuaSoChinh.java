@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -616,9 +617,11 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        this.dispose();
-        Jfr_DangNhap menu8 = new Jfr_DangNhap();
-        menu8.setVisible(true);
+        if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
+            this.dispose();
+            Jfr_DangNhap menu8 = new Jfr_DangNhap();
+            menu8.setVisible(true);
+        }
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
