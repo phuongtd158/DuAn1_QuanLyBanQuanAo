@@ -27,15 +27,15 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     public void update2(String a, String b) {
         JDBCHelper.Update(Update_1, a, b);
     }
-    
+
     public void update1(String a, String b) {
         JDBCHelper.Update(Update, a, b);
     }
 
     @Override
     public void insert(HoaDon entity) {
-        JDBCHelper.Update(Insert, entity.getMaKH(), entity.getMaNV(), entity.getMaHTTT(), entity.getTrangThai()
-                , entity.getGhiChu() , entity.getTienShip() );
+        JDBCHelper.Update(Insert, entity.getMaKH(), entity.getMaNV(), entity.getMaHTTT(), entity.getTrangThai(),
+                 entity.getGhiChu(), entity.getTienShip());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     }
 
     public List<HoaDon> selectAll_2(String... k) {
-        return selectBySQL(selectAll_2, "%" + k[0] + "%","%" + k[1] + "%","%" + k[2] + "%","%" + k[3] + "%");
+        return selectBySQL(selectAll_2, "%" + k[0] + "%", "%" + k[1] + "%", "%" + k[2] + "%", "%" + k[3] + "%");
     }
 
     @Override
@@ -85,7 +85,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
                 hd.setMaNV(rs.getString("MaNV"));
                 hd.setNgayTao(rs.getDate("NgayKhoiTao"));
                 hd.setGhiChu(rs.getString("GhiChu"));
-                hd.setTienShip( rs.getDouble("TienShip"));
+                hd.setTienShip(rs.getDouble("TienShip"));
                 hd.setTrangThai(rs.getString("TrangThai"));
                 list.add(hd);
             }
