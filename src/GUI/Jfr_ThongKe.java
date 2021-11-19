@@ -60,7 +60,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
      */
     public Jfr_ThongKe() {
         initComponents();
-        tk = this;
+
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -76,6 +76,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             jButton2.setVisible(false);
         }
         doVaoSanPham();
+        tk = this;
     }
 
     //Gửi email
@@ -88,7 +89,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             String pass = "Poly123456";
             String to = "phuongtdph13747@fpt.edu.vn";
             String subjectString = "Báo cáo doanh thu ngày" + "(" + java.time.LocalDate.now() + ")";
-            String message = "Tổng đơn hàng của ngày hôm nay: " + ": " + lbTongDonHang.getText() + "\n" + "Tổng doanh thu của ngày hôm nay: " + ": " + lbTongDoanhThuNgay.getText() + "\n" + "Nhân viên bán hàng: " + Auth.user.getTenNV();
+            String message = "Tổng đơn hàng của ngày hôm nay: " + ": " + lbTongDonHang.getText() + "\n" + "Tổng doanh thu của ngày hôm nay: "
+                    + ": " + lbTongDoanhThuNgay.getText() + "\n" + "Nhân viên bán hàng: " + Auth.user.getTenNV();
             boolean sessionDebug = false;
             Properties pros = System.getProperties();
              pros.put("mail.smtp.ssl.trust", "*");

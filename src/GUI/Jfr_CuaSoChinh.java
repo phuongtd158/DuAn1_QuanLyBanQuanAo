@@ -489,7 +489,23 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHoaDonMousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        System.exit(0);
+        if (Auth.user.getVaiTro() == false) {
+            try {
+                if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn có muốn báo cáo doanh thu không ?")) {
+
+                    Jfr_ThongKe.tk.sendEmail();
+
+                    System.exit(0);
+                } else {
+                    System.exit(0);
+                }
+            } catch (Exception e) {
+                MsgBox.alert(this, "Kiểm tra doanh thu trước khi báo cáo");
+            }
+        } else {
+            System.exit(0);
+        }
+
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
@@ -617,7 +633,24 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
+        if (Auth.user.getVaiTro() == false) {
+            try {
+                if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn có muốn báo cáo doanh thu không ?")) {
+
+                    Jfr_ThongKe.tk.sendEmail();
+
+                    this.dispose();
+                    Jfr_DangNhap menu8 = new Jfr_DangNhap();
+                    menu8.setVisible(true);
+                } else {
+                    this.dispose();
+                    Jfr_DangNhap menu8 = new Jfr_DangNhap();
+                    menu8.setVisible(true);
+                }
+            } catch (Exception e) {
+                MsgBox.alert(this, "Kiểm tra doanh thu trước khi báo cáo");
+            }
+        } else {
             this.dispose();
             Jfr_DangNhap menu8 = new Jfr_DangNhap();
             menu8.setVisible(true);

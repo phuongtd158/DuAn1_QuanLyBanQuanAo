@@ -177,24 +177,33 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDanhSachHoaDon = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        lbTongTienHang = new javax.swing.JLabel();
-        lblTenKH = new javax.swing.JLabel();
-        lblSDT = new javax.swing.JLabel();
-        lblDiaChi = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        lbTrangThai = new javax.swing.JLabel();
-        lbLydo1 = new javax.swing.JLabel();
-        lbLyDo = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        lbTenNV = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lbNgayTao = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lbMaNV = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lbTenNV = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel55 = new javax.swing.JLabel();
+        lblTenKH = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        lblSDT = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel56 = new javax.swing.JLabel();
+        lblDiaChi = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel57 = new javax.swing.JLabel();
+        lbTongTienHang = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        lbNgayTao = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lbTrangThai = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        lbLydo1 = new javax.swing.JLabel();
+        lbLyDo = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -280,74 +289,119 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new java.awt.GridLayout());
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setText("Mã Nhân Viên:");
+        jPanel6.add(jLabel4);
+
+        lbMaNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel6.add(lbMaNV);
+
+        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 290, 40));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new java.awt.GridLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setText("Tên Nhân Viên:");
+        jPanel7.add(jLabel3);
+
+        lbTenNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel7.add(lbTenNV);
+
+        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 40));
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new java.awt.GridLayout());
+
         jLabel55.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(0, 0, 0));
         jLabel55.setText("Tên KH:");
-        jPanel3.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel8.add(jLabel55);
+
+        lblTenKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel8.add(lblTenKH);
+
+        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 40));
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new java.awt.GridLayout());
 
         jLabel54.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(0, 0, 0));
         jLabel54.setText("Số Điện Thoại:");
-        jPanel3.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jPanel9.add(jLabel54);
+
+        lblSDT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel9.add(lblSDT);
+
+        jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 290, 40));
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setLayout(new java.awt.GridLayout());
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(0, 0, 0));
         jLabel56.setText("Địa chỉ:");
-        jPanel3.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        jPanel10.add(jLabel56);
+
+        lblDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel10.add(lblDiaChi);
+
+        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 40));
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setLayout(new java.awt.GridLayout());
 
         jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(0, 0, 0));
         jLabel57.setText("Tổng tiền hàng:");
-        jPanel3.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        jPanel11.add(jLabel57);
 
         lbTongTienHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTongTienHang.setForeground(new java.awt.Color(0, 0, 0));
         lbTongTienHang.setText("0");
-        jPanel3.add(lbTongTienHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 140, -1));
+        jPanel11.add(lbTongTienHang);
 
-        lblTenKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lblTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 210, 30));
+        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 40));
 
-        lblSDT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lblSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 180, 30));
-
-        lblDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lblDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 210, 30));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Trạng Thái:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 90, -1));
-
-        lbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lbTrangThai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 180, 30));
-
-        lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbLydo1.setText("Lý Do Hủy:");
-        jPanel3.add(lbLydo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
-
-        lbLyDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lbLyDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 190, 30));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Tên Nhân Viên:");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
-
-        lbTenNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lbTenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 170, 30));
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setLayout(new java.awt.GridLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Ngày Tạo:");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        jPanel12.add(jLabel2);
 
         lbNgayTao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lbNgayTao, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 170, 30));
+        jPanel12.add(lbNgayTao);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel4.setText("Mã Nhân Viên:");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 40));
 
-        lbMaNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel3.add(lbMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 170, 30));
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.setLayout(new java.awt.GridLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setText("Trạng Thái:");
+        jPanel13.add(jLabel1);
+
+        lbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel13.add(lbTrangThai);
+
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 40));
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setLayout(new java.awt.GridLayout());
+
+        lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbLydo1.setText("Lý Do Hủy:");
+        jPanel14.add(lbLydo1);
+
+        lbLyDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel14.add(lbLyDo);
+
+        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 290, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 300, 730));
 
@@ -422,10 +476,19 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
