@@ -1258,7 +1258,10 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         
         if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn hủy không") ){
             String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT);
-            HamCongNguocSoLuong();
+            for( int i=0 ; i<tbGioHang.getSelectedRow() ; i++ ){
+                HamCongNguocSoLuong(i);
+            }
+            
             daoHD.update2(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
             daoHD.update1("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
             LamTrangForm();
