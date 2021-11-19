@@ -53,27 +53,19 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     }
 
     public void DoVaoTableHoaDon() {
-//        listHD = (ArrayList<HoaDon>) hdDAO.selectAll_2(txtMaHD.getText(), txtTenNV.getText(),
-//                txtTenKhanhHang.getText(), txtNgayTao.getText());
-//        modeltbHD.setRowCount(1);
-//        int k = 0;
-//        for (int i = listHD.size() - 1; i >= 0; i--) {
-//            HoaDon hd = listHD.get(i);
-//            KhachHang kh = khDao.selectByID(String.valueOf(hd.getMaKH()));
-////            NhanVien nv = nvDAO.selectByID(String.valueOf(hd.getMaNV()));
-////            String tt = "";
-////            if (kh.getDiaChi().length() > 4) {
-////                tt = hd.getTrangThai() ? "Đã Giao Hàng" : "Đang Giao Hàng";
-////            } else if (hd.getGhiChu().length() > 4) {
-////                tt = "Đơn Đã Hủy";
-////            } else {
-////                tt = hd.getTrangThai() ? "Đã Thanh Toán" : "Chưa Thanh Toán";
-////            }
-//            modeltbHD.addRow(new Object[]{
-//                k + 1, hd.getMaHD(), nv.getTenNV(), kh.getTenKH(), hd.getNgayTao(), tt
-//            });
-//            k++;
-//        }
+        listHD = (ArrayList<HoaDon>) hdDAO.selectAll_2(txtMaHD.getText(), txtTenNV.getText(),
+                txtTenKhanhHang.getText(), txtNgayTao.getText());
+        modeltbHD.setRowCount(1);
+        int k = 0;
+        for (int i = listHD.size() - 1; i >= 0; i--) {
+            HoaDon hd = listHD.get(i);
+            KhachHang kh = khDao.selectByID(String.valueOf(hd.getMaKH()));
+            NhanVien nv = nvDAO.selectByID(String.valueOf(hd.getMaNV()));
+            modeltbHD.addRow(new Object[]{
+                k + 1, hd.getMaHD(), nv.getTenNV(), kh.getTenKH(), hd.getNgayTao(), hd.getTrangThai()
+            });
+            k++;
+        }
 
     }
 
@@ -94,7 +86,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         SapXepDSSP();
         TingTien();
         if (kh.getDiaChi().length() > 4) {
-            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn Đã Hủy")) {
+            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy")) {
                 lbLyDo.setVisible(true);
                 lbLydo1.setVisible(true);
                 lbLyDo.setText(hd.getGhiChu());
@@ -117,7 +109,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
             }
         } else {
-            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn Đã Hủy")) {
+            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy")) {
                 lbLyDo.setVisible(true);
                 lbLydo1.setVisible(true);
                 lbLyDo.setText(hd.getGhiChu());
