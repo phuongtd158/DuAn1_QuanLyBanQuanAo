@@ -1252,9 +1252,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void HuyDatHang(){
         int k = tbDanhSachHD.getSelectedRow();
         
-        Object[] option = {"Hủy" , "Đổi Trả"} ;
-        int sk = JOptionPane.showOptionDialog(this, "Mời bạn chọn hình thức hủy", "Hệ thống quản trị", JOptionPane.YES_NO_OPTION
-                , JOptionPane.QUESTION_MESSAGE , null , option, option[0]) ;
+        int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hủy", "Hủy đơn" , "Đổi Trả" ) ;
         
         if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn hủy không") ){
             String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT);
@@ -1268,7 +1266,10 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             DoVaoTableDanhSachHD();
             MsgBox.alert( this , "Hủy thành công");
         }else if( sk == 1 ){
-            
+            int sk1 = MsgBox.confirm_2( this , "Mời bạn chọn hình thức đổi trả", "Hoàn tiền", "Đổi lại đồ mới");
+            if( sk == 0 ){
+                
+            }
         }
     }
     
