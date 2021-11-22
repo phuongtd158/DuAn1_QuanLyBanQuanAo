@@ -1244,6 +1244,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         txtTenSP.setText(sp.getTenSP());
         txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
         txtDonGia.setText(String.valueOf(sp.getGia()));
+        
         setSelectedComboboxMauSac(tblSanPham.getValueAt(Index, 4).toString(), cbbMauSac);
         setSelectedComboboxTenLoai(tblSanPham.getValueAt(Index, 2).toString(), cbbLoaiSanPham);
         setSelectedComboboxKT(tblSanPham.getValueAt(Index, 3).toString(), cbbKichThuoc);

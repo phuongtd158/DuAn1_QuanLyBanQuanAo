@@ -62,7 +62,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     }
 
     @Override
-    public HoaDon selectByID(String id) {
+    public HoaDon selectByID(String id ) {
         List<HoaDon> list = selectBySQL(selectByID, id);
         if (list.isEmpty()) {
             return null;
