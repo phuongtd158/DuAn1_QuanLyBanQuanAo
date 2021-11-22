@@ -1127,14 +1127,13 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     
     // Hàm cộng lại số lượng
-    private void HamCongNguocSoLuong(){
+    private void HamCongNguocSoLuong( int i) {
         
-        for( int i=0 ; i < tbGioHang.getRowCount() ; i++ ){
-            int SoLuong = Integer.valueOf( tbGioHang.getValueAt( i, 3).toString() );
-            SanPham sp = daoSP.selectByID2( tbGioHang.getValueAt( i, 1).toString() );
-            sp.setSoLuong( SoLuong + sp.getSoLuong() );
-            daoSP.Update_1_1(sp);
-        }
+        int SoLuong = Integer.valueOf(tbGioHang.getValueAt(i, 3).toString());
+        SanPham sp = daoSP.selectByID2(tbGioHang.getValueAt(i, 1).toString());
+        sp.setSoLuong(SoLuong + sp.getSoLuong());
+        daoSP.Update_1_1(sp);
+
     }
     
     //  nút hủy
@@ -1144,9 +1143,11 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         if (k >= 0) {
             if (MsgBox.comfirm(this, "Bạn có muốn hủy không")) {
                 String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT);
-                HamCongNguocSoLuong();
-                daoHD.update2( ghiChu , tbDanhSachHD.getValueAt(k, 1).toString() );
-                daoHD.update1( "Đã Hủy", tbDanhSachHD.getValueAt(k, 1).toString() );
+                for( int i=0 ; i<tbGioHang.getRowCount() ; i++ ){
+                    HamCongNguocSoLuong(i);
+                }
+                daoHD.update1( ghiChu , tbDanhSachHD.getValueAt(k, 1).toString() );
+                daoHD.update2( "Đã Hủy", tbDanhSachHD.getValueAt(k, 1).toString() );
                 LamTrangForm();
                 DoVaoTableDanhSachHD();
                 MsgBox.alert( this , "Hủy thành công");
@@ -1257,7 +1258,10 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         
         if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn hủy không") ){
             String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn hủy hóa đơn", "Hệ thống quản trị", HEIGHT);
-            HamCongNguocSoLuong();
+            for( int i=0 ; i<tbGioHang.getSelectedRow() ; i++ ){
+                HamCongNguocSoLuong(i);
+            }
+            
             daoHD.update2(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
             daoHD.update1("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
             LamTrangForm();

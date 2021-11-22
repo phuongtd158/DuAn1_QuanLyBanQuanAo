@@ -498,10 +498,6 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         clear();
     }//GEN-LAST:event_btnMoiMouseClicked
 
-    private void txtTenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenKHActionPerformed
-
     private void tblKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKHMouseClicked
         txtMaKH.setEditable(false);
         if (evt.getClickCount() == 1) {
@@ -515,6 +511,10 @@ public class Jfr_KhachHang extends javax.swing.JInternalFrame {
         Jfr_KhachHangAn kachHangAn = new Jfr_KhachHangAn();
         kachHangAn.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void txtTenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenKHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
