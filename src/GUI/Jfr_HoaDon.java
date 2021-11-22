@@ -1294,31 +1294,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     }//GEN-LAST:event_txtSDT2KeyReleased
 
 //    // Hàm nút hủy bên đặt hàng 
-//    private void HuyDatHang(){
-//        int k = tbDanhSachHD.getSelectedRow();
-//        
-//        int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hủy", "Trả toàn phần" , "Trả một phần" ) ;
-//        
-//        if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn trả không không" ) == true ){
-//            String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn trả hóa đơn", "Hệ thống quản trị", HEIGHT);
-//           
-//            for( int i=0 ; i<tbGioHang.getSelectedRow(); i++ ){
-//                HamCongNguocSoLuong(i);
-//            }
-//            
-//            daoHD.update1(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
-//            daoHD.update2("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
-//            LamTrangForm();
-//            DoVaoTableDanhSachHD();
-//            MsgBox.alert( this , "Trả thành công");
-//        }else if( sk == 1 && MsgBox.comfirm( this , "Bạn có muốn trả không không") == true ){
-//            btnTraHang.setVisible(true);
-//            NutDoiTra = 1 ;             
-//        }
-//    }
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        HuyDatHang();
+    private void HuyDatHang(){
         int k = tbDanhSachHD.getSelectedRow();
         
         int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hủy", "Trả toàn phần" , "Trả một phần" ) ;
@@ -1326,19 +1302,25 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn trả không không" ) == true ){
             String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn trả hóa đơn", "Hệ thống quản trị", HEIGHT);
            
-            for( int i=0 ; i<tbGioHang.getSelectedRow(); i++ ){
+            for( int i=0 ; i<tbGioHang.getRowCount() ; i++ ){
                 HamCongNguocSoLuong(i);
             }
             
             daoHD.update1(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
             daoHD.update2("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
+          
             LamTrangForm();
             DoVaoTableDanhSachHD();
+
             MsgBox.alert( this , "Trả thành công");
         }else if( sk == 1 && MsgBox.comfirm( this , "Bạn có muốn trả không không") == true ){
             btnTraHang.setVisible(true);
             NutDoiTra = 1 ;             
         }
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        HuyDatHang();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Trả hàng    
