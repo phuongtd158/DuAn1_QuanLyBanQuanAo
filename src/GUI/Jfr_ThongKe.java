@@ -198,11 +198,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         });
     }
 
-    public void sapXep() {
-        List<SanPham> list = new ArrayList<>();
-        Collections.sort(list, (a, b) -> (int) (a.getSoLuong() - b.getSoLuong()));
-    }
-
     //Đổ vào table sản phẩm
     private void doVaoSanPham() {
         try {
@@ -258,8 +253,17 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                 if (cbbLoaiThoiGian.getSelectedItem().toString().equals("Hôm nay")) {
                     hide_();
                     if (Auth.user.getVaiTro() == false) {
+
                         int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
                         lbTongDonHang.setText(String.valueOf(tongDonHang));
+                        lbTongDonHang1.setText(String.valueOf(tongDonHang));
+
+                        int tongDonHuy = dao_tk.getTongDonHang_Ngay_BiHuy(LocalDate.now().toString());
+                        lbTongDonHangHuy.setText(tongDonHuy + "");
+                        lbTongDonHangHuy1.setText(tongDonHuy + "");
+
+                        lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
+
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                         lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
                         lbTongDoanhThuThang.setText("0" + " VND");
@@ -268,16 +272,32 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     } else {
                         int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
                         lbTongDonHang.setText(String.valueOf(tongDonHang));
+                        lbTongDonHang1.setText(String.valueOf(tongDonHang));
+
+                        int tongDonHuy = dao_tk.getTongDonHang_Ngay_BiHuy(LocalDate.now().toString());
+                        lbTongDonHangHuy.setText(tongDonHuy + "");
+                        lbTongDonHangHuy1.setText(tongDonHuy + "");
+
+                        lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
 
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                         lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
                     }
 
-                } else {
+                } else { //Tìm kiếm
                     show_();
+                    //thành công
                     int tongDonHang = dao_tk.getTongDonHang(ngayBatDau, ngayKetThuc);
                     lbTongDonHang.setText(String.valueOf(tongDonHang));
+                    lbTongDonHang1.setText(String.valueOf(tongDonHang));
+                    //hủy
+                    int tongDonHuy_tk = dao_tk.getTongDonHang_huy(ngayBatDau, ngayKetThuc);
+                    lbTongDonHangHuy.setText(String.valueOf(tongDonHuy_tk));
+                    lbTongDonHangHuy1.setText(String.valueOf(tongDonHuy_tk));
 
+                    lbTong.setText(tongDonHang + tongDonHuy_tk + " đơn hàng");
+
+                    //doanh thu
                     float tongDoanhThu = dao_tk.getTongDoanhThu(ngayBatDau, ngayKetThuc);
                     lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
 
@@ -346,11 +366,19 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jPanel17 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lbBiHuy = new javax.swing.JLabel();
+        lbTongDonHangHuy = new javax.swing.JLabel();
         lbTongDonHang = new javax.swing.JLabel();
+        lbTongDonHang2 = new javax.swing.JLabel();
+        lbTong = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lbTongDoanhThuNgay = new javax.swing.JLabel();
+        lbTongDonHang3 = new javax.swing.JLabel();
+        lbTongDonHang4 = new javax.swing.JLabel();
+        lbTongDonHang1 = new javax.swing.JLabel();
+        lbTongDonHangHuy1 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -590,12 +618,30 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel4.setText("Tổng đơn hàng");
         jPanel17.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        lbTongDonHang.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lbBiHuy.setForeground(new java.awt.Color(255, 255, 255));
+        lbBiHuy.setText("Bị hủy:");
+        jPanel17.add(lbBiHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 50, 20));
+
+        lbTongDonHangHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTongDonHangHuy.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHangHuy.setText("0");
+        jPanel17.add(lbTongDonHangHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 110, 20));
+
+        lbTongDonHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbTongDonHang.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDonHang.setText("0");
-        jPanel17.add(lbTongDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, 40));
+        jPanel17.add(lbTongDonHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 110, -1));
 
-        jPanel16.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 260, 130));
+        lbTongDonHang2.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHang2.setText("Thành công:");
+        jPanel17.add(lbTongDonHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 90, 20));
+
+        lbTong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbTong.setForeground(new java.awt.Color(255, 255, 255));
+        lbTong.setText("0");
+        jPanel17.add(lbTong, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 30));
+
+        jPanel16.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 260, 140));
 
         jPanel18.setBackground(new java.awt.Color(239, 83, 80));
         jPanel18.setPreferredSize(new java.awt.Dimension(230, 90));
@@ -606,15 +652,33 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Tổng doanh thu theo ngày");
+        jLabel10.setText("Tổng doanh thu ngày");
         jPanel18.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbTongDoanhThuNgay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTongDoanhThuNgay.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThuNgay.setText("0");
-        jPanel18.add(lbTongDoanhThuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
+        jPanel18.add(lbTongDoanhThuNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 180, 30));
 
-        jPanel16.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 270, 130));
+        lbTongDonHang3.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHang3.setText("Bị hủy:");
+        jPanel18.add(lbTongDonHang3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 40, 20));
+
+        lbTongDonHang4.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHang4.setText("Thành công:");
+        jPanel18.add(lbTongDonHang4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 70, 20));
+
+        lbTongDonHang1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTongDonHang1.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHang1.setText("0");
+        jPanel18.add(lbTongDonHang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 100, -1));
+
+        lbTongDonHangHuy1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTongDonHangHuy1.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonHangHuy1.setText("0");
+        jPanel18.add(lbTongDonHangHuy1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 90, 20));
+
+        jPanel16.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 270, 140));
 
         jPanel20.setBackground(new java.awt.Color(255, 153, 153));
         jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -624,15 +688,15 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Tổng doanh thu theo năm");
+        jLabel14.setText("Tổng doanh thu năm");
         jPanel20.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbTongDoanhThuNam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTongDoanhThuNam.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThuNam.setText("0");
-        jPanel20.add(lbTongDoanhThuNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, 40));
+        jPanel20.add(lbTongDoanhThuNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 170, 30));
 
-        jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 260, 130));
+        jPanel16.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, 260, 140));
 
         jPanel19.setBackground(new java.awt.Color(255, 143, 0));
         jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -642,15 +706,15 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Tổng doanh thu theo tháng");
+        jLabel12.setText("Tổng doanh thu tháng");
         jPanel19.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         lbTongDoanhThuThang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTongDoanhThuThang.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThuThang.setText("0");
-        jPanel19.add(lbTongDoanhThuThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, 40));
+        jPanel19.add(lbTongDoanhThuThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 170, 30));
 
-        jPanel16.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 270, 130));
+        jPanel16.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 270, 140));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -848,10 +912,18 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbBiHuy;
+    private javax.swing.JLabel lbTong;
     private javax.swing.JLabel lbTongDoanhThuNam;
     private javax.swing.JLabel lbTongDoanhThuNgay;
     private javax.swing.JLabel lbTongDoanhThuThang;
     private javax.swing.JLabel lbTongDonHang;
+    private javax.swing.JLabel lbTongDonHang1;
+    private javax.swing.JLabel lbTongDonHang2;
+    private javax.swing.JLabel lbTongDonHang3;
+    private javax.swing.JLabel lbTongDonHang4;
+    private javax.swing.JLabel lbTongDonHangHuy;
+    private javax.swing.JLabel lbTongDonHangHuy1;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblSanPham;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;

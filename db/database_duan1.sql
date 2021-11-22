@@ -160,10 +160,7 @@ CREATE TABLE HOADONCHITIET(
 	FOREIGN KEY(MaCTSP) REFERENCES dbo.CHITIETSANPHAM(MaCTSP)
 )
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 481ba5683c178a627ac09c5c0d0cd0208043c365
 ALTER TABLE dbo.HOADONCHITIET
 ADD GhiChu NVARCHAR(100) NULL
 
@@ -290,10 +287,7 @@ VALUES
 SELECT * FROM dbo.CHITIETSANPHAM
 SELECT * FROM dbo.HOADON
 SELECT * FROM dbo.HOADONCHITIET
-<<<<<<< HEAD
 
-=======
->>>>>>> 481ba5683c178a627ac09c5c0d0cd0208043c365
 
 --SP doanh thu theo năm
 CREATE PROC SP_DOANHTHU(@NAM int)
@@ -335,60 +329,86 @@ AS BEGIN
 END
 GO
 
+---------------------------------------------------------------------------------------------------------------
 
 --SP tìm kiếm tổng đơn hàng
 CREATE PROC SP_TONGDONHANG(@NgayBatDau date, @NgayKetThuc date)
 AS BEGIN
 	SELECT COUNT(HOADON.MaHD) AS TongDonHang
-	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND HOADON.TrangThai = 1
+	FROM dbo.HOADON
+	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
 END
 GO
 
 
+CREATE PROC SP_TONGDONHANG_Huy(@NgayBatDau date, @NgayKetThuc date)
+AS BEGIN
+	SELECT COUNT(HOADON.MaHD) AS TongDonHang
+	FROM dbo.HOADON
+	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND (HOADON.TrangThai = N'Đã hủy' OR dbo.HOADON.TrangThai = N'Đơn hàng âm')
+END
+GO
 
---Sp tổng đơn hàng ngày hiện tại --Chưa chạy
+---------------------------------------------------------------------------------------------------------------
+
+--Sp tổng đơn hàng ngày hiện tại 
 CREATE PROC SP_TONGDONHANG_Ngay(@NgayBatDau date)
 AS BEGIN
 	SELECT COUNT(HOADON.MaHD) AS TongDonHang
 	FROM dbo.HOADON 
-	WHERE  HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán'
+	WHERE  (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') AND NgayKhoiTao = @NgayBatDau
 END
 GO
 
 
---Chưa chạy
+--SP tổng đơn hàng bị hủy
 CREATE PROC SP_TONGDONHANG_BiHuy_Ngay(@NgayBatDau date)
 AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHang, GhiChu
+	SELECT COUNT(HOADON.MaHD) AS TongDonHang
 	FROM dbo.HOADON 
-	WHERE  HOADON.TrangThai = N'Đã hủy'
-	GROUP BY GhiChu
+	WHERE  (HOADON.TrangThai = N'Đã hủy' OR dbo.HOADON.TrangThai = N'Đơn hàng âm') AND NgayKhoiTao = @NgayBatDau
 END
 GO
 
-
-
-SELECT * FROM  dbo.HOADON
-SELECT * FROM dbo.HOADONCHITIET
+---------------------------------------------------------------------------------------------------------------
 
 --SP tìm kiếm tổng doanh thu theo ngày
 CREATE PROC SP_TONGDOANHTHU(@NgayBatDau date, @NgayKetThuc date)
 AS BEGIN
 	SELECT SUM(SoLuong * Gia) - SUM(GiamGia) AS TongDoanhThu
 	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao >=  @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND HOADON.TrangThai = 1
+	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
 END
 GO
 
 --SP doanh thu ngày hiện tại
 CREATE PROC SP_TONGDOANHTHU_Ngay(@NgayBatDau date)
 AS BEGIN
-	SELECT SUM(SoLuong * Gia) - SUM(GiamGia) AS TongDoanhThu
+	SELECT SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS TongDoanhThu
 	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao =  @NgayBatDau AND HOADON.TrangThai = 1
+	WHERE NgayKhoiTao =  @NgayBatDau AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
 END
 GO
+
+--Sp tổng đơn hàng ngày hiện tại 
+CREATE PROC SP_TONGDONHANG_Thang(@NgayBatDau date)
+AS BEGIN
+	SELECT COUNT(HOADON.MaHD) AS TongDonHang
+	FROM dbo.HOADON 
+	WHERE  HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán' AND NgayKhoiTao = @NgayBatDau
+END
+GO
+
+
+--SP tổng đơn hàng bị hủy
+CREATE PROC SP_TONGDONHANG_BiHuy_Thang(@NgayBatDau date)
+AS BEGIN
+	SELECT COUNT(HOADON.MaHD) AS TongDonHang
+	FROM dbo.HOADON 
+	WHERE  HOADON.TrangThai = N'Đã hủy' OR dbo.HOADON.TrangThai = N'Đơn hàng âm' AND NgayKhoiTao = @NgayBatDau
+END
+GO
+---------------------------------------------------------------------------------------------------------------
 
 
 --SP tổng doanh thu theo tháng
@@ -397,9 +417,10 @@ AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuThang 
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE MONTH(NgayKhoiTao) = @Thang AND HOADON.TrangThai = 1
+	WHERE MONTH(NgayKhoiTao) = @Thang AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
 END
-
+GO
+---------------------------------------------------------------------------------------------------------------
 
 --SP tổng doanh thu theo năm
 CREATE PROC SP_DOANHTHUNAM(@Nam int)
@@ -407,10 +428,9 @@ AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuNam
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE YEAR(NgayKhoiTao) = @Nam AND HOADON.TrangThai = 1
+	WHERE YEAR(NgayKhoiTao) = @Nam AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
 END
+GO
 
 
-select * from HOADON
-select * from HOADONCHITIET
-select * from CHITIETSANPHAM
+---------------------------------------------------------------------------------------------------------------
