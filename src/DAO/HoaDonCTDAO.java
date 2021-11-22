@@ -15,20 +15,22 @@ import java.sql.* ;
  * @author ASUS
  */
 public class HoaDonCTDAO extends Main< HoaDonCT, String >{
-    String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien )"
-            + " values ( ? , ? , ? , ? , ? , ? ) ";
+    String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien , TrangThai )"
+            + " values ( ? , ? , ? , ? , ? , ?  , ? ) ";
     String selectByID = "select * from HOADONCHITIET where MaHD =  ?";
     String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
+    String selectByID3 = "select * from HOADONCHITIET where MaHD = ? and MaCTSP = ? ";
+    String Update = "Update HOADONCHITIET set SoLuong = ? , ThanhTien = ?  where MaHDCT = ?  " ;
 
     @Override
     public void insert(HoaDonCT entity) {
         JDBCHelper.Update(Insert, entity.getMaHD() , entity.getMaCTSP() , entity.getSoLuong() , entity.getGia() ,
-                entity.getGiamGia() , entity.getThanhTien() );
+                entity.getGiamGia() , entity.getThanhTien() , entity.getTrangThai() );
     }
 
     @Override
     public void update(HoaDonCT entity) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JDBCHelper.Update(Update , entity.getSoLuong() , entity.getThanhTien() , entity.getMaHDCT() ) ;
     }
 
     @Override
@@ -53,6 +55,14 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
             return null ;
         }
         return list.get(0) ;
+    }
+    
+    public HoaDonCT selectByID3(String id , String id2 ) {
+        List<HoaDonCT> list = this.selectBySQL(selectByID3, id , id2 );
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     @Override
