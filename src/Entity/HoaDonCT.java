@@ -17,6 +17,15 @@ public class HoaDonCT {
     private Double GiamGia ;
     private Double ThanhTien ;
     private Boolean TrangThai ;
+    private String GhiChu ;
+
+    public String getGhiChu() {
+        return GhiChu;
+    }
+
+    public void setGhiChu(String GhiChu) {
+        this.GhiChu = GhiChu;
+    }
 
     public int getMaHDCT() {
         return MaHDCT;

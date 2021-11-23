@@ -15,8 +15,8 @@ import java.sql.* ;
  * @author ASUS
  */
 public class HoaDonCTDAO extends Main< HoaDonCT, String >{
-    String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien , TrangThai )"
-            + " values ( ? , ? , ? , ? , ? , ?  , ? ) ";
+    String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien , TrangThai , GhiChu )"
+            + " values ( ? , ? , ? , ? , ? , ?  , ? , ? ) ";
     String selectByID = "select * from HOADONCHITIET where MaHD =  ?";
     String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
     String selectByID3 = "select * from HOADONCHITIET where MaHD = ? and MaCTSP = ? ";
@@ -25,7 +25,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     @Override
     public void insert(HoaDonCT entity) {
         JDBCHelper.Update(Insert, entity.getMaHD() , entity.getMaCTSP() , entity.getSoLuong() , entity.getGia() ,
-                entity.getGiamGia() , entity.getThanhTien() , entity.getTrangThai() );
+                entity.getGiamGia() , entity.getThanhTien() , entity.getTrangThai() , entity.getGhiChu() );
     }
 
     @Override
@@ -82,6 +82,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
                  hdct.setGiamGia( rs.getDouble("GiamGia"));
                  hdct.setThanhTien( rs.getDouble("ThanhTien"));
                  hdct.setTrangThai( rs.getBoolean("ThanhTien"));
+                 hdct.setGhiChu( rs.getString("GhiChu"));
                  list.add(hdct);
              }
              rs.getStatement().getConnection().close();
