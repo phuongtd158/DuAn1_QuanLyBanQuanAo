@@ -251,22 +251,24 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCodeMouseClicked
-        if (Check.checkSoDuong(txtMaXacNhan)) {
-            if (Integer.valueOf(txtMaXacNhan.getText()) == randomCode) {
-                JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới");
-                jLabel10.setVisible(true);
-                txtMatKhau.setVisible(true);
-                btnCode.setVisible(true);
-                jSeparator5.setVisible(true);
+        if (Check.checkTrongText(txtMaXacNhan)) {
+            if (Check.checkSoDuong(txtMaXacNhan)) {
+                if (Integer.valueOf(txtMaXacNhan.getText()) == randomCode) {
+                    JOptionPane.showMessageDialog(this, "Mời bạn nhập mật khẩu mới");
+                    jLabel10.setVisible(true);
+                    txtMatKhau.setVisible(true);
+                    btnCode.setVisible(true);
+                    jSeparator5.setVisible(true);
 
-                jLabel11.setVisible(true);
-                txtXacNhanMatKhau.setVisible(true);
-                btnCode.setVisible(true);
-                jSeparator3.setVisible(true);
+                    jLabel11.setVisible(true);
+                    txtXacNhanMatKhau.setVisible(true);
+                    btnCode.setVisible(true);
+                    jSeparator3.setVisible(true);
 
-                btnXacNhan.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "code sai");
+                    btnXacNhan.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "code sai");
+                }
             }
         }
 
@@ -274,11 +276,12 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
 
     private void btnEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmailMouseClicked
         try {
-
-            if (chektontai() == false) {
-                this.sendcode();
-            } else {
-                MsgBox.alert(this, "email không tồn tại");
+            if (Check.checkTrongText(txtEmail)) {
+                if (chektontai() == false) {
+                    this.sendcode();
+                } else {
+                    MsgBox.alert(this, "email không tồn tại");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Lỗi, Vui lòng xem lại");
@@ -320,8 +323,10 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
+        if (Check.checkTrongText(txtMatKhau) || Check.checkTrongText(txtXacNhanMatKhau)) {
+            doiMK();
+        }
 
-        doiMK();
 
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
@@ -421,7 +426,7 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
             String pass = "Poly123456";
             String to = txtEmail.getText();
             String subjectString = "Resteting Code";
-            String message = "Code của mày đây " + randomCode;
+            String message = "YOUR CODE IS " + randomCode;
             boolean sessionDebug = false;
             Properties pros = System.getProperties();
             pros.put("mail.smtp.starttls.enable", "true");

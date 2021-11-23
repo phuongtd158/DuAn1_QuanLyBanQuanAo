@@ -47,8 +47,8 @@ public class ThongKeDAO {
                 rs = JDBCHelper.query(sql);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("STT"), rs.getString("MaSP"),rs.getString("TenLoai"), rs.getString("TenSP"), rs.getString("ChatLieu") ,
-                        rs.getString("MauSac"), rs.getString("KichThuoc"),rs.getInt("SoLuong")
+                        rs.getInt("STT"), rs.getString("MaSP"), rs.getString("TenLoai"), rs.getString("TenSP"), rs.getString("ChatLieu"),
+                        rs.getString("MauSac"), rs.getString("KichThuoc"), rs.getInt("SoLuong")
                     });
                 }
                 rs.getStatement().getConnection().close();
@@ -61,6 +61,7 @@ public class ThongKeDAO {
         return list;
     }
 
+    //Thống kê tổng đơn hàng theo ngày tìm kiếm
     public int getTongDonHang(String ngayBatDau, String ngayKetThuc) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG(?, ?)}";
@@ -76,7 +77,24 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
+    
+    public int getTongDonHang_huy(String ngayBatDau, String ngayKetThuc) {
+        int tongDonHang = 0;
+        String sql = "{CALL SP_TONGDONHANG_Huy(?, ?)}";
+        ResultSet rs = null;
+        try {
+            rs = JDBCHelper.query(sql, ngayBatDau, ngayKetThuc);
+            while (rs.next()) {
+                tongDonHang = rs.getInt("TongDonHang");
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongDonHang;
+    }
 
+    //Tổng đơn hàng ngày hiện tại
     public int getTongDonHang_Ngay(String ngayBatDau) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG_Ngay(?)}";
@@ -93,6 +111,24 @@ public class ThongKeDAO {
         return tongDonHang;
     }
 
+    //Tổng đơn hàng bị hủy ngày hiện tại
+    public int getTongDonHang_Ngay_BiHuy(String ngayBatDau) {
+        int tongDonHang = 0;
+        String sql = "{CALL SP_TONGDONHANG_BiHuy_Ngay(?)}";
+        ResultSet rs = null;
+        try {
+            rs = JDBCHelper.query(sql, ngayBatDau);
+            while (rs.next()) {
+                tongDonHang = rs.getInt("TongDonHang");
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongDonHang;
+    }
+    
+    
     public float getTongDoanhThu(String ngayBatDau, String ngayKetThuc) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_TONGDOANHTHU(?, ?)}";
@@ -140,8 +176,8 @@ public class ThongKeDAO {
         }
         return tongDoanhThu;
     }
-    
-     public float getTongDoanhThuNam(int nam) {
+
+    public float getTongDoanhThuNam(int nam) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_DOANHTHUNAM(?)}";
         ResultSet rs = null;
