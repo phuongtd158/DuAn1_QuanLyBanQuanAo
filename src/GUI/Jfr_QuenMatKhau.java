@@ -426,7 +426,7 @@ public class Jfr_QuenMatKhau extends javax.swing.JFrame {
             String pass = "Poly123456";
             String to = txtEmail.getText();
             String subjectString = "Resteting Code";
-            String message = "Code của mày đây " + randomCode;
+            String message = "YOUR CODE IS " + randomCode;
             boolean sessionDebug = false;
             Properties pros = System.getProperties();
             pros.put("mail.smtp.starttls.enable", "true");
