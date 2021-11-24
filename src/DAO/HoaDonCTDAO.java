@@ -81,7 +81,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
                  hdct.setGia( rs.getDouble("Gia"));
                  hdct.setGiamGia( rs.getDouble("GiamGia"));
                  hdct.setThanhTien( rs.getDouble("ThanhTien"));
-                 hdct.setTrangThai( rs.getBoolean("ThanhTien"));
+                 hdct.setTrangThai( rs.getBoolean("ThanhThai"));
                  hdct.setGhiChu( rs.getString("GhiChu"));
                  list.add(hdct);
              }
