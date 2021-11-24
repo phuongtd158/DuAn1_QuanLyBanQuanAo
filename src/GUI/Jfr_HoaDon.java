@@ -1008,8 +1008,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void cbbHTThanhToanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbHTThanhToanItemStateChanged
         Index = cbbHTThanhToan.getSelectedIndex();
+        
         if (Index > 0) {
-            txtKhachDua.setText(lbKhachTra.getText());
+            txtKhachDua.setText( lbKhachTra.getText() );
             lbTienThua.setText("0");
             txtKhachDua.setEditable(false);
         } else {
@@ -1256,21 +1257,23 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         }
         XapXepLaiGioHang();
         
-
+        TinhTien();
+        
         if (kh.getDiaChi().length() >= 4) {
             tabHoaDon.setSelectedIndex(1);
             txtTenKH2.setText(kh.getTenKH());
             txtSDT2.setText(kh.getSDT());
             txtDiaChi.setText(kh.getDiaChi());
-            txtTienShip.setText( String.valueOf(hd.getTienShip()) );
+            txtTienShip.setText( String.valueOf(hd.getTienShip()) ) ;
+            txtKhachDua2.setText( lbKhachTra2.getText() );
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan2 );
         } else {
             tabHoaDon.setSelectedIndex(0);
             txtTenKH.setText(kh.getTenKH());
             txtSDT.setText(kh.getSDT());
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan );
+            txtKhachDua.setText( lbKhachTra.getText() );
         }
-        TinhTien();
         
     }
 
