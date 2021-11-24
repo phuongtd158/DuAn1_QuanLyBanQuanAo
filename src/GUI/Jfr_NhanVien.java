@@ -511,7 +511,7 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
+        if (Check.checkTrongText(txtMaNV) && Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
                 && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
             if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
                 if (checkTrungMa(txtMaNV)) {
