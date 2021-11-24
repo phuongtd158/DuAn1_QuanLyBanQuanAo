@@ -15,6 +15,7 @@ import Entity.HinhThucTT;
 import Entity.HoaDon;
 import Entity.HoaDonCT;
 import Entity.KhachHang;
+import Entity.KichThuoc;
 import Entity.NhanVien;
 import Entity.SanPham;
 import Ultil.Auth;
@@ -40,6 +41,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -79,6 +81,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     int Index = - 1;
 //    int count = 0;
     int NutDoiTra = 0 ; 
+    Double TienKhachTra2 = 0.0 ;
     
 
     public Jfr_HoaDon() {
@@ -1049,7 +1052,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         Double b = Double.valueOf(txtGiamGia.getText());
         lbKhachTra.setText(String.valueOf(tk * (1 - b / 100)) );
-        lbKhachTra2.setText(String.valueOf(tk * (1 - b / 100)) );
+        
+        TienKhachTra2 = tk * (1 - b / 100) + Double.valueOf(txtTienShip.getText() );
+        lbKhachTra2.setText(String.valueOf(TienKhachTra2) );
     }
 
     // nút tạo hóa đơn ở from hóa đơn
@@ -1164,11 +1169,12 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     // nút thanh toán bên dặt hàng
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        ThemHoaDon2("Đang giao hàng" , Double.valueOf(txtTienShip.getText()) );
-//        LuuHoaDonCT();
-        ThemVaoHoaDonCT( Integer.valueOf( tbDanhSachHD.getValueAt( 0, 1).toString() ));
-        LamTrangForm();
-        MsgBox.alert(this, "Bắt đầu giao hàng");
+        if (Check.checkTrongText(txtTenKH2) && Check.checkTrongText(txtSDT2) && Check.checkTrongText(txtDiaChi) && Check.checkSDT(txtSDT2)) {
+            ThemHoaDon2("Đang giao hàng", Double.valueOf(txtTienShip.getText()));
+            ThemVaoHoaDonCT(Integer.valueOf(tbDanhSachHD.getValueAt(0, 1).toString()));
+            LamTrangForm();
+            MsgBox.alert(this, "Bắt đầu giao hàng");
+        }
     }//GEN-LAST:event_jButton18ActionPerformed
 
     
@@ -1218,6 +1224,18 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    // 
+    public void setSelectedComboboxHTTT( int cbbselected, JComboBox cbb) {
+        for (int i = 0; i < cbb.getItemCount(); i++) {
+            HinhThucTT m = (HinhThucTT) cbb.getItemAt(i);
+            if (m != null) {
+                if (cbbselected == Integer.valueOf(m.getMaHTTT())  ) {
+                    cbb.setSelectedItem(m);
+                }
+            }
+        }
+    }
+    
     // click ở form danh sách hóa óaơn
     private void HienThiNguoc() {
         Index = tbDanhSachHD.getSelectedRow();
@@ -1237,7 +1255,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             }
         }
         XapXepLaiGioHang();
-        TinhTien();
+        
 
         if (kh.getDiaChi().length() >= 4) {
             tabHoaDon.setSelectedIndex(1);
@@ -1245,11 +1263,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             txtSDT2.setText(kh.getSDT());
             txtDiaChi.setText(kh.getDiaChi());
             txtTienShip.setText( String.valueOf(hd.getTienShip()) );
+            setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan2 );
         } else {
             tabHoaDon.setSelectedIndex(0);
             txtTenKH.setText(kh.getTenKH());
             txtSDT.setText(kh.getSDT());
+            setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan );
         }
+        TinhTien();
+        
     }
 
     private void tbDanhSachHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachHDMouseClicked
@@ -1263,7 +1285,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtTienShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienShipKeyReleased
         // TODO add your handling code here:
-//        lbKhachTra.setText( String.valueOf( Double.valueOf(txtTienShip.getText()) + )  );
+        lbKhachTra.setText( String.valueOf( Double.valueOf(txtTienShip.getText()) + TienKhachTra2 )  );
     }//GEN-LAST:event_txtTienShipKeyReleased
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
@@ -1273,7 +1295,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtKhachDua2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDua2KeyReleased
         // TODO add your handling code here:
-        lbTienThua2.setText(String.valueOf(Double.valueOf(txtKhachDua2.getText()) - Double.valueOf(lbKhachTra2.getText()) - Double.valueOf(txtTienShip.getText()) ));
+        lbTienThua2.setText(String.valueOf(Double.valueOf(txtKhachDua2.getText()) - Double.valueOf(lbKhachTra2.getText()) ));
     }//GEN-LAST:event_txtKhachDua2KeyReleased
 
     private void cbbHTThanhToan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbHTThanhToan2ActionPerformed
@@ -1301,9 +1323,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void HuyDatHang(){
         int k = tbDanhSachHD.getSelectedRow();
         
-        int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hủy", "Trả toàn phần" , "Trả một phần" ) ;
+        int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hoàn trả", "Trả toàn phần" , "Trả một phần" ) ;
         if (k >= 0) {
-            if (sk == 0 && MsgBox.comfirm(this, "Bạn có muốn trả không không") == true) {
+            if (sk == 0 && MsgBox.comfirm(this, "Bạn có muốn trả không") == true) {
                 String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn trả hóa đơn", "Hệ thống quản trị", HEIGHT);
 
                 for (int i = 0; i < tbGioHang.getRowCount(); i++) {
@@ -1317,7 +1339,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 DoVaoTableDanhSachHD();
 
                 MsgBox.alert(this, "Trả thành công");
-            } else if (sk == 1 && MsgBox.comfirm(this, "Bạn có muốn trả không không") == true) {
+            } else if (sk == 1 && MsgBox.comfirm(this, "Bạn có muốn trả không") == true) {
                 btnTraHang.setVisible(true);
                 NutDoiTra = 1;
             }
