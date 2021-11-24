@@ -12,8 +12,9 @@ import java.util.Date;
  * @author ASUS
  */
 public class XDate {
+
     static SimpleDateFormat formater = new SimpleDateFormat();
-    static String pattern = "dd/MM/yyyy";
+    static String pattern = "yyyy-MM-dd";
 
     public static Date toDate(String date) {
         try {

@@ -6,11 +6,14 @@
 package GUI;
 
 import DAO.HoaDonDAO;
+import DAO.SanPhamDAO;
 import DAO.ThongKeDAO;
+import Entity.HoaDon;
 import Entity.SanPham;
 import Ultil.Auth;
 import Ultil.Check;
 import Ultil.MsgBox;
+import Ultil.XDate;
 import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDate;
@@ -50,6 +53,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     ChartPanel c;
     ThongKeDAO dao_tk = new ThongKeDAO();
     HoaDonDAO dao_hd = new HoaDonDAO();
+    SanPhamDAO dao = new SanPhamDAO();
     DefaultTableModel model;
     DefaultComboBoxModel<Object> model_cbbNam;
     DefaultComboBoxModel<Object> model_cbbNam_sp;
@@ -77,11 +81,56 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         }
         doVaoSanPham();
         tk = this;
+
+//        Calendar c = Calendar.getInstance();
+//        int ngayCuoiThang = c.getMaximum(Calendar.DATE);
+//        System.out.println("" + ngayCuoiThang);
     }
 
     //Gửi email
     public void sendEmail() {
         try {
+            //Thống kê hóa đơn
+            List<HoaDon> list = dao_hd.selectAll();
+            List<Object> obj = new ArrayList<>();
+            List<Object> obj2 = new ArrayList<>();
+            List<Object> obj3 = new ArrayList<>();
+
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
+            String ngay = XDate.toString(date);
+            for (HoaDon x : list) {
+                if (x.getTrangThai().equalsIgnoreCase("Đơn hàng âm") && x.getNgayTao().equals(XDate.toDate(ngay))) {
+
+                    obj.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
+
+                }
+            }
+            System.out.println(obj);
+
+            for (HoaDon x : list) {
+                if (x.getTrangThai().equalsIgnoreCase("Đã Hủy") && x.getNgayTao().equals(XDate.toDate(ngay))) {
+                    obj2.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
+
+                }
+            }
+            System.out.println(obj2);
+
+            //Thống kê sản phẩm gần hết hàng
+            List<SanPham> listsp = dao.selectAll();
+            String s = "";
+            for (SanPham x : listsp) {
+                if (x.getSoLuong() < 20 && x.isTrangThai() == true) {
+
+                    obj3.add("\n" + "+Mã sản phẩm: " + x.getMaCTSP() + "   Tên sản phẩm: " + x.getTenSP() + "   Số lượng còn lại: " + x.getSoLuong());
+                }
+            }
+
+            if (obj3.isEmpty()) {
+                s = "Không có sản phẩm nào gần hết hàng";
+            }
+            System.out.println("" + s + obj3);
+
             Calendar c1 = Calendar.getInstance();
             c1.get(Calendar.DATE);
             String host = "smtp.gmail.com";
@@ -89,8 +138,13 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             String pass = "Poly123456";
             String to = "phuongtdph13747@fpt.edu.vn";
             String subjectString = "Báo cáo doanh thu ngày" + "(" + java.time.LocalDate.now() + ")";
-            String message = "Tổng đơn hàng của ngày hôm nay: " + ": " + lbTongDonHang.getText() + "\n" + "Tổng doanh thu của ngày hôm nay: "
-                    + ": " + lbTongDoanhThuNgay.getText() + "\n" + "Nhân viên bán hàng: " + Auth.user.getTenNV();
+            String message
+                    = "Tổng doanh thu của ngày hôm nay: " + lbTongDoanhThuNgay.getText() + "\n"
+                    + "Tổng đơn hàng của ngày hôm nay: " + lbTong.getText() + "\n"
+                    + "\n-" + lbTongDonHang.getText() + " đơn thành công" + "\n"
+                    + "-" + lbTongDonHangHuy.getText() + " đơn bị hủy" + "\nHủy" + obj + "\nĐổi trả:" + obj2 + "\n"
+                    + "\nSản phẩm gần hết hàng: " + s + obj3 + "\n"
+                    + "Nhân viên bán hàng: " + Auth.user.getTenNV();
             boolean sessionDebug = false;
             Properties pros = System.getProperties();
             pros.put("mail.smtp.ssl.trust", "*");
@@ -249,6 +303,12 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             float tongDoanhThuNam = dao_tk.getTongDoanhThuNam(nam);
             lbTongDoanhThuNam.setText(String.valueOf(tongDoanhThuNam) + " VND");
 
+            int tongDonThang = dao_tk.getTongDonHang_Thang(thang);
+            lbTongDonThang.setText(String.valueOf(tongDonThang));
+
+            int tongDonThangBiHuy = dao_tk.getTongDonHang_Thang_BiHuy(thang);
+            lbTongHuyThang.setText(String.valueOf(tongDonThangBiHuy));
+
             if (cbbLoaiThoiGian.getSelectedItem() != null) {
                 if (cbbLoaiThoiGian.getSelectedItem().toString().equals("Hôm nay")) {
                     hide_();
@@ -387,6 +447,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lbTongDoanhThuThang = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lbTongHuyThang = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        lbTongDonThang = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cbbLoaiThoiGian = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
@@ -634,7 +698,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
         lbTongDonHang2.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDonHang2.setText("Thành công:");
-        jPanel17.add(lbTongDonHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 90, 20));
+        jPanel17.add(lbTongDonHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 70, 20));
 
         lbTong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbTong.setForeground(new java.awt.Color(255, 255, 255));
@@ -713,6 +777,24 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         lbTongDoanhThuThang.setForeground(new java.awt.Color(255, 255, 255));
         lbTongDoanhThuThang.setText("0");
         jPanel19.add(lbTongDoanhThuThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 170, 30));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Bị hủy");
+        jPanel19.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 60, 20));
+
+        lbTongHuyThang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTongHuyThang.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongHuyThang.setText("0");
+        jPanel19.add(lbTongHuyThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 100, -1));
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Thành công:");
+        jPanel19.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 70, 20));
+
+        lbTongDonThang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbTongDonThang.setForeground(new java.awt.Color(255, 255, 255));
+        lbTongDonThang.setText("0");
+        jPanel19.add(lbTongDonThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 90, -1));
 
         jPanel16.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 270, 140));
 
@@ -879,6 +961,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -887,6 +970,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -924,6 +1008,8 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbTongDonHang4;
     private javax.swing.JLabel lbTongDonHangHuy;
     private javax.swing.JLabel lbTongDonHangHuy1;
+    private javax.swing.JLabel lbTongDonThang;
+    private javax.swing.JLabel lbTongHuyThang;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblSanPham;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;

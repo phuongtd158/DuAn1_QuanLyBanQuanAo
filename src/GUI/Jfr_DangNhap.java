@@ -27,7 +27,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
      */
     Color defualtColor,
             /**
-                 * Creates new form Jfr_DangNhap
+             * Creates new form Jfr_DangNhap
              */
             ClickColor;
 

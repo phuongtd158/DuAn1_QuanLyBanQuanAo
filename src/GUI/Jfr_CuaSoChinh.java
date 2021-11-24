@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -33,6 +34,10 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         defualtColor = new Color(41, 182, 246);
         ClickColor = new Color(144, 202, 249);
         initMoving(Jfr_CuaSoChinh.this);
+        Calendar c = Calendar.getInstance();
+        int ngayCuoiThang = c.getMaximum(Calendar.DATE);
+
+        System.out.println("" + ngayCuoiThang + c.get(Calendar.DAY_OF_MONTH));
 
     }
 
@@ -491,7 +496,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         if (Auth.user.getVaiTro() == false) {
             try {
-                if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn có muốn báo cáo doanh thu không ?")) {
+                if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
 
                     Jfr_ThongKe.tk.sendEmail();
 
@@ -633,9 +638,10 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
+
         if (Auth.user.getVaiTro() == false) {
             try {
-                if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn có muốn báo cáo doanh thu không ?")) {
+                if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
 
                     Jfr_ThongKe.tk.sendEmail();
 

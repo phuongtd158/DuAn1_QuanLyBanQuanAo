@@ -12,14 +12,15 @@ import java.util.Date;
  * @author ADMIN
  */
 public class HoaDon {
-    private int MaHD ;
-    private int MaKH ;
-    private String MaNV ;
-    private int MaHTTT ;
-    private Date NgayTao ;
-    private String ghiChu ;
-    private String TrangThai ;
-    private Double TienShip ;
+
+    private int MaHD;
+    private int MaKH;
+    private String MaNV;
+    private int MaHTTT;
+    private Date NgayTao;
+    private String ghiChu;
+    private String TrangThai;
+    private Double TienShip;
 
     public Double getTienShip() {
         return TienShip;
@@ -28,7 +29,7 @@ public class HoaDon {
     public void setTienShip(Double TienShip) {
         this.TienShip = TienShip;
     }
-    
+
     public String getGhiChu() {
         return ghiChu;
     }
@@ -57,7 +58,7 @@ public class HoaDon {
         return MaNV;
     }
 
-    public void setMaNV( String MaNV) {
+    public void setMaNV(String MaNV) {
         this.MaNV = MaNV;
     }
 
@@ -84,7 +85,6 @@ public class HoaDon {
     public void setTrangThai(String TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
-    
-    
+
+
 }

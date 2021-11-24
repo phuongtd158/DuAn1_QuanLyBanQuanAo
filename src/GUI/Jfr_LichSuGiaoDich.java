@@ -282,31 +282,35 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Mã Nhân Viên:");
         jPanel6.add(jLabel4);
 
         lbMaNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbMaNV.setForeground(new java.awt.Color(0, 0, 0));
         jPanel6.add(lbMaNV);
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 290, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tên Nhân Viên:");
         jPanel7.add(jLabel3);
 
         lbTenNV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbTenNV.setForeground(new java.awt.Color(0, 0, 0));
         jPanel7.add(lbTenNV);
 
         jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 40));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(0, 0, 0));
@@ -314,12 +318,13 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel8.add(jLabel55);
 
         lblTenKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTenKH.setForeground(new java.awt.Color(0, 0, 0));
         jPanel8.add(lblTenKH);
 
         jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 40));
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new java.awt.GridLayout());
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel54.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(0, 0, 0));
@@ -327,12 +332,13 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel9.add(jLabel54);
 
         lblSDT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSDT.setForeground(new java.awt.Color(0, 0, 0));
         jPanel9.add(lblSDT);
 
         jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 290, 40));
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(new java.awt.GridLayout());
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(0, 0, 0));
@@ -340,12 +346,13 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel10.add(jLabel56);
 
         lblDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblDiaChi.setForeground(new java.awt.Color(0, 0, 0));
         jPanel10.add(lblDiaChi);
 
         jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 40));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(0, 0, 0));
@@ -360,37 +367,43 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 40));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setLayout(new java.awt.GridLayout());
+        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Ngày Tạo:");
         jPanel12.add(jLabel2);
 
         lbNgayTao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbNgayTao.setForeground(new java.awt.Color(0, 0, 0));
         jPanel12.add(lbNgayTao);
 
         jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 40));
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setLayout(new java.awt.GridLayout());
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Trạng Thái:");
         jPanel13.add(jLabel1);
 
         lbTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbTrangThai.setForeground(new java.awt.Color(0, 0, 0));
         jPanel13.add(lbTrangThai);
 
         jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 40));
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel14.setLayout(new java.awt.GridLayout());
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
         lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbLydo1.setForeground(new java.awt.Color(0, 0, 0));
         lbLydo1.setText("Lý Do Hủy:");
         jPanel14.add(lbLydo1);
 
         lbLyDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbLyDo.setForeground(new java.awt.Color(0, 0, 0));
         jPanel14.add(lbLyDo);
 
         jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 290, 40));

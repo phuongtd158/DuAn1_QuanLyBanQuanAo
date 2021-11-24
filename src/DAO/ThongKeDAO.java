@@ -77,7 +77,7 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-    
+
     public int getTongDonHang_huy(String ngayBatDau, String ngayKetThuc) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG_Huy(?, ?)}";
@@ -127,8 +127,39 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-    
-    
+
+    public int getTongDonHang_Thang(int thang) {
+        int tongDonHang = 0;
+        String sql = "{CALL SP_TONGDONHANG_Thang(?)}";
+        ResultSet rs = null;
+        try {
+            rs = JDBCHelper.query(sql, thang);
+            while (rs.next()) {
+                tongDonHang = rs.getInt("TongDonHang");
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongDonHang;
+    }
+
+    public int getTongDonHang_Thang_BiHuy(int thang) {
+        int tongDonHang = 0;
+        String sql = "{CALL SP_TONGDONHANG_BiHuy_Thang(?)}";
+        ResultSet rs = null;
+        try {
+            rs = JDBCHelper.query(sql, thang);
+            while (rs.next()) {
+                tongDonHang = rs.getInt("TongDonHangHuy");
+            }
+            rs.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tongDonHang;
+    }
+
     public float getTongDoanhThu(String ngayBatDau, String ngayKetThuc) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_TONGDOANHTHU(?, ?)}";
