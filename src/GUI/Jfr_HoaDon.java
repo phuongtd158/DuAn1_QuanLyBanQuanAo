@@ -926,6 +926,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 HoaDonCT hdct = new HoaDonCT() ;
                 HoaDonCT hdct_1 = daoCTHD.selectByID3( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow() , 1).toString() , tbGioHang.getValueAt( k, 1).toString()) ;
                 if ( hdct_1.getSoLuong() > Integer.valueOf(tbGioHang.getValueAt(k, 3).toString())  ) {
+                    String sk = JOptionPane.showInputDialog( this , "Vui lòng nhập lý do muốn trả hàng", "Hệ thống quản trị", HEIGHT) ;
                     int SoLuong = Integer.valueOf(tbGioHang.getValueAt(k, 3).toString()) ;
                     Double DonGia = Double.valueOf(tbGioHang.getValueAt(k, 4).toString()) ;
                     Double GiamGia = Double.valueOf(tbGioHang.getValueAt(k, 5).toString()) ;
@@ -935,6 +936,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                     hdct.setSoLuong( SoLuong );
                     hdct.setGia(DonGia);
                     hdct.setGiamGia( GiamGia );
+                    hdct.setGhiChu(sk);
                     
                     tbGioHang.setValueAt(SoLuong  * DonGia * (1 - GiamGia / 100), Index, 6) ; 
                     hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(k, 6).toString()));
@@ -1112,6 +1114,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 hdct.setGiamGia(Double.valueOf(tbGioHang.getValueAt(i, 5).toString()));
                 hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(i, 6).toString()));
                 hdct.setTrangThai(true);
+                hdct.setGhiChu("Not");
                 daoCTHD.insert(hdct);
             }
         }
@@ -1209,6 +1212,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             daoHD.update2( "Đã giao hàng" , MaHD);
             ThemVaoHoaDonCT(Integer.valueOf(MaHD));
             DoVaoTableDanhSachHD();
+            LamTrangForm();
             MsgBox.alert(this, "Khách đã nhận được hàng");
         }
 
@@ -1298,25 +1302,29 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         int k = tbDanhSachHD.getSelectedRow();
         
         int sk = MsgBox.confirm_2( this , "Mời bạn chọn hình thức hủy", "Trả toàn phần" , "Trả một phần" ) ;
-        
-        if( sk == 0 && MsgBox.comfirm( this , "Bạn có muốn trả không không" ) == true ){
-            String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn trả hóa đơn", "Hệ thống quản trị", HEIGHT);
-           
-            for( int i=0 ; i<tbGioHang.getRowCount() ; i++ ){
-                HamCongNguocSoLuong(i);
-            }
-            
-            daoHD.update1(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
-            daoHD.update2("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
-          
-            LamTrangForm();
-            DoVaoTableDanhSachHD();
+        if (k >= 0) {
+            if (sk == 0 && MsgBox.comfirm(this, "Bạn có muốn trả không không") == true) {
+                String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do bạn muốn trả hóa đơn", "Hệ thống quản trị", HEIGHT);
 
-            MsgBox.alert( this , "Trả thành công");
-        }else if( sk == 1 && MsgBox.comfirm( this , "Bạn có muốn trả không không") == true ){
-            btnTraHang.setVisible(true);
-            NutDoiTra = 1 ;             
+                for (int i = 0; i < tbGioHang.getRowCount(); i++) {
+                    HamCongNguocSoLuong(i);
+                }
+
+                daoHD.update1(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
+                daoHD.update2("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
+
+                LamTrangForm();
+                DoVaoTableDanhSachHD();
+
+                MsgBox.alert(this, "Trả thành công");
+            } else if (sk == 1 && MsgBox.comfirm(this, "Bạn có muốn trả không không") == true) {
+                btnTraHang.setVisible(true);
+                NutDoiTra = 1;
+            }
+        }else{
+            MsgBox.alert( this , "Vui lòng chọn hóa đơn muốn hoàn trả");
         }
+
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

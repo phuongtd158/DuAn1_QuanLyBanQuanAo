@@ -54,7 +54,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
 
     public void DoVaoTableHoaDon() {
         listHD = (ArrayList<HoaDon>) hdDAO.selectAll_2(txtMaHD.getText(), txtTenNV.getText(),
-                txtTenKhanhHang.getText(), txtNgayTao.getText());
+                txtTenKhanhHang.getText(), txtNgayTao.getText(),txtTrangThai.getText());
         modeltbHD.setRowCount(1);
         int k = 0;
         for (int i = listHD.size() - 1; i >= 0; i--) {
@@ -79,8 +79,9 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         modeltbSP.setRowCount(0);
         for (HoaDonCT x : listHDCT) {
             SanPham sp = spdao.selectByID2(String.valueOf(x.getMaCTSP()));
+            String tt = x.getTrangThai() ? "Đã Bán" : "Bị Hủy";
             modeltbSP.addRow(new Object[]{
-                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien()
+                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien(), tt,x.getGhiChu()
             });
         }
         SapXepDSSP();
@@ -165,7 +166,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         txtTenNV = new javax.swing.JTextField();
         txtTenKhanhHang = new javax.swing.JTextField();
         txtNgayTao = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtTrangThai = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDanhSachHoaDon = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -242,8 +243,12 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         });
         jPanel5.add(txtNgayTao);
 
-        jTextField1.setEditable(false);
-        jPanel5.add(jTextField1);
+        txtTrangThai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTrangThaiKeyReleased(evt);
+            }
+        });
+        jPanel5.add(txtTrangThai);
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 870, 35));
 
@@ -416,17 +421,17 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
 
         tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền"
+                "STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền", "Trạng Thái", "Lý Do Hủy"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -470,6 +475,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         DoVaoTableSP();
     }//GEN-LAST:event_tblDanhSachHoaDonMouseClicked
 
+    private void txtTrangThaiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTrangThaiKeyReleased
+        // TODO add your handling code here:
+        DoVaoTableHoaDon();
+    }//GEN-LAST:event_txtTrangThaiKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -496,7 +506,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbLyDo;
     private javax.swing.JLabel lbLydo1;
@@ -514,5 +523,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNgayTao;
     private javax.swing.JTextField txtTenKhanhHang;
     private javax.swing.JTextField txtTenNV;
+    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }

@@ -185,7 +185,14 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
             MsgBox.alert(this, "Lỗi update");
         }
     }
-
+    public boolean checkTrungMa(JTextField txt) {
+        if (nvdao.selectByID(txt.getText()) == null) {
+            return true;
+        } else {
+            MsgBox.alert(this,"Mã nhân viên đã tồn tại.");
+            return false;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -507,7 +514,9 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
                 && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
             if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
-                insert();
+                if (checkTrungMa(txtMaNV)) {
+                    insert();
+                }
             }
         }
     }//GEN-LAST:event_jLabel12MouseClicked

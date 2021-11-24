@@ -971,7 +971,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                 daoCL.update_1(x);
                 DoVaotableThuocTinh3();
                 MsgBox.alert(this, "Thêm thành công");
-                return;
+                return ;
             }
         }
 
