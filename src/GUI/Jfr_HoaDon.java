@@ -1288,7 +1288,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtTienShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienShipKeyReleased
         // TODO add your handling code here:
-        lbKhachTra.setText( String.valueOf( Double.valueOf(txtTienShip.getText()) + TienKhachTra2 )  );
+        lbKhachTra2.setText( String.valueOf( Double.valueOf(txtTienShip.getText()) + TienKhachTra2  )  );
     }//GEN-LAST:event_txtTienShipKeyReleased
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
