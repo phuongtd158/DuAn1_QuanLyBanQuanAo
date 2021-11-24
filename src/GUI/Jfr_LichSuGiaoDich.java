@@ -78,11 +78,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         NhanVien nv = nvDAO.selectByID(String.valueOf(hd.getMaNV()));
         modeltbSP.setRowCount(0);
         for (HoaDonCT x : listHDCT) {
-            HoaDonCT hdct = hdctdao.selectByMaHDCT(String.valueOf(x.getMaHDCT()));
             SanPham sp = spdao.selectByID2(String.valueOf(x.getMaCTSP()));
-            String tt = hdct.getTrangThai() ? "Đã Bán" : "Bị Hủy";
-            System.out.println(hdct.getTrangThai());
-            System.out.println(hdct.getMaHDCT());
+            String tt = x.getTrangThai() ? "Đã Bán" : "Bị Hủy";
             modeltbSP.addRow(new Object[]{
                 1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien(), tt,x.getGhiChu()
             });
