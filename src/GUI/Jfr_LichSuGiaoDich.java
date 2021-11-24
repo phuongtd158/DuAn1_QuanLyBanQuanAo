@@ -54,7 +54,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
 
     public void DoVaoTableHoaDon() {
         listHD = (ArrayList<HoaDon>) hdDAO.selectAll_2(txtMaHD.getText(), txtTenNV.getText(),
-                txtTenKhanhHang.getText(), txtNgayTao.getText());
+                txtTenKhanhHang.getText(), txtNgayTao.getText(),txtTrangThai.getText());
         modeltbHD.setRowCount(1);
         int k = 0;
         for (int i = listHD.size() - 1; i >= 0; i--) {
@@ -78,9 +78,13 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         NhanVien nv = nvDAO.selectByID(String.valueOf(hd.getMaNV()));
         modeltbSP.setRowCount(0);
         for (HoaDonCT x : listHDCT) {
+            HoaDonCT hdct = hdctdao.selectByMaHDCT(String.valueOf(x.getMaHDCT()));
             SanPham sp = spdao.selectByID2(String.valueOf(x.getMaCTSP()));
+            String tt = hdct.getTrangThai() ? "Đã Bán" : "Bị Hủy";
+            System.out.println(hdct.getTrangThai());
+            System.out.println(hdct.getMaHDCT());
             modeltbSP.addRow(new Object[]{
-                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien()
+                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien(), tt,x.getGhiChu()
             });
         }
         SapXepDSSP();
@@ -165,7 +169,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         txtTenNV = new javax.swing.JTextField();
         txtTenKhanhHang = new javax.swing.JTextField();
         txtNgayTao = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtTrangThai = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDanhSachHoaDon = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -242,8 +246,12 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         });
         jPanel5.add(txtNgayTao);
 
-        jTextField1.setEditable(false);
-        jPanel5.add(jTextField1);
+        txtTrangThai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTrangThaiKeyReleased(evt);
+            }
+        });
+        jPanel5.add(txtTrangThai);
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 870, 35));
 
@@ -282,7 +290,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Mã Nhân Viên:");
@@ -294,7 +302,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 290, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setText("Tên Nhân Viên:");
@@ -306,7 +314,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 40));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(0, 0, 0));
@@ -319,7 +327,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 40));
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new java.awt.GridLayout());
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel54.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(0, 0, 0));
@@ -332,7 +340,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 290, 40));
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(new java.awt.GridLayout());
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(0, 0, 0));
@@ -345,7 +353,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 40));
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(new java.awt.GridLayout());
+        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(0, 0, 0));
@@ -360,7 +368,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 40));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setLayout(new java.awt.GridLayout());
+        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Ngày Tạo:");
@@ -372,7 +380,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 40));
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setLayout(new java.awt.GridLayout());
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setText("Trạng Thái:");
@@ -384,7 +392,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 40));
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel14.setLayout(new java.awt.GridLayout());
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
         lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbLydo1.setText("Lý Do Hủy:");
@@ -403,17 +411,17 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
 
         tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền"
+                "STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền", "Trạng Thái", "Lý Do Hủy"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -457,6 +465,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         DoVaoTableSP();
     }//GEN-LAST:event_tblDanhSachHoaDonMouseClicked
 
+    private void txtTrangThaiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTrangThaiKeyReleased
+        // TODO add your handling code here:
+        DoVaoTableHoaDon();
+    }//GEN-LAST:event_txtTrangThaiKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -483,7 +496,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbLyDo;
     private javax.swing.JLabel lbLydo1;
@@ -501,5 +513,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNgayTao;
     private javax.swing.JTextField txtTenKhanhHang;
     private javax.swing.JTextField txtTenNV;
+    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }

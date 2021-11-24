@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/Entity/HoaDonCT.java</file>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/DAO/SanPhamDAO.java</file>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonCTDAO.java</file>
-            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonDAO.java</file>
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_LichSuGiaoDich.java</file>
+            <file>file:/C:/Users/KyThuat88/Desktop/APP/DA1/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonCTDAO.java</file>
         </group>
     </open-files>
 </project-private>

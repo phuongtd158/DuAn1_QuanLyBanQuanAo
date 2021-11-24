@@ -22,7 +22,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     String Update = "Update HOADON set GhiChu = ? where MaHD like ? ";
     String Update_1 = "Update HOADON set TrangThai = ? where MaHD like ? ";
     private String selectAll_2 = "SELECT * FROM dbo.HOADON JOIN dbo.NHANVIEN ON NHANVIEN.MaNV = HOADON.MaNV JOIN dbo.KHACHHANG ON KHACHHANG.MaKH = HOADON.MaKH\n"
-            + "WHERE MaHD LIKE ? AND TenNV LIKE ? AND TenKH LIKE ? AND NgayKhoiTao LIKE ?";
+            + "            WHERE MaHD LIKE ? AND TenNV LIKE ? AND TenKH LIKE ? AND NgayKhoiTao LIKE ? AND HOADON.TrangThai LIKE ?";
 
     public void update2(String a, String b) {
         JDBCHelper.Update(Update_1, a, b);
@@ -35,7 +35,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     @Override
     public void insert(HoaDon entity) {
         JDBCHelper.Update(Insert, entity.getMaKH(), entity.getMaNV(), entity.getMaHTTT(), entity.getTrangThai(),
-                 entity.getGhiChu(), entity.getTienShip());
+                entity.getGhiChu(), entity.getTienShip());
     }
 
     @Override
@@ -58,11 +58,11 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     }
 
     public List<HoaDon> selectAll_2(String... k) {
-        return selectBySQL(selectAll_2, "%" + k[0] + "%", "%" + k[1] + "%", "%" + k[2] + "%", "%" + k[3] + "%");
+        return selectBySQL(selectAll_2, "%" + k[0] + "%", "%" + k[1] + "%", "%" + k[2] + "%", "%" + k[3] + "%", "%" + k[4] + "%");
     }
 
     @Override
-    public HoaDon selectByID(String id ) {
+    public HoaDon selectByID(String id) {
         List<HoaDon> list = selectBySQL(selectByID, id);
         if (list.isEmpty()) {
             return null;

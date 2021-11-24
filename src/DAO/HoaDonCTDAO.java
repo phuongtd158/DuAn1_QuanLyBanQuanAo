@@ -21,7 +21,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
     String selectByID3 = "select * from HOADONCHITIET where MaHD = ? and MaCTSP = ? ";
     String Update = "Update HOADONCHITIET set SoLuong = ? , ThanhTien = ?  where MaHDCT = ?  " ;
-
+    String selectByMaHDCT = "select * from HOADONCHITIET where MaHDCT =  ?";
     @Override
     public void insert(HoaDonCT entity) {
         JDBCHelper.Update(Insert, entity.getMaHD() , entity.getMaCTSP() , entity.getSoLuong() , entity.getGia() ,
@@ -47,10 +47,19 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     public List<HoaDonCT> selectAll_2( String k ) {
         return selectBySQL( selectByID, k ) ;
     }
-
+    
+    
     @Override
     public HoaDonCT selectByID(String id) {
         List<HoaDonCT> list = this.selectBySQL( selectByID2 , id );
+        if( list.isEmpty() ){
+            return null ;
+        }
+        return list.get(0) ;
+    }
+    
+    public HoaDonCT selectByMaHDCT(String id) {
+        List<HoaDonCT> list = this.selectBySQL( selectByMaHDCT , id );
         if( list.isEmpty() ){
             return null ;
         }
