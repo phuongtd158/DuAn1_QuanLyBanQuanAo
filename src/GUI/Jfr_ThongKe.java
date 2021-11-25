@@ -73,7 +73,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         if (Auth.user.getVaiTro() == false) {
             jTabbedPane1.remove(0);
 
-            lbTongDoanhThuThang.setText("0" + " VND");
             lbTongDoanhThuNam.setText("0" + " VND");
             cbbLoaiThoiGian.removeItemAt(1);
         } else {
@@ -143,6 +142,95 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     + "Tổng đơn hàng của ngày hôm nay: " + lbTong.getText() + "\n"
                     + "\n-" + lbTongDonHang.getText() + " đơn thành công" + "\n"
                     + "-" + lbTongDonHangHuy.getText() + " đơn bị hủy" + "\nHủy" + obj + "\nĐổi trả:" + obj2 + "\n"
+                    + "\nSản phẩm gần hết hàng: " + s + obj3 + "\n"
+                    + "Nhân viên bán hàng: " + Auth.user.getTenNV();
+            boolean sessionDebug = false;
+            Properties pros = System.getProperties();
+            pros.put("mail.smtp.ssl.trust", "*");
+            pros.put("mail.smtp.starttls.enable", "true");
+            pros.put("mail.smtp.host", "host");
+            pros.put("mail.smtp.port", "896");
+            pros.put("mail.smtp.auth", "true");
+            pros.put("mail.smtp.starttls.required", "true");
+//            pros.put("mail.smtp.ssl.trust", "*");
+
+            Session mailSession = Session.getDefaultInstance(pros, null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(user));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subjectString);
+            msg.setText(message);
+            Transport transport = mailSession.getTransport("smtps");
+
+            transport.connect(host, user, pass);
+            transport.sendMessage(msg, msg.getAllRecipients());
+
+            transport.close();
+            MsgBox.alert(this, "Báo cáo doanh thu tháng thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    //Gửi email báo cáo cuối tháng
+    public void sendEmail_Thang() {
+        try {
+
+            List<HoaDon> list = dao_hd.selectAll();
+            List<Object> obj = new ArrayList<>();
+            List<Object> obj2 = new ArrayList<>();
+            List<Object> obj3 = new ArrayList<>();
+            Calendar c1 = Calendar.getInstance();
+            int thang = c1.get(Calendar.MONTH) + 1;
+            int tongDonHangThang = Integer.parseInt(lbTongDonThang.getText()) + Integer.parseInt(lbTongHuyThang.getText());
+
+            //Thống kê hóa đơn theo tháng
+            for (HoaDon x : list) {
+                if (x.getTrangThai().equalsIgnoreCase("Đơn hàng âm") && XDate.toMonth(x.getNgayTao()).equals(String.valueOf(thang))) {
+
+                    obj.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
+
+                }
+            }
+            System.out.println(obj);
+
+            for (HoaDon x : list) {
+                if (x.getTrangThai().equalsIgnoreCase("Đã Hủy") && XDate.toMonth(x.getNgayTao()).equals(String.valueOf(thang))) {
+                    obj2.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
+
+                }
+            }
+            System.out.println(obj2);
+
+            //Thống kê sản phẩm gần hết hàng
+            List<SanPham> listsp = dao.selectAll();
+            String s = "";
+            for (SanPham x : listsp) {
+                if (x.getSoLuong() < 20 && x.isTrangThai() == true) {
+
+                    obj3.add("\n" + "+Mã sản phẩm: " + x.getMaCTSP() + "   Tên sản phẩm: " + x.getTenSP() + "   Số lượng còn lại: " + x.getSoLuong());
+                }
+            }
+
+            if (obj3.isEmpty()) {
+                s = "Không có sản phẩm nào gần hết hàng";
+            }
+            System.out.println("" + s + obj3);
+
+            c1.get(Calendar.DATE);
+            String host = "smtp.gmail.com";
+            String user = "quanlybanquanaopoly@gmail.com";
+            String pass = "Poly123456";
+            String to = "phuongtdph13747@fpt.edu.vn";
+            String subjectString = "Báo cáo doanh thu tháng " + thang;
+            String message
+                    = "Tổng doanh thu của tháng: " + lbTongDoanhThuThang.getText() + "\n"
+                    + "Tổng đơn hàng của tháng này: " + tongDonHangThang + "\n"
+                    + "\n-" + lbTongDonThang.getText() + " đơn thành công" + "\n"
+                    + "-" + lbTongHuyThang.getText() + " đơn bị hủy" + "\nHủy" + obj + "\nĐổi trả:" + obj2 + "\n"
                     + "\nSản phẩm gần hết hàng: " + s + obj3 + "\n"
                     + "Nhân viên bán hàng: " + Auth.user.getTenNV();
             boolean sessionDebug = false;
@@ -326,7 +414,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                         lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
-                        lbTongDoanhThuThang.setText("0" + " VND");
                         lbTongDoanhThuNam.setText("0" + " VND");
 
                     } else {
@@ -600,7 +687,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -919,7 +1006,6 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             if (checkNgay()) {
                 if (Auth.user.getVaiTro() == false) {
 
-                    lbTongDoanhThuThang.setText("0" + " VND");
                     lbTongDoanhThuNam.setText("0" + " VND");
                 } else {
                     thongKe();

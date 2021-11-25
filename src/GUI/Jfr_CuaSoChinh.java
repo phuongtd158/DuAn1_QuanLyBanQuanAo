@@ -7,6 +7,7 @@ package GUI;
 
 import Ultil.Auth;
 import Ultil.MsgBox;
+import Ultil.XDate;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -29,16 +30,25 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-        Jfr_TrangChu menu1 = new Jfr_TrangChu();
-        jDesktopPane1.add(menu1).setVisible(true);
+        Jfr_ThongKe tk = new Jfr_ThongKe();
+        jDesktopPane1.add(tk).setVisible(true);
         defualtColor = new Color(41, 182, 246);
         ClickColor = new Color(144, 202, 249);
         initMoving(Jfr_CuaSoChinh.this);
-        Calendar c = Calendar.getInstance();
-        int ngayCuoiThang = c.getMaximum(Calendar.DATE);
 
-        System.out.println("" + ngayCuoiThang + c.get(Calendar.DAY_OF_MONTH));
-
+//        long millis = System.currentTimeMillis();
+//        java.sql.Date date = new java.sql.Date(millis);
+//        Calendar c = Calendar.getInstance();
+//        int ngayCuoiThang = c.getMaximum(Calendar.DATE);
+//        if (Auth.user.getVaiTro() == false) {
+//            if (XDate.toDay(date).equals(String.valueOf(25))) {
+//                new Jfr_ThongKe().setVisible(true);
+//                MsgBox.alert(this, "Đang báo cáo doanh thu tháng");
+//                Jfr_ThongKe.tk.sendEmail_Thang();
+//            } else {
+//                System.out.println("Hôm nay là ngày " + XDate.toDay(date));
+//            }
+//        }
     }
 
     //Di chuyển form khi giữ chuột
@@ -112,8 +122,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         lb.setBackground(new java.awt.Color(41, 182, 246));
         lb.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lb.setForeground(new java.awt.Color(255, 255, 255));
-        lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_home_30px.png"))); // NOI18N
-        lb.setText("    Trang chủ");
+        lb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_play_graph_report_30px.png"))); // NOI18N
+        lb.setText("    Thống kê");
 
         javax.swing.GroupLayout btnTrangChuLayout = new javax.swing.GroupLayout(btnTrangChu);
         btnTrangChu.setLayout(btnTrangChuLayout);
@@ -304,8 +314,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         lb6.setBackground(new java.awt.Color(41, 182, 246));
         lb6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lb6.setForeground(new java.awt.Color(255, 255, 255));
-        lb6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_play_graph_report_30px.png"))); // NOI18N
-        lb6.setText("    Thống kê");
+        lb6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_sale_30px.png"))); // NOI18N
+        lb6.setText("    Khuyến mại");
 
         javax.swing.GroupLayout btnThongKeLayout = new javax.swing.GroupLayout(btnThongKe);
         btnThongKe.setLayout(btnThongKeLayout);
@@ -514,8 +524,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnTrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrangChuMouseClicked
-        Jfr_TrangChu menu1 = new Jfr_TrangChu();
-        jDesktopPane1.add(menu1).setVisible(true);
+        Jfr_ThongKe tk = new Jfr_ThongKe();
+        jDesktopPane1.add(tk).setVisible(true);
         if (Jfr_HoaDon.webcam != null) {
             Jfr_HoaDon.webcam.close();
         }
@@ -664,7 +674,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
-        Jfr_ThongKe menu9 = new Jfr_ThongKe();
+        Jfr_KhuyenMai menu9 = new Jfr_KhuyenMai();
         jDesktopPane1.add(menu9).setVisible(true);
         if (Jfr_HoaDon.webcam != null) {
             Jfr_HoaDon.webcam.close();

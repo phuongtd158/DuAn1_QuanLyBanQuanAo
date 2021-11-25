@@ -15,6 +15,9 @@ public class XDate {
 
     static SimpleDateFormat formater = new SimpleDateFormat();
     static String pattern = "yyyy-MM-dd";
+    static String pt = "MM";
+    static String dd = "dd";
+    static String tt = "hh:mm aa";
 
     public static Date toDate(String date) {
         try {
@@ -28,5 +31,20 @@ public class XDate {
     public static String toString(Date date) {
         formater.applyPattern(pattern);
         return formater.format(date);
+    }
+
+    public static String toMonth(Date date) {
+        formater.applyPattern(pt);
+        return formater.format(date);
+    }
+
+    public static String toDay(Date date) {
+        formater.applyPattern(dd);
+        return formater.format(date);
+    }
+
+    public static String toTime(Date time) {
+        formater.applyPattern(tt);
+        return formater.format(time);
     }
 }
