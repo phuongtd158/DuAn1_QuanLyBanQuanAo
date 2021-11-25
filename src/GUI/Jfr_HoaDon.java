@@ -1025,7 +1025,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void cbbHTThanhToan2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbHTThanhToan2ItemStateChanged
         Index = cbbHTThanhToan2.getSelectedIndex();
         if (Index > 0) {
-            txtKhachDua2.setText( String.valueOf( Double.valueOf(lbKhachTra2.getText()) + Double.valueOf(txtTienShip.getText()) )  );
+            txtKhachDua2.setText( String.valueOf( Double.valueOf(lbKhachTra2.getText()) )  );
             lbTienThua2.setText("0");
             txtKhachDua2.setEditable(false);
         } else {
@@ -1130,24 +1130,27 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         int k = tbDanhSachHD.getSelectedRow();
         listHD = (ArrayList<HoaDon>) daoHD.selectAll();
 
-        if (tbGioHang.getRowCount() == 0) {
-            MsgBox.alert(this, "Giỏ hàng trống không thể thanh toán");
-        } else {
-            if (k >= 0) {
-                String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
-//                HoaDon hd = daoHD.selectByID(MaHD);
-                daoHD.update2("Đã thanh toán" , MaHD);
-                ThemVaoHoaDonCT(Integer.valueOf(MaHD));
-                DoVaoTableDanhSachHD();
+        if ( Check.checkTrongText( txtTenKH ) && Check.checkTrongText( txtSDT) ) {
+            if (tbGioHang.getRowCount() == 0) {
+                MsgBox.alert(this, "Giỏ hàng trống không thể thanh toán");
             } else {
-                ThemHoaDon( "Đã thanh toán", "Not" , 0);
-                int skk = listHD.get(listHD.size() - 1).getMaHD();
-                ThemVaoHoaDonCT(skk);
+                if (k >= 0) {
+                    String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
+                    HinhThucTT htt = (HinhThucTT) cbbHTThanhToan.getSelectedItem() ;
+//                HoaDon hd = daoHD.selectByID(MaHD);
+                    daoHD.update2("Đã thanh toán", MaHD);
+                    daoHD.update_HTTT( htt.getMaHTTT() , MaHD );
+                    ThemVaoHoaDonCT(Integer.valueOf(MaHD));
+                    DoVaoTableDanhSachHD();
+                } else {
+                    ThemHoaDon("Đã thanh toán", "Not", 0);
+                    int skk = listHD.get(listHD.size() - 1).getMaHD();
+                    ThemVaoHoaDonCT(skk);
+                }
+                LamTrangForm();
+                MsgBox.alert(this, "Thanh toán thành công");
             }
-            LamTrangForm();
-            MsgBox.alert(this, "Thanh toán thành công");
         }
-
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void ThemHoaDon2( String tthai , double tienShip ) {

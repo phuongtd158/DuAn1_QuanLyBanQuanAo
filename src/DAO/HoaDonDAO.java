@@ -21,6 +21,7 @@ public class HoaDonDAO extends Main< HoaDon, String> {
     private String selectByID = "select * from HOADON where MaHD like ? ";
     String Update = "Update HOADON set GhiChu = ? where MaHD like ? ";
     String Update_1 = "Update HOADON set TrangThai = ? where MaHD like ? ";
+    String Update_2 = "Update HOADON set MaHTTT = ? where MaHD like ? " ;
     private String selectAll_2 = "SELECT * FROM dbo.HOADON JOIN dbo.NHANVIEN ON NHANVIEN.MaNV = HOADON.MaNV JOIN dbo.KHACHHANG ON KHACHHANG.MaKH = HOADON.MaKH\n"
             + "            WHERE MaHD LIKE ? AND TenNV LIKE ? AND TenKH LIKE ? AND NgayKhoiTao LIKE ? AND HOADON.TrangThai LIKE ?";
 
@@ -30,6 +31,10 @@ public class HoaDonDAO extends Main< HoaDon, String> {
 
     public void update1(String a, String b) {
         JDBCHelper.Update(Update, a, b);
+    }
+    
+    public void update_HTTT ( int a , String b ){
+        JDBCHelper.Update(Update_2 , a , b );
     }
 
     @Override
