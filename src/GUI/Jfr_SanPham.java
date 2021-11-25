@@ -834,10 +834,12 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         Index = tblSanPham.getSelectedRow();
         SanPham sp = GetForm();
 
-        if (MsgBox.confirm_2(this, "Mời Bạn Chọn", "Ẩn", "Xóa") == 0) {
+        if (Index >= 0) {
             daoSP.Update_2(sp);
             DoVaoTableChiTiet();
-            MsgBox.alert(this, "Xóa thành công");
+            MsgBox.alert(this, "Ẩn thành công");
+        }else{
+            MsgBox.alert( this , "Vui lòng chọn sản phẩm muốn ẩn");
         }
 
     }
