@@ -101,9 +101,9 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/img/icons8_home_30px.png"/>
+                      <Image iconType="3" name="/img/icons8_play_graph_report_30px.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="    Trang ch&#x1ee7;"/>
+                    <Property name="text" type="java.lang.String" value="    Th&#x1ed1;ng k&#xea;"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -413,9 +413,9 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/img/icons8_play_graph_report_30px.png"/>
+                      <Image iconType="3" name="/img/icons8_sale_30px.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="    Th&#x1ed1;ng k&#xea;"/>
+                    <Property name="text" type="java.lang.String" value="    Khuy&#x1ebf;n m&#x1ea1;i"/>
                   </Properties>
                 </Component>
               </SubComponents>

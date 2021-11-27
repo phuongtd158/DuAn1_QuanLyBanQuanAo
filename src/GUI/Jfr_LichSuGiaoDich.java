@@ -85,7 +85,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
             });
         }
         SapXepDSSP();
-        TingTien();
+        TinhTien();
         if (kh.getDiaChi().length() > 4) {
             if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy")) {
                 lbLyDo.setVisible(true);
@@ -141,14 +141,25 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         }
     }
 
-    public void TingTien() {
+    public void TinhTien() {
         Double tien = 0.0;
         for (int i = 0; i < modeltbSP.getRowCount(); i++) {
             tien += Double.valueOf(modeltbSP.getValueAt(i, 6).toString());
         }
         lbTongTienHang.setText(String.valueOf(tien));
     }
-
+//    private void HamGiamGia() {
+//        Double tk = Double.valueOf(lbTongTienHang.getText());
+//        if (tk > 1000000) {
+//            lbGiamGia.setText("7"); 
+//        } else if (tk >= 800000) {
+//            lbGiamGia.setText("5"); 
+//        } else if (tk >= 500000) {
+//            lbGiamGia.setText("2"); 
+//        } else {
+//            lbGiamGia.setText("0");
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,9 +196,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
         lblDiaChi = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel57 = new javax.swing.JLabel();
-        lbTongTienHang = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lbNgayTao = new javax.swing.JLabel();
@@ -197,6 +205,9 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel14 = new javax.swing.JPanel();
         lbLydo1 = new javax.swing.JLabel();
         lbLyDo = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel57 = new javax.swing.JLabel();
+        lbTongTienHang = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -250,7 +261,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         });
         jPanel5.add(txtTrangThai);
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 870, 35));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 860, 35));
 
         tblDanhSachHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -356,21 +367,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
 
         jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 40));
 
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel57.setText("Tổng tiền hàng:");
-        jPanel11.add(jLabel57);
-
-        lbTongTienHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbTongTienHang.setForeground(new java.awt.Color(0, 0, 0));
-        lbTongTienHang.setText("0");
-        jPanel11.add(lbTongTienHang);
-
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 40));
-
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -383,7 +379,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         lbNgayTao.setForeground(new java.awt.Color(0, 0, 0));
         jPanel12.add(lbNgayTao);
 
-        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 290, 40));
+        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 290, 40));
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setLayout(new java.awt.GridLayout(1, 0));
@@ -397,7 +393,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         lbTrangThai.setForeground(new java.awt.Color(0, 0, 0));
         jPanel13.add(lbTrangThai);
 
-        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 40));
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 290, 40));
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setLayout(new java.awt.GridLayout(1, 0));
@@ -411,7 +407,22 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         lbLyDo.setForeground(new java.awt.Color(0, 0, 0));
         jPanel14.add(lbLyDo);
 
-        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 290, 40));
+        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 290, 40));
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel57.setText("Tổng tiền hàng:");
+        jPanel15.add(jLabel57);
+
+        lbTongTienHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbTongTienHang.setForeground(new java.awt.Color(0, 0, 0));
+        lbTongTienHang.setText("0");
+        jPanel15.add(lbTongTienHang);
+
+        jPanel3.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 50));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 300, 730));
 
@@ -492,10 +503,10 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
