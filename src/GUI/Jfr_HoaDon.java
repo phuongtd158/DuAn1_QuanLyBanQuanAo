@@ -233,7 +233,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 //            model_tableHoaDon.setRowCount(count);
             SanPham sp = daoSP.selectByID2(Ma);
             model_tableGioHang.addRow(new Object[]{ 1, sp.getMaCTSP(), sp.getTenSP(), k, sp.getGia(),
-                sp.getGiamGia(), k * sp.getGia() * (1 - sp.getGiamGia() / 100), false});
+                sp.getGiamGia(), k * sp.getGia() * (1 - sp.getGiamGia() / 100), "" ,false});
             TinhTien();
 
 
@@ -250,7 +250,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         }
         lbTongTienHang.setText(String.valueOf(tien));
         lbTongTienHang2.setText(String.valueOf(tien));
-        HamGiamGia();
+        lbKhachTra.setText( String.valueOf(tien)) ;
+        lbKhachTra2.setText(String.valueOf(tien)) ;
+        TienKhachTra2 = tien ;
     }
 
     @SuppressWarnings("unchecked")
@@ -292,7 +294,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
         txtSDT = new javax.swing.JTextField();
@@ -301,7 +302,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         lbTongTienHang = new javax.swing.JLabel();
         lbKhachTra = new javax.swing.JLabel();
         cbbHTThanhToan = new javax.swing.JComboBox<>();
-        txtGiamGia = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jButton13 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
@@ -314,7 +314,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jSeparator3 = new javax.swing.JSeparator();
         jLabel66 = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
         txtSDT2 = new javax.swing.JTextField();
@@ -322,7 +321,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         lbTienThua2 = new javax.swing.JLabel();
         lbTongTienHang2 = new javax.swing.JLabel();
         cbbHTThanhToan2 = new javax.swing.JComboBox<>();
-        txtGiamGia2 = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel75 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
@@ -357,14 +355,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
             },
             new String [] {
-                "STT", "Mã SP", "Tên sản phẩm", "Số lượng ", "Đơn Giá", "Giảm Giá", "Thành Tiền", ""
+                "STT", "Mã SP", "Tên sản phẩm", "Số lượng ", "Đơn Giá", "Giảm Giá", "Thành Tiền", "Trang Thái", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, true, false, true
+                false, false, false, true, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -389,6 +387,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jScrollPane10.setViewportView(tbGioHang);
         if (tbGioHang.getColumnModel().getColumnCount() > 0) {
             tbGioHang.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tbGioHang.getColumnModel().getColumn(8).setPreferredWidth(15);
         }
         tbGioHang.getAccessibleContext().setAccessibleName("");
 
@@ -556,7 +555,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel53.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(0, 0, 0));
         jLabel53.setText("Tiền thừa:");
-        jPanel52.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+        jPanel52.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
         jPanel52.add(txtTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 180, -1));
 
         jLabel54.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -570,7 +569,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 txtKhachDuaKeyReleased(evt);
             }
         });
-        jPanel52.add(txtKhachDua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 130, -1));
+        jPanel52.add(txtKhachDua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 130, -1));
         jPanel52.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 270, -1));
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -581,43 +580,38 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(0, 0, 0));
         jLabel56.setText("Tổng tiền hàng:");
-        jPanel52.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
-
-        jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel57.setText("Giảm giá:");
-        jPanel52.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        jPanel52.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         jLabel58.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel58.setForeground(new java.awt.Color(0, 0, 0));
         jLabel58.setText("Tiền khách đưa:");
-        jPanel52.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        jPanel52.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(0, 0, 0));
         jLabel59.setText("Khách cần trả:");
-        jPanel52.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        jPanel52.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
         jPanel52.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 180, -1));
 
         jLabel60.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(0, 0, 0));
         jLabel60.setText("HT Thanh toán:");
-        jPanel52.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        jPanel52.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         lbTienThua.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTienThua.setForeground(new java.awt.Color(0, 0, 0));
         lbTienThua.setText("0");
-        jPanel52.add(lbTienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 160, -1));
+        jPanel52.add(lbTienThua, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 160, -1));
 
         lbTongTienHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTongTienHang.setForeground(new java.awt.Color(0, 0, 0));
         lbTongTienHang.setText("0");
-        jPanel52.add(lbTongTienHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 140, -1));
+        jPanel52.add(lbTongTienHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 140, -1));
 
         lbKhachTra.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbKhachTra.setForeground(new java.awt.Color(0, 0, 0));
         lbKhachTra.setText("0");
-        jPanel52.add(lbKhachTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 140, -1));
+        jPanel52.add(lbKhachTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 140, -1));
 
         cbbHTThanhToan.setBackground(new java.awt.Color(255, 255, 255));
         cbbHTThanhToan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -626,10 +620,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 cbbHTThanhToanItemStateChanged(evt);
             }
         });
-        jPanel52.add(cbbHTThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 130, -1));
-
-        txtGiamGia.setEditable(false);
-        jPanel52.add(txtGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 160, -1));
+        jPanel52.add(cbbHTThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 130, -1));
         jPanel52.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 270, -1));
 
         jButton13.setBackground(new java.awt.Color(255, 255, 255));
@@ -677,7 +668,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel64.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel64.setForeground(new java.awt.Color(0, 0, 0));
         jLabel64.setText("Tiền thừa:");
-        jPanel54.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+        jPanel54.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
         jPanel54.add(txtTenKH2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 180, -1));
 
         jLabel65.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -691,7 +682,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 txtTienShipKeyReleased(evt);
             }
         });
-        jPanel54.add(txtTienShip, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 130, -1));
+        jPanel54.add(txtTienShip, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 130, -1));
         jPanel54.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 270, -1));
 
         jLabel66.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -702,22 +693,17 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel67.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(0, 0, 0));
         jLabel67.setText("Tổng tiền hàng:");
-        jPanel54.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
-
-        jLabel68.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel68.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel68.setText("Giảm giá:");
-        jPanel54.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        jPanel54.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel69.setForeground(new java.awt.Color(0, 0, 0));
         jLabel69.setText("Tiền khách đưa:");
-        jPanel54.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+        jPanel54.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
 
         jLabel70.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(0, 0, 0));
         jLabel70.setText("Tiền Ship");
-        jPanel54.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        jPanel54.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         txtSDT2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -729,17 +715,17 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel71.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel71.setForeground(new java.awt.Color(0, 0, 0));
         jLabel71.setText("HT Thanh toán:");
-        jPanel54.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        jPanel54.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
 
         lbTienThua2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTienThua2.setForeground(new java.awt.Color(0, 0, 0));
         lbTienThua2.setText("0");
-        jPanel54.add(lbTienThua2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 160, -1));
+        jPanel54.add(lbTienThua2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 160, -1));
 
         lbTongTienHang2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTongTienHang2.setForeground(new java.awt.Color(0, 0, 0));
         lbTongTienHang2.setText("0");
-        jPanel54.add(lbTongTienHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 140, -1));
+        jPanel54.add(lbTongTienHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 140, -1));
 
         cbbHTThanhToan2.setBackground(new java.awt.Color(255, 255, 255));
         cbbHTThanhToan2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -753,10 +739,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 cbbHTThanhToan2ActionPerformed(evt);
             }
         });
-        jPanel54.add(cbbHTThanhToan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 130, -1));
-
-        txtGiamGia2.setEditable(false);
-        jPanel54.add(txtGiamGia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 160, -1));
+        jPanel54.add(cbbHTThanhToan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 130, -1));
         jPanel54.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 270, -1));
 
         jLabel75.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -803,12 +786,12 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jLabel72.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel72.setForeground(new java.awt.Color(0, 0, 0));
         jLabel72.setText("Khách cần trả:");
-        jPanel54.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        jPanel54.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         lbKhachTra2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbKhachTra2.setForeground(new java.awt.Color(0, 0, 0));
         lbKhachTra2.setText("0");
-        jPanel54.add(lbKhachTra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 140, -1));
+        jPanel54.add(lbKhachTra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 140, -1));
 
         txtKhachDua2.setText("0");
         txtKhachDua2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -816,7 +799,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 txtKhachDua2KeyReleased(evt);
             }
         });
-        jPanel54.add(txtKhachDua2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, -1));
+        jPanel54.add(txtKhachDua2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 130, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -879,9 +862,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         txtKhachDua.setText("0");
         txtTienShip.setText("0");
 
-        txtGiamGia2.setText("0");
-        txtGiamGia.setText("0");
-
         txtTenKH.setText("");
         txtTenKH2.setText("");
 
@@ -891,12 +871,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         lbTongTienHang.setText("0");
         lbTongTienHang2.setText("0");
+        
+        lbKhachTra.setText("0");
+        lbKhachTra2.setText("0");
+        
+        txtKhachDua2.setText("0");
 
         lbTienThua.setText("");
         lbTienThua2.setText("");
 
-        lbKhachTra.setText("0");
-        lbKhachTra2.setText("0");
 
         txtChatLieu.setText("");
         txtMaSP.setText("");
@@ -908,7 +891,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         btnTraHang.setVisible(false);
         
         DoVaoTableDanhSachSP();
-   
     }
 
     // Click vào bảng danh sách hóa đơn để đổ vào giỏ hàng
@@ -974,6 +956,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             tbGioHang.setValueAt(SoLuong * DonGia * (1 - GiamGia / 100), Index, 6);
         }
         TinhTien();
+        HienThiNguoc();
     }//GEN-LAST:event_tbGioHangKeyReleased
 
     //Hàm xóa ở giỏ hàng 
@@ -1010,7 +993,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         Index = cbbHTThanhToan.getSelectedIndex();
         
         if (Index > 0) {
-            txtKhachDua.setText( lbKhachTra.getText() );
+            txtKhachDua.setText( lbTongTienHang.getText() );
             lbTienThua.setText("0");
             txtKhachDua.setEditable(false);
         } else {
@@ -1025,7 +1008,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void cbbHTThanhToan2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbHTThanhToan2ItemStateChanged
         Index = cbbHTThanhToan2.getSelectedIndex();
         if (Index > 0) {
-            txtKhachDua2.setText( String.valueOf( Double.valueOf(lbKhachTra2.getText()) )  );
+            txtKhachDua2.setText( lbKhachTra2.getText()  );
             lbTienThua2.setText("0");
             txtKhachDua2.setEditable(false);
         } else {
@@ -1035,28 +1018,28 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         }
     }//GEN-LAST:event_cbbHTThanhToan2ItemStateChanged
 
-    private void HamGiamGia() {
-        Double tk = Double.valueOf(lbTongTienHang.getText());
-        if (tk > 1000000) {
-            txtGiamGia.setText("7");
-            txtGiamGia2.setText("7");
-        } else if (tk >= 800000) {
-            txtGiamGia.setText("5");
-            txtGiamGia2.setText("5");
-        } else if (tk >= 500000) {
-            txtGiamGia.setText("2");
-            txtGiamGia2.setText("2");
-        } else {
-            txtGiamGia.setText("0");
-            txtGiamGia2.setText("0");
-        }
-
-        Double b = Double.valueOf(txtGiamGia.getText());
-        lbKhachTra.setText(String.valueOf(tk * (1 - b / 100)) );
-        
-        TienKhachTra2 = tk * (1 - b / 100) + Double.valueOf(txtTienShip.getText() );
-        lbKhachTra2.setText(String.valueOf(TienKhachTra2) );
-    }
+//    private void HamGiamGia() {
+//        Double tk = Double.valueOf(lbTongTienHang.getText());
+//        if (tk > 1000000) {
+//            txtGiamGia.setText("7");
+//            txtGiamGia2.setText("7");
+//        } else if (tk >= 800000) {
+//            txtGiamGia.setText("5");
+//            txtGiamGia2.setText("5");
+//        } else if (tk >= 500000) {
+//            txtGiamGia.setText("2");
+//            txtGiamGia2.setText("2");
+//        } else {
+//            txtGiamGia.setText("0");
+//            txtGiamGia2.setText("0");
+//        }
+//
+//        Double b = Double.valueOf(txtGiamGia.getText());
+//        lbKhachTra.setText(String.valueOf(tk * (1 - b / 100)) );
+//        
+//        TienKhachTra2 = tk * (1 - b / 100) + Double.valueOf(txtTienShip.getText() );
+//        lbKhachTra2.setText(String.valueOf(TienKhachTra2) );
+//    }
 
     // nút tạo hóa đơn ở from hóa đơn
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
@@ -1072,17 +1055,20 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             return;
         }
 
-        HinhThucTT tt = (HinhThucTT) cbbHTThanhToan.getSelectedItem();
-        KhachHang kh = new KhachHang();
-        kh.setTenKH(txtTenKH.getText());
-        kh.setSDT(txtSDT.getText());
-        kh.setDiaChi("Not");
-
         try {
-            if (daoKH.selectByID_2(txtSDT.getText()) < 1) {
+            HinhThucTT tt = (HinhThucTT) cbbHTThanhToan.getSelectedItem();
+            KhachHang kh = new KhachHang();
+
+            if (daoKH.selectByID_2(txtSDT2.getText()) == 0) {
+                kh.setTenKH(txtTenKH.getText());
+                kh.setSDT(txtSDT.getText());
+                kh.setDiaChi("Not");
                 daoKH.insert(kh);
+                System.out.println(daoKH.selectByID_2(txtSDT.getText()));
+            } else {
+                daoKH.update_dc( "Not" , txtSDT.getText());
             }
-            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai, ghiChu , tienShip );
+            ThemVaoHoaDon(txtSDT.getText(), tt.getMaHTTT(), tthai, ghiChu, tienShip);
         } catch (Exception e) {
         }
     }
@@ -1158,15 +1144,19 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             return;
         }
 
-        HinhThucTT tt = (HinhThucTT) cbbHTThanhToan2.getSelectedItem();
-        KhachHang kh = new KhachHang();
-        kh.setTenKH(txtTenKH2.getText());
-        kh.setDiaChi(txtDiaChi.getText());
-        kh.setSDT(txtSDT2.getText());
-        
         try {
-            daoKH.insert(kh);
-            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai, "not" , tienShip);
+            HinhThucTT tt = (HinhThucTT) cbbHTThanhToan2.getSelectedItem();
+            KhachHang kh = new KhachHang();
+            if (daoKH.selectByID_2(txtSDT2.getText()) == 0) {
+                kh.setTenKH(txtTenKH2.getText());
+                kh.setDiaChi(txtDiaChi.getText());
+                kh.setSDT(txtSDT2.getText());
+                daoKH.insert(kh);
+                System.out.println(daoKH.selectByID_2(txtSDT2.getText()));
+            } else {
+                daoKH.update_dc(txtDiaChi.getText(), txtSDT2.getText());
+            }
+            ThemVaoHoaDon(txtSDT2.getText(), tt.getMaHTTT(), tthai, "not", tienShip);
         } catch (Exception e) {
         }
     }
@@ -1252,15 +1242,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         model_tableGioHang.setRowCount(0);
 
         for (HoaDonCT x : listHDCT) {
-            if ( x.getTrangThai() == true ) {
+//            if ( x.getTrangThai() == true ) {
                 SanPham sp = daoSP.selectByID2(String.valueOf(x.getMaCTSP()));
                 model_tableGioHang.addRow(new Object[]{1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(),
-                    x.getGiamGia(), x.getThanhTien()});
-            }
+                    x.getGiamGia(), x.getThanhTien() , x.getTrangThai() ? "" : "Hàng Trả"} );
+//            }
         }
         XapXepLaiGioHang();
         
-        TinhTien();
+        TinhTien(); 
         
         if (kh.getDiaChi().length() >= 4) {
             tabHoaDon.setSelectedIndex(1);
@@ -1268,14 +1258,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             txtSDT2.setText(kh.getSDT());
             txtDiaChi.setText(kh.getDiaChi());
             txtTienShip.setText( String.valueOf(hd.getTienShip()) ) ;
-            txtKhachDua2.setText( lbKhachTra2.getText() );
+            txtKhachDua2.setText( lbTongTienHang2.getText() );
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan2 );
         } else {
             tabHoaDon.setSelectedIndex(0);
             txtTenKH.setText(kh.getTenKH());
             txtSDT.setText(kh.getSDT());
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan );
-            txtKhachDua.setText( lbKhachTra.getText() );
+            txtKhachDua.setText( lbTongTienHang.getText() );
         }
         
     }
@@ -1392,7 +1382,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
@@ -1400,7 +1389,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
@@ -1439,8 +1427,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JTable tbGioHang;
     private javax.swing.JTextField txtChatLieu;
     private javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtGiamGia;
-    private javax.swing.JTextField txtGiamGia2;
     private javax.swing.JTextField txtKhachDua;
     private javax.swing.JTextField txtKhachDua2;
     private javax.swing.JTextField txtKichThuoc;

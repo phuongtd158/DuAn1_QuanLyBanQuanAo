@@ -1054,6 +1054,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
             ThemMauSac();
             doVaoMauSac();
         }
+        txtTenThuocTinh.setText("");
     }//GEN-LAST:event_jLabel8MouseClicked
 
     // Đổ vào bảng thuộc tính với dánh sách là Màu sắc

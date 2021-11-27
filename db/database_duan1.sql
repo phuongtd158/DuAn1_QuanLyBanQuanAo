@@ -3,7 +3,6 @@ GO
 USE DuAn1_QuanLyBanQuanAo1
 GO
 
-
 CREATE TABLE NHANVIEN(
 	MaNV VARCHAR(10) NOT NULL,
 	TenNV NVARCHAR(30) NOT NULL,
@@ -163,12 +162,8 @@ CREATE TABLE HOADONCHITIET(
 )
 
 
-<<<<<<< HEAD
-SELECT * FROM dbo.HOADON WHERE TrangThai = N'Đơn hàng âm' or TrangThai =  N'Đã hủy'
-=======
 
->>>>>>> 44d16ca4be84d144e290daae75ed25a4f4fdeccb
---SP doanh thu theo năm
+--SP doanh thu theo năm ok
 CREATE PROC SP_DOANHTHU(@NAM int)
 AS BEGIN
 	SELECT MONTH(NgayKhoiTao) AS Thang, 
@@ -184,8 +179,8 @@ END
 GO
 
 
---Thống kê sản phẩm
-CREATE PROC SP_SANPHAM
+--Thống kê sản phẩm ok
+CREATE PROC SP_SANPHAM 
 AS BEGIN
 	SELECT 
 	ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS STT,
@@ -230,7 +225,7 @@ GO
 
 ---------------------------------------------------------------------------------------------------------------
 
---Sp tổng đơn hàng thành công  ngày hiện tại 
+--Sp tổng đơn hàng thành công  ngày hiện tại ok 
 CREATE PROC SP_TONGDONHANG_Ngay(@NgayBatDau date)
 AS BEGIN
 	SELECT COUNT(HOADON.MaHD) AS TongDonHang
@@ -249,15 +244,16 @@ AS BEGIN
 END
 GO
 
---SP tổng đơn hàng thành công theo tháng
+--SP tổng đơn hàng thành công theo tháng ok
 CREATE PROC SP_TONGDONHANG_Thang(@Thang int)
 AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHangHuy
+	SELECT COUNT(HOADON.MaHD) AS TongDonHang
 	FROM dbo.HOADON 
 	WHERE  (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') AND MONTH(NgayKhoiTao) = @Thang
 END
 GO
 
+DROP PROC dbo.SP_TONGDONHANG_Thang
 
 --SP tổng đơn hàng bị hủy theo tháng
 CREATE PROC SP_TONGDONHANG_BiHuy_Thang(@Thang int)
@@ -268,9 +264,6 @@ AS BEGIN
 END
 GO
 
-
-
-
 ---------------------------------------------------------------------------------------------------------------
 
 --SP tìm kiếm tổng doanh thu theo ngày
@@ -279,71 +272,45 @@ AS BEGIN
 	SELECT SUM(SoLuong * Gia) - SUM(GiamGia) AS TongDoanhThu
 	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
 	WHERE NgayKhoiTao >= @NgayBatDau AND  NgayKhoiTao <= @NgayKetThuc AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
+	AND dbo.HOADONCHITIET.TrangThai = 1
 END
 GO
 
---SP doanh thu ngày hiện tại
+--SP doanh thu ngày hôm nay
 CREATE PROC SP_TONGDOANHTHU_Ngay(@NgayBatDau date)
 AS BEGIN
 	SELECT SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS TongDoanhThu
 	FROM dbo.HOADON JOIN dbo.HOADONCHITIET ON HOADONCHITIET.MaHD = HOADON.MaHD
-	WHERE NgayKhoiTao =  @NgayBatDau AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
-END
-GO
-
---Sp tổng đơn hàng ngày hiện tại 
-CREATE PROC SP_TONGDONHANG_Thang(@NgayBatDau date)
-AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHang
-	FROM dbo.HOADON 
-	WHERE  HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán' AND NgayKhoiTao = @NgayBatDau
+	WHERE NgayKhoiTao =  @NgayBatDau AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
+	AND dbo.HOADONCHITIET.TrangThai = 1
 END
 GO
 
 
---SP tổng đơn hàng bị hủy
-CREATE PROC SP_TONGDONHANG_BiHuy_Thang(@NgayBatDau date)
-AS BEGIN
-	SELECT COUNT(HOADON.MaHD) AS TongDonHang
-	FROM dbo.HOADON 
-	WHERE  HOADON.TrangThai = N'Đã hủy' OR dbo.HOADON.TrangThai = N'Đơn hàng âm' AND NgayKhoiTao = @NgayBatDau
-END
-GO
----------------------------------------------------------------------------------------------------------------
-
-
---SP tổng doanh thu theo tháng
+--SP tổng doanh thu theo tháng ok
 CREATE PROC SP_DOANHTHUTHANG(@Thang int)
 AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuThang 
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE MONTH(NgayKhoiTao) = @Thang AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') AND HOADONCHITIET.TrangThai = 1
-END
-GO
---Doanh thu trung bình tháng
-CREATE PROC SP_DOANHTHUTHANG_TrungBinh(@Thang int)
-AS BEGIN
-	SELECT 
-	AVG(SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100))) AS DoanhThuThang 
-	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE MONTH(NgayKhoiTao) = 11 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán')
-	AND HOADONCHITIET.TrangThai = 1
+	WHERE MONTH(NgayKhoiTao) = 11 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
+	AND HOADONCHITIET.TrangThai = 1 AND dbo.HOADONCHITIET.TrangThai = 1
 END
 GO
 
 ---------------------------------------------------------------------------------------------------------------
 
---SP tổng doanh thu theo năm
+--SP tổng doanh thu theo năm ok 
 CREATE PROC SP_DOANHTHUNAM(@Nam int)
 AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuNam
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE YEAR(NgayKhoiTao) = @Nam AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') AND HOADONCHITIET.TrangThai = 1
+	WHERE YEAR(NgayKhoiTao) = @Nam AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
+	AND HOADONCHITIET.TrangThai = 1
 END
 GO
 
-DROP PROC dbo.SP_DOANHTHUTHANG
 
 ---------------------------------------------------------------------------------------------------------------
+delete from HO

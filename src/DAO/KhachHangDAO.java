@@ -21,6 +21,7 @@ public class KhachHangDAO extends Main< KhachHang, String> {
     final String UPDATE_SQL = "update KHACHHANG set TenKH = ?, NgaySinh = ?, GioiTinh = ?, SoDienThoai = ?, DiaChi = ?, TrangThai = ? where MaKH = ?";
     final String DELETE_SQL_0 = "update KHACHHANG set TrangThai = 0 where MaKH = ?";
     final String DELETE_SQL_1 = "update KHACHHANG set TrangThai = 1 where MaKH = ?";
+    String Update_DC  = "update KHACHHANG set DiaChi = ? where SoDienThoai like ? ";
     final String SELECT_ALL_SQL = "select * from KHACHHANG";
     final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
     String SelectByID = "select * from KHACHHANG where SoDienThoai = ? " ;
@@ -44,6 +45,12 @@ public class KhachHangDAO extends Main< KhachHang, String> {
         JDBCHelper.Update(DELETE_SQL_0, id);
     }
 
+    
+    // Câu Update Địa Chỉ
+    public void update_dc( String a , String b ) {
+        JDBCHelper.Update(Update_DC, a , b );
+    }
+    
     public void delete_1(int id) {
         JDBCHelper.Update(DELETE_SQL_1, id);
     }
