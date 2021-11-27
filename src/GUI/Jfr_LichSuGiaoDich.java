@@ -87,7 +87,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         SapXepDSSP();
         TinhTien();
         if (kh.getDiaChi().length() > 4) {
-            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy")) {
+            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy") ||
+                    tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn hàng âm")) {
                 lbLyDo.setVisible(true);
                 lbLydo1.setVisible(true);
                 lbLyDo.setText(hd.getGhiChu());
@@ -110,7 +111,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
             }
         } else {
-            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy")) {
+            if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy") ||
+                    tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn hàng âm")) {
                 lbLyDo.setVisible(true);
                 lbLydo1.setVisible(true);
                 lbLyDo.setText(hd.getGhiChu());
@@ -120,6 +122,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbMaNV.setText(nv.getMaNV());
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
+                lblDiaChi.setText("");
             } else {
                 lbLyDo.setVisible(false);
                 lbLydo1.setVisible(false);
@@ -129,6 +132,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbMaNV.setText(nv.getMaNV());
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
+                lblDiaChi.setText("");
             }
         }
     }
