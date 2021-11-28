@@ -48,8 +48,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         modeltbHD = (DefaultTableModel) tblDanhSachHoaDon.getModel();
         modeltbSP = (DefaultTableModel) tbSanPham.getModel();
         DoVaoTableHoaDon();
-        lbLyDo.setVisible(false);
-        lbLydo1.setVisible(false);
     }
 
     public void DoVaoTableHoaDon() {
@@ -89,9 +87,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         if (kh.getDiaChi().length() > 4) {
             if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy") ||
                     tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn hàng âm")) {
-                lbLyDo.setVisible(true);
-                lbLydo1.setVisible(true);
-                lbLyDo.setText(hd.getGhiChu());
                 lbTenNV.setText(nv.getTenNV());
                 lblTenKH.setText(kh.getTenKH());
                 lblSDT.setText(kh.getSDT());
@@ -99,9 +94,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbMaNV.setText(nv.getMaNV());
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
+                txtLyDo.setText(hd.getGhiChu());
             } else {
-                lbLyDo.setVisible(false);
-                lbLydo1.setVisible(false);
                 lbTenNV.setText(nv.getTenNV());
                 lblTenKH.setText(kh.getTenKH());
                 lblSDT.setText(kh.getSDT());
@@ -109,13 +103,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbMaNV.setText(nv.getMaNV());
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
+                txtLyDo.setText(hd.getGhiChu());
             }
         } else {
             if (tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đã Hủy") ||
                     tblDanhSachHoaDon.getValueAt(index, 5).toString().equals("Đơn hàng âm")) {
-                lbLyDo.setVisible(true);
-                lbLydo1.setVisible(true);
-                lbLyDo.setText(hd.getGhiChu());
                 lbTenNV.setText(nv.getTenNV());
                 lblTenKH.setText(kh.getTenKH());
                 lblSDT.setText(kh.getSDT());
@@ -123,9 +115,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
                 lblDiaChi.setText("");
+                txtLyDo.setText(hd.getGhiChu());
             } else {
-                lbLyDo.setVisible(false);
-                lbLydo1.setVisible(false);
                 lbTenNV.setText(nv.getTenNV());
                 lblTenKH.setText(kh.getTenKH());
                 lblSDT.setText(kh.getSDT());
@@ -133,6 +124,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
                 lblDiaChi.setText("");
+                txtLyDo.setText(hd.getGhiChu());
             }
         }
     }
@@ -208,10 +200,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         lbTrangThai = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         lbLydo1 = new javax.swing.JLabel();
-        lbLyDo = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
         lbTongTienHang = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtLyDo = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -407,10 +400,6 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         lbLydo1.setText("Lý Do Hủy:");
         jPanel14.add(lbLydo1);
 
-        lbLyDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbLyDo.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel14.add(lbLyDo);
-
         jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 290, 40));
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
@@ -427,6 +416,16 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel15.add(lbTongTienHang);
 
         jPanel3.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 50));
+
+        txtLyDo.setEditable(false);
+        txtLyDo.setColumns(20);
+        txtLyDo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtLyDo.setLineWrap(true);
+        txtLyDo.setRows(5);
+        txtLyDo.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(txtLyDo);
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 290, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 300, 730));
 
@@ -521,8 +520,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lbLyDo;
     private javax.swing.JLabel lbLydo1;
     private javax.swing.JLabel lbMaNV;
     private javax.swing.JLabel lbNgayTao;
@@ -534,6 +533,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTenKH;
     private javax.swing.JTable tbSanPham;
     private javax.swing.JTable tblDanhSachHoaDon;
+    private javax.swing.JTextArea txtLyDo;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtNgayTao;
     private javax.swing.JTextField txtTenKhanhHang;
