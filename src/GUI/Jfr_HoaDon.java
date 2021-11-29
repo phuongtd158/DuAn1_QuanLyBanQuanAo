@@ -1253,7 +1253,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         
         TinhTien(); 
         
-        if (kh.getDiaChi().length() >= 4) {
+        if (  hd.getTrangThai().equalsIgnoreCase("Đang giao hàng")) {
             tabHoaDon.setSelectedIndex(1);
             txtTenKH2.setText(kh.getTenKH());
             txtSDT2.setText(kh.getSDT());
