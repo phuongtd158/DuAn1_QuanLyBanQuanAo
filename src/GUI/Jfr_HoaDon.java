@@ -964,7 +964,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         int k = model_tableGioHang.getRowCount() - 1;
 
         while (k >= 0) {
-            if (model_tableGioHang.getValueAt(k, 7).toString().equalsIgnoreCase("true")) {
+            if (model_tableGioHang.getValueAt(k, 8).toString().equalsIgnoreCase("true")) {
                 HamCongNguocSoLuong(k);
                 model_tableGioHang.removeRow(k);
             }
