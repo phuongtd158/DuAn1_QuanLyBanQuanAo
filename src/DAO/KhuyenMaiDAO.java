@@ -17,6 +17,7 @@ import java.sql.* ;
 public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
     private String Insert = "Insert into KHUYENMAI ( MaKM , TenKH , NgayBatDau , NgayKetThuc , GiamGia ) values ( ? , ? , ? , ? , ? )";
     private String SelectByID = "Select * from KHUYENMAI where MaKM like ? ";
+    private String SelectAll = "select * from KHUYENMAI " ;
 
     @Override
     public void insert(KhuyenMai entity) {
@@ -35,7 +36,7 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
 
     @Override
     public List<KhuyenMai> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectBySQL( SelectAll ) ;
     }
 
     @Override

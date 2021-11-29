@@ -55,6 +55,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         doVaoCbbHTGG();
         hide_();
         doVaoCbbApDungCho();
+        DoVaoTableKM();
         
     }
 
@@ -374,7 +375,21 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
                 cp = new captcha() ;    
                 kh.setMaKM(cp.getCaptcha());
             }while( CheckTrung( cp.getCaptcha() ) == false );
+            daoKM.insert(kh);
+            
+            
         }
+    }
+    
+    // Dổ vào table danh sách khuyến mãi 
+    private void DoVaoTableKM(){
+        List<KhuyenMai> list = daoKM.selectAll() ; 
+        
+        for( KhuyenMai x : list ){
+            model_KM.addRow( new Object[] { x.getMaKM() , x.getTenKM() , x.getNgayBD() , x.getNgayKT() , ""  , x.getGiamGia() 
+                    , x.isTrangThai() ? "Đang hoạt động" : "Ngừng hoạt động" });
+        }
+        
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

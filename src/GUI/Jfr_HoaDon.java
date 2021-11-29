@@ -923,7 +923,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                     hdct.setGiamGia( GiamGia );
                     hdct.setGhiChu(sk);
                     
-                    tbGioHang.setValueAt(SoLuong  * DonGia * (1 - GiamGia / 100), Index, 6) ; 
+                    tbGioHang.setValueAt( SoLuong  * DonGia * (1 - GiamGia / 100), k , 6 ) ; 
                     hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(k, 6).toString()));
                     hdct.setTrangThai(false);
                       
@@ -934,11 +934,11 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                     hdct_1.setThanhTien( hdct_1.getThanhTien() - ( SoLuong  * DonGia * (1 - GiamGia / 100)) );
                     daoCTHD.update(hdct_1);
                     
-//                    daoHD.update2( "Đã giao hàng", tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow() , 1).toString() );
+                    HienThiNguoc();
+                  
                 }else{
                     MsgBox.alert( this , "Số hàng khách mua là: " + hdct_1.getSoLuong() );
-                }
-
+                }       
             }
         } else {
             Index = tbGioHang.getSelectedRow();
@@ -956,7 +956,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             tbGioHang.setValueAt(SoLuong * DonGia * (1 - GiamGia / 100), Index, 6);
         }
         TinhTien();
-        HienThiNguoc();
     }//GEN-LAST:event_tbGioHangKeyReleased
 
     //Hàm xóa ở giỏ hàng 

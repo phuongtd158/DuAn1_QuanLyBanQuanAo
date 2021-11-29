@@ -9,5 +9,6 @@ package Entity;
  * @author ASUS
  */
 public class KhuyenMai_SanPham {
-    
+    private int MaCTSP ;
+//    private String 
 }
