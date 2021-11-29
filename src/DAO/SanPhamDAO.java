@@ -61,6 +61,13 @@ public class SanPhamDAO extends Main< SanPham, String> {
             + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
             + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
             + " where MaCTSP like ? ";
+
+    String SelectAll_4 = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
+            + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
+            + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
+            + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
+            + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
+            + " where LOAISP.MaLoai like ?  ";
 // Insert
 
     @Override
@@ -125,6 +132,10 @@ public class SanPhamDAO extends Main< SanPham, String> {
                 "%" + k[3] + "%", "%" + k[4] + "%", "%" + k[5] + "%");
     }
 
+    public List<SanPham> selectAll_4( int k  ) {
+        return selectBySQL(SelectAll_4 ,  k  );
+    }
+    
 //    public List<SanPham> selectAll_4( String k ) {
 //        return selectBySQL( SelectAll_3  , "%" + k + "%" );
 //    } 

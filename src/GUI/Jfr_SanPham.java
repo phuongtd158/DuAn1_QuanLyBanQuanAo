@@ -635,9 +635,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
                         .addComponent(rbMauSac)
                         .addGap(52, 52, 52)
                         .addComponent(rbKichThuoc)
-                        .addGap(60, 60, 60)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addComponent(rbChatLieu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
                         .addComponent(rbLoaiSP)
                         .addGap(19, 19, 19))))
         );
@@ -978,7 +978,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         }
 
         ChatLieu ms = new ChatLieu();
-        ms.setTenChatLieu(txtTenThuocTinh.getText());
+        ms.setTenChatLieu(txtTenThuocTinh.getText()) ;
         daoCL.insert(ms);
         DoVaotableThuocTinh3();
     }

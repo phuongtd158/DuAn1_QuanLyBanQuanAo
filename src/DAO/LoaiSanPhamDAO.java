@@ -73,9 +73,9 @@ public class LoaiSanPhamDAO extends Main<LoaiSP, Integer> {
             ResultSet rs = JDBCHelper.query(sql, args);
             while (rs.next()) {
                 LoaiSP loaiSP = new LoaiSP();
-                loaiSP.setMaLoaiSP(rs.getInt(1));
-                loaiSP.setTenLoaiSP(rs.getString(2));
-                loaiSP.setTrangThai(rs.getBoolean(3));
+                loaiSP.setMaLoaiSP(rs.getInt("MaLoai"));
+                loaiSP.setTenLoaiSP(rs.getString("TenLoai"));
+                loaiSP.setTrangThai(rs.getBoolean("TrangThai"));
 
                 list.add(loaiSP);
             }

@@ -3,6 +3,7 @@ GO
 USE DuAn1_QuanLyBanQuanAo1
 GO
 
+
 CREATE TABLE NHANVIEN(
 	MaNV VARCHAR(10) NOT NULL,
 	TenNV NVARCHAR(30) NOT NULL,
@@ -105,8 +106,9 @@ CREATE TABLE KICHTHUOC(
 	PRIMARY KEY(MaKichThuoc)
 )
 
+
 CREATE TABLE KHUYENMAI(
-	MaKM INT IDENTITY(183662, 1),
+	MaKM VARCHAR(10),
 	TenKM NVARCHAR(50) NOT NULL,
 	NgayBatDau DATE,
 	NgayKetThuc DATE,
@@ -115,6 +117,7 @@ CREATE TABLE KHUYENMAI(
 	
 	PRIMARY KEY(MaKM)
 )
+
 
 CREATE TABLE CHITIETSANPHAM(
 	MaCTSP INT IDENTITY(1,1),
@@ -126,8 +129,8 @@ CREATE TABLE CHITIETSANPHAM(
 	SoLuong INT NOT NULL,
 	Gia FLOAT NOT NULL,
 	GiamGia FLOAT DEFAULT 0 NULL,
-	TrangThai BIT DEFAULT 1,
-	MaKM INT NULL
+	TrangThai BIT DEFAULT 1
+	
 
 	PRIMARY KEY(MaCTSP)
 	FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP),
@@ -135,8 +138,18 @@ CREATE TABLE CHITIETSANPHAM(
 	FOREIGN KEY(MaChatLieu) REFERENCES dbo.CHATLIEU(MaChatLieu),
 	FOREIGN KEY(MaKichThuoc) REFERENCES dbo.KICHTHUOC(MaKichThuoc),
 	FOREIGN KEY(MaLoai) REFERENCES dbo.LOAISP(MaLoai),
-	FOREIGN KEY(MaKM) REFERENCES KHUYENMAI(MaKM)
+
 )
+
+CREATE TABLE SANPHAM_KHUYENMAI(
+	MaCTSP INT,
+	MaKM VARCHAR(10)
+
+	PRIMARY KEY(MaCTSP, MaKM),
+	FOREIGN KEY(MaCTSP) REFERENCES dbo.CHITIETSANPHAM(MaCTSP),
+	FOREIGN KEY(MaKM)  REFERENCES dbo.KHUYENMAI(MaKM)
+)
+
 
 CREATE TABLE HOADON(
 	MaHD INT IDENTITY(1375328, 1) NOT NULL,
@@ -171,7 +184,6 @@ CREATE TABLE HOADONCHITIET(
 	FOREIGN KEY(MaHD) REFERENCES dbo.HOADON(MaHD),
 	FOREIGN KEY(MaCTSP) REFERENCES dbo.CHITIETSANPHAM(MaCTSP)
 )
-
 
 
 --SP doanh thu theo năm ok
@@ -264,7 +276,6 @@ AS BEGIN
 END
 GO
 
-DROP PROC dbo.SP_TONGDONHANG_Thang
 
 --SP tổng đơn hàng bị hủy theo tháng
 CREATE PROC SP_TONGDONHANG_BiHuy_Thang(@Thang int)
@@ -305,11 +316,7 @@ AS BEGIN
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuThang 
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
 	WHERE MONTH(NgayKhoiTao) = 11 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
-<<<<<<< HEAD
-	AND HOADONCHITIET.TrangThai = 1 AND dbo.HOADONCHITIET.TrangThai = 1
-=======
 	AND HOADONCHITIET.TrangThai = 1
->>>>>>> 034a541f67ca4cac83bb65d9b0de9e74c19e3f8d
 END
 GO
 
@@ -321,19 +328,9 @@ AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuNam
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-<<<<<<< HEAD
-	WHERE YEAR(NgayKhoiTao) = @Nam AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
-=======
 	WHERE YEAR(NgayKhoiTao) = 2021 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
->>>>>>> 034a541f67ca4cac83bb65d9b0de9e74c19e3f8d
 	AND HOADONCHITIET.TrangThai = 1
 END
 GO
 
-<<<<<<< HEAD
-
 ---------------------------------------------------------------------------------------------------------------
-delete from HO
-=======
----------------------------------------------------------------------------------------------------------------
->>>>>>> 034a541f67ca4cac83bb65d9b0de9e74c19e3f8d

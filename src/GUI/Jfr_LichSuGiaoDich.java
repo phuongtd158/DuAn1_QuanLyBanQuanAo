@@ -129,6 +129,7 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
                 lbMaNV.setText(nv.getMaNV());
                 lbNgayTao.setText(XDate.toString(hd.getNgayTao()));
                 lbTrangThai.setText(tblDanhSachHoaDon.getValueAt(index, 5) + "");
+                
             }
         }
     }
@@ -203,11 +204,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         lbTrangThai = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
-        lbLydo1 = new javax.swing.JLabel();
         lbLyDo = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
         lbTongTienHang = new javax.swing.JLabel();
+        lbLydo1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
@@ -396,18 +397,13 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 290, 40));
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
-
-        lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbLydo1.setForeground(new java.awt.Color(0, 0, 0));
-        lbLydo1.setText("Lý Do Hủy:");
-        jPanel14.add(lbLydo1);
+        jPanel14.setLayout(new java.awt.GridLayout());
 
         lbLyDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbLyDo.setForeground(new java.awt.Color(0, 0, 0));
         jPanel14.add(lbLyDo);
 
-        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 290, 40));
+        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, 40));
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setLayout(new java.awt.GridLayout(1, 0));
@@ -423,6 +419,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         jPanel15.add(lbTongTienHang);
 
         jPanel3.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 290, 50));
+
+        lbLydo1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbLydo1.setForeground(new java.awt.Color(0, 0, 0));
+        lbLydo1.setText("Lý Do Hủy:");
+        jPanel3.add(lbLydo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 300, 730));
 

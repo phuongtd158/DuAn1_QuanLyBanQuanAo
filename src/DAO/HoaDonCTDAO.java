@@ -21,6 +21,7 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
     String selectByID3 = "select * from HOADONCHITIET where MaHD = ? and MaCTSP = ? ";
     String Update = "Update HOADONCHITIET set SoLuong = ? , ThanhTien = ?  where MaHDCT = ?  " ;
+    String Upadte_tt = "Update HOADONCHITIET set TrangThai = 0  where MaHD like ? " ;
     
     @Override
     public void insert(HoaDonCT entity) {
@@ -33,6 +34,10 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
         JDBCHelper.Update(Update , entity.getSoLuong() , entity.getThanhTien() , entity.getMaHDCT() ) ;
     }
 
+    public void update_tt( String a ) {
+        JDBCHelper.Update(Upadte_tt , a ) ;
+    }
+    
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); 

@@ -251,14 +251,14 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Tr&#x1ea3; h&#xe0;ng"/>
+                            <Property name="text" type="java.lang.String" value="Ho&#xe0;n t&#x1ea5;t tr&#x1ea3; h&#xe0;ng"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTraHangActionPerformed"/>
                           </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="140" y="180" width="100" height="30"/>
+                              <AbsoluteConstraints x="140" y="180" width="150" height="30"/>
                             </Constraint>
                           </Constraints>
                         </Component>

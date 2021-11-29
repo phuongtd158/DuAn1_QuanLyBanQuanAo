@@ -17,7 +17,7 @@ import java.sql.*;
  */
 public class ChatLieuDAO extends Main< ChatLieu , String > {
 
-    final String INSERT = "INSERT INTO dbo.CHATLIEU(TenChatLieu,TrangThai) VALUES(?, ?)";
+    final String INSERT = "INSERT INTO dbo.CHATLIEU(TenChatLieu ) VALUES(  ?)";
     final String UPDATE = "UPDATE dbo.CHATLIEU SET TenChatLieu = ?  WHERE MaChatLieu = ?";
     String Update_1 = "Update CHATLIEU set TrangThai = 1  where TenChatLieu = ? ";
     String Update_2 = "Update CHATLIEU set TrangThai = 0  where TenChatLieu = ? " ;
@@ -26,7 +26,7 @@ public class ChatLieuDAO extends Main< ChatLieu , String > {
 
     @Override
     public void insert(ChatLieu entity) {
-        JDBCHelper.Update(INSERT, entity.getTenChatLieu(), entity.isTrangThai());
+        JDBCHelper.Update(INSERT, entity.getTenChatLieu() );
     }
 
   

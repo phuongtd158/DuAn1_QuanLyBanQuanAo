@@ -406,13 +406,13 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         btnTraHang.setBackground(new java.awt.Color(255, 255, 255));
         btnTraHang.setForeground(new java.awt.Color(0, 0, 0));
-        btnTraHang.setText("Trả hàng");
+        btnTraHang.setText("Hoàn tất trả hàng");
         btnTraHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTraHangActionPerformed(evt);
             }
         });
-        jPanel48.add(btnTraHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 100, 30));
+        jPanel48.add(btnTraHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 150, 30));
 
         jPanel55.add(jPanel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 930, 230));
 
@@ -1192,6 +1192,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 }
                 daoHD.update1( ghiChu , tbDanhSachHD.getValueAt(k, 1).toString() );
                 daoHD.update2( "Đã Hủy", tbDanhSachHD.getValueAt(k, 1).toString() );
+                daoCTHD.update_tt(tbDanhSachHD.getValueAt(k, 1).toString() );
                 LamTrangForm();
                 DoVaoTableDanhSachHD();
                 MsgBox.alert( this , "Hủy thành công");
@@ -1330,7 +1331,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
                 daoHD.update1(ghiChu, tbDanhSachHD.getValueAt(k, 1).toString());
                 daoHD.update2("Đơn hàng âm", tbDanhSachHD.getValueAt(k, 1).toString());
-
+                daoCTHD.update_tt(tbDanhSachHD.getValueAt(k, 1).toString() );
                 LamTrangForm();
                 DoVaoTableDanhSachHD();
 

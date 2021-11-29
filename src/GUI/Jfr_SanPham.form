@@ -811,9 +811,9 @@
                                       <Component id="rbMauSac" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                       <Component id="rbKichThuoc" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace pref="46" max="32767" attributes="0"/>
                                       <Component id="rbChatLieu" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                       <Component id="rbLoaiSP" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                   </Group>
