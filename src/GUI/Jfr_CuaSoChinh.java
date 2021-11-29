@@ -632,11 +632,11 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhachHangMouseClicked
 
     private void btnLichSuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLichSuMouseClicked
-        Jfr_LichSuGiaoDich menu6 = new Jfr_LichSuGiaoDich();
-        jDesktopPane1.add(menu6).setVisible(true);
-        if (Jfr_HoaDon.webcam != null) {
-            Jfr_HoaDon.webcam.close();
-        }
+//        Jfr_LichSuGiaoDich menu6 = new Jfr_LichSuGiaoDich();
+//        jDesktopPane1.add(menu6).setVisible(true);
+//        if (Jfr_HoaDon.webcam != null) {
+//            Jfr_HoaDon.webcam.close();
+//        }
     }//GEN-LAST:event_btnLichSuMouseClicked
 
     private void btnDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMatKhauMouseClicked
