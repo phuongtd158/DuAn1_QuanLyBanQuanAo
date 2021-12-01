@@ -22,6 +22,7 @@ public class KhachHangDAO extends Main< KhachHang, String> {
     final String DELETE_SQL_0 = "update KHACHHANG set TrangThai = 0 where MaKH = ?";
     final String DELETE_SQL_1 = "update KHACHHANG set TrangThai = 1 where MaKH = ?";
     String Update_DC  = "update KHACHHANG set DiaChi = ? where SoDienThoai like ? ";
+    String Update1 = "update KHACHHANG set TenKH =  ? ,  SoDienThoai = ?  where MaKH like ? ";
     final String SELECT_ALL_SQL = "select * from KHACHHANG";
     final String SELECY_BY_ID_SQL = "select * from KHACHHANG where MaKH = ?";
     String SelectByID = "select * from KHACHHANG where SoDienThoai = ? " ;
@@ -36,6 +37,11 @@ public class KhachHangDAO extends Main< KhachHang, String> {
         JDBCHelper.Update(UPDATE_SQL, entity.getTenKH(), entity.getNgaySinh(), entity.getGioiTinh(), entity.getSDT(), entity.getDiaChi(), entity.getTrangThai(), entity.getMaKH());
     }
 
+    
+    public void update_1( String a , String b , int c ) {
+        JDBCHelper.Update(Update1, a, b , c  );
+    } 
+    
     @Override
     public void delete(String id) {
         throw new RuntimeException();

@@ -35,6 +35,17 @@ CREATE TABLE KHACHHANG(
 	PRIMARY KEY(MaKH)
 )
 
+ALTER TABLE KHACHHANG
+ALTER COLUMN SoDienThoai varchar(12) null 
+
+ALTER TABLE KHACHHANG
+ALTER COLUMN TenKH nvarchar(30) null 
+
+select * from KHACHHANG join HOADON on HOADON.MaKH = KHACHHANG.MaKH
+
+delete from HOADONCHITIET
+delete from HOADON
+delete from KHACHHANG
 
 CREATE TABLE HINHTHUCTHANHTOAN(
 	MaHTTT INT IDENTITY(1, 1)NOT NULL,
@@ -167,6 +178,16 @@ CREATE TABLE HOADON(
 	FOREIGN KEY(MaHTTT) REFERENCES dbo.HINHTHUCTHANHTOAN(MaHTTT)
 )
 
+ALTER TABLE HOADON
+ALTER COLUMN MaKH int null 
+
+ALTER TABLE HOADON
+ALTER COLUMN MaHTTT int null 
+
+select * from HOADON
+select * from HOADONCHITIET
+
+Delete from HOADONCHITIET where MaHD like 1375418 and MaCTSP like 1
 
 CREATE TABLE HOADONCHITIET(
 	MaHDCT INT IDENTITY(1, 1),
@@ -334,3 +355,4 @@ END
 GO
 
 ---------------------------------------------------------------------------------------------------------------
+select * from HOADON

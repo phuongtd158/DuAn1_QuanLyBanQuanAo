@@ -10,5 +10,23 @@ package Entity;
  */
 public class KhuyenMai_SanPham {
     private int MaCTSP ;
-//    private String 
+    private String MaKM ;
+
+    public int getMaCTSP() {
+        return MaCTSP;
+    }
+
+    public void setMaCTSP(int MaCTSP) {
+        this.MaCTSP = MaCTSP;
+    }
+
+    public String getMaKM() {
+        return MaKM;
+    }
+
+    public void setMaKM(String MaKM) {
+        this.MaKM = MaKM;
+    }
+    
+    
 }

@@ -6,9 +6,11 @@
 package GUI;
 
 import DAO.KhuyenMaiDAO;
+import DAO.KhuyenMai_SanPhamDAO;
 import DAO.LoaiSanPhamDAO;
 import DAO.SanPhamDAO;
 import Entity.KhuyenMai;
+import Entity.KhuyenMai_SanPham;
 import Entity.LoaiSP;
 import Entity.SanPham;
 import Entity.captcha;
@@ -39,6 +41,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     LoaiSanPhamDAO daoLoaiSP = new LoaiSanPhamDAO() ;
     SanPhamDAO daoSP = new SanPhamDAO() ;
     KhuyenMaiDAO daoKM = new KhuyenMaiDAO() ;
+    KhuyenMai_SanPhamDAO daoKM_SP = new KhuyenMai_SanPhamDAO() ;
     
     public Jfr_KhuyenMai() {
         initComponents();
@@ -56,7 +59,6 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         hide_();
         doVaoCbbApDungCho();
         DoVaoTableKM();
-        
     }
 
     public void hide_() {
@@ -166,7 +168,21 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(cbbTheLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 120, -1));
+
+        txtMax.setText("0");
+        txtMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaxKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 110, -1));
+
+        txtMin.setText("0");
+        txtMin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMinKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 110, -1));
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -338,7 +354,9 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         for( SanPham x : list ){
             model_SP.addRow( new Object[] { sk , x.getMaCTSP() , x.getTenSP() , x.getTenKichThuoc() , x.getTenMauSac() , x.getTenChatLieu() ,
               x.getGia() , true } );
-        }        
+            sk++;
+        } 
+        
     }
     
     private void cbbTheLoaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbTheLoaiItemStateChanged
@@ -377,7 +395,15 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
             }while( CheckTrung( cp.getCaptcha() ) == false );
             daoKM.insert(kh);
             
-            
+            for (int i = 0; i < tbDanhSachSanPham.getRowCount(); i++) {
+                if ( tbDanhSachSanPham.getValueAt(i, 8).toString().equalsIgnoreCase("true") ) {
+                    KhuyenMai_SanPham km_sp = new KhuyenMai_SanPham();
+                    km_sp.setMaCTSP(Integer.valueOf(tbDanhSachSanPham.getValueAt(i, 1).toString()));
+                    km_sp.setMaKM(kh.getMaKM());
+                    daoKM_SP.insert(km_sp);
+                }
+            }
+            DoVaoTableKM();
         }
     }
     
@@ -392,9 +418,34 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         
     }
     
+    private void DoVaoDanhSachSP2(){
+        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem();
+        System.out.println(lsp.getMaLoaiSP());
+
+        
+        List<SanPham> list = daoSP.selectAll_5( lsp.getMaLoaiSP() , Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
+        model_SP.setRowCount(0);
+        int sk = 1;
+
+        for (SanPham x : list) {
+            model_SP.addRow(new Object[]{sk, x.getMaCTSP(), x.getTenSP(), x.getTenKichThuoc(), x.getTenMauSac(), x.getTenChatLieu(),
+                x.getGia(), true});
+            sk++ ;
+        }
+        
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinKeyReleased
+        DoVaoDanhSachSP2();
+    }//GEN-LAST:event_txtMinKeyReleased
+
+    private void txtMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxKeyReleased
+        DoVaoDanhSachSP2();
+    }//GEN-LAST:event_txtMaxKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

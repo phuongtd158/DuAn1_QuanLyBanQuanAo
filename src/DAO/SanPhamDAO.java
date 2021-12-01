@@ -68,6 +68,13 @@ public class SanPhamDAO extends Main< SanPham, String> {
             + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
             + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
             + " where LOAISP.MaLoai like ?  ";
+    
+    String SelectAll_5 = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
+            + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
+            + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
+            + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
+            + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
+            + " where LOAISP.MaLoai like ? and Gia between ? and ? ";
 // Insert
 
     @Override
@@ -136,6 +143,10 @@ public class SanPhamDAO extends Main< SanPham, String> {
         return selectBySQL(SelectAll_4 ,  k  );
     }
     
+    public List<SanPham> selectAll_5( int k ,double a , double b   ) {
+        return selectBySQL(SelectAll_5 ,k ,  a , b  );
+    }    
+    
 //    public List<SanPham> selectAll_4( String k ) {
 //        return selectBySQL( SelectAll_3  , "%" + k + "%" );
 //    } 
@@ -179,7 +190,7 @@ public class SanPhamDAO extends Main< SanPham, String> {
 
     public SanPham selectByID2(String id) {
         try {
-            List<SanPham> list = this.selectBySQL(SelectAll_3, id);
+            List<SanPham> list = this.selectBySQL( SelectAll_3, id);
             if (list.isEmpty()) {
                 return null;
             }

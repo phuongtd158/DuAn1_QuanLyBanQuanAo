@@ -17,11 +17,12 @@ import java.sql.* ;
 public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     String Insert = " Insert into HOADONCHITIET ( MaHD , MaCTSP , SoLuong , Gia , GiamGia , ThanhTien , TrangThai , GhiChu )"
             + " values ( ? , ? , ? , ? , ? , ?  , ? , ? ) ";
-    String selectByID = "select * from HOADONCHITIET where MaHD =  ?";
-    String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? ";
+    String selectByID = "select * from HOADONCHITIET where MaHD =  ? ";
+    String selectByID2 = "select * from HOADONCHITIET where MaCTSP like ? and MaHD like ? ";
     String selectByID3 = "select * from HOADONCHITIET where MaHD = ? and MaCTSP = ? ";
     String Update = "Update HOADONCHITIET set SoLuong = ? , ThanhTien = ?  where MaHDCT = ?  " ;
     String Upadte_tt = "Update HOADONCHITIET set TrangThai = 0  where MaHD like ? " ;
+    String delete  = "Delete from HOADONCHITIET where MaHD like ? and MaCTSP like ? " ;
     
     @Override
     public void insert(HoaDonCT entity) {
@@ -43,6 +44,10 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
+    public void delete_1(String a , String b ) {
+        JDBCHelper.Update(delete , a ,  b) ;
+    }
+    
     // Các câu select
     @Override
     public List<HoaDonCT> selectAll() {
@@ -55,12 +60,22 @@ public class HoaDonCTDAO extends Main< HoaDonCT, String >{
     
     
     @Override
-    public HoaDonCT selectByID(String id) {
-        List<HoaDonCT> list = this.selectBySQL( selectByID2 , id );
-        if( list.isEmpty() ){
-            return null ;
+    public HoaDonCT selectByID(String id ) {
+//        List<HoaDonCT> list = this.selectBySQL( selectByID2 , id );
+//        if( list.isEmpty() ){
+//            return null ;
+//        }
+//        return list.get(0) ;
+         throw new RuntimeException() ;
+    }
+    
+    
+    public HoaDonCT selectByID1(String id, int k) {
+        List<HoaDonCT> list = this.selectBySQL(selectByID2, id , k );
+        if (list.isEmpty()) {
+            return null;
         }
-        return list.get(0) ;
+        return list.get(0);
     }
     
     public HoaDonCT selectByID3(String id , String id2 ) {
