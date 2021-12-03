@@ -16,6 +16,7 @@ import java.sql.* ;
  */
 public class KhuyenMai_SanPhamDAO extends Main< KhuyenMai_SanPham, String >{
     String Insert = "Insert into SANPHAM_KHUYENMAI ( MaCTSP , MaKM ) values ( ? , ? ) " ;
+    String selectById = "select * from SANPHAM_KHUYENMAI where MaCTSP like ? " ;
 
     
     // Các phương thức insert 
@@ -42,6 +43,10 @@ public class KhuyenMai_SanPhamDAO extends Main< KhuyenMai_SanPham, String >{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<KhuyenMai_SanPham> selectById( String id ){
+        return selectBySQL( selectById , id );
+    }
+    
     @Override
     public KhuyenMai_SanPham selectByID(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

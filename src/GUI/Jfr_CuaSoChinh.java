@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import DAO.KhuyenMaiDAO;
+import DAO.SanPhamDAO;
+import Entity.KhuyenMai;
+import Entity.SanPham;
 import Ultil.Auth;
 import Ultil.MsgBox;
 import Ultil.XDate;
@@ -14,6 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -26,6 +32,10 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     Color defualtColor, ClickColor;
     private int x, y;
 
+    Date vn = new Date() ;
+    KhuyenMaiDAO daoKM = new KhuyenMaiDAO();
+    SanPhamDAO daoSP = new SanPhamDAO();
+    
     public Jfr_CuaSoChinh() {
         initComponents();
         setLocationRelativeTo(null);
@@ -50,6 +60,24 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
 //            }
 //        }
     }
+    
+    // hàm update time 
+        private void UpdateKhuyenMai() {
+        List<KhuyenMai> listKM = daoKM.selectAll();
+
+        for (KhuyenMai x : listKM) {
+            if (x.isTrangThai() && XDate.toDay(vn).equals(XDate.toDay(x.getNgayKT())) && XDate.toMonth(vn).equals(XDate.toMonth(x.getNgayKT()))) {
+                List<SanPham> listSP = daoSP.selectAll_6(x.getMaKM());
+                for (SanPham k : listSP) {
+                    if (k.getGiamGia() == x.getGiamGia() ) {
+                        daoSP.Update_4(0 , k.getMaCTSP());
+                    }
+                }
+                daoKM.update( x ) ;
+            }
+        }
+    }
+   
 
     //Di chuyển form khi giữ chuột
     public void initMoving(JFrame frame) {
@@ -504,6 +532,10 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHoaDonMousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        if( vn.getHours() > 20 ){
+            UpdateKhuyenMai();
+        }
+        
         if (Auth.user.getVaiTro() == false) {
             try {
                 if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {

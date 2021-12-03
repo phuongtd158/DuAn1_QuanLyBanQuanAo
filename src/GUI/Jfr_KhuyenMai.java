@@ -15,9 +15,11 @@ import Entity.LoaiSP;
 import Entity.SanPham;
 import Entity.captcha;
 import Ultil.Check;
+import Ultil.XDate;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -33,7 +35,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     /**
      * Creates new form Jfr_KhuyenMai
      */
-    DefaultComboBoxModel<LoaiSP> model_cbbLoaiSP ;
+    DefaultComboBoxModel  model_cbbLoaiSP ;
     
     DefaultTableModel model_SP  ;
     DefaultTableModel model_KM ;
@@ -43,6 +45,8 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     KhuyenMaiDAO daoKM = new KhuyenMaiDAO() ;
     KhuyenMai_SanPhamDAO daoKM_SP = new KhuyenMai_SanPhamDAO() ;
     
+    Date vn = new Date() ;
+     
     public Jfr_KhuyenMai() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -87,9 +91,10 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         
         for( LoaiSP x : list ){
             if( x.isTrangThai() == true ){
-                model_cbbLoaiSP.addElement(x);
+                cbbTheLoai.addItem( x.getTenLoaiSP() );
             }      
         }
+        cbbTheLoai.addItem("Tất cả sản phẩm");
     }
     
     /**
@@ -138,7 +143,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách khuyến mại", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbDen.setForeground(new java.awt.Color(0, 0, 0));
@@ -208,7 +213,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, true
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -219,6 +224,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbDanhSachSanPham.setRowHeight(25);
         jScrollPane2.setViewportView(tbDanhSachSanPham);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 850, 310));
@@ -316,6 +322,12 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbDanhSachKM.setRowHeight(25);
+        tbDanhSachKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDanhSachKMMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDanhSachKM);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 850, 230));
@@ -344,18 +356,25 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
 
     // Đổ vào table
     private void DoVaoDanhSachSP(){
-        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem() ;
-        System.out.println(lsp.getMaLoaiSP());
+//        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem() ;
+//        System.out.println(lsp.getMaLoaiSP());
         
-        List<SanPham> list = daoSP.selectAll_4( lsp.getMaLoaiSP()  );
+        List<SanPham> list ; 
+        if( model_cbbLoaiSP.getElementAt( cbbTheLoai.getSelectedIndex()).toString().equalsIgnoreCase("Tất cả sản phẩm") ){
+            list = daoSP.selectAll() ;
+        }else{
+            list = daoSP.selectAll_4( model_cbbLoaiSP.getElementAt( cbbTheLoai.getSelectedIndex()).toString() );
+        }
         model_SP.setRowCount(0);
         int sk = 1 ;
         
-        for( SanPham x : list ){
-            model_SP.addRow( new Object[] { sk , x.getMaCTSP() , x.getTenSP() , x.getTenKichThuoc() , x.getTenMauSac() , x.getTenChatLieu() ,
-              x.getGia() , true } );
-            sk++;
-        } 
+        for (SanPham x : list) {
+            if (x.isTrangThai() == true) {
+                model_SP.addRow(new Object[]{sk, x.getMaCTSP(), x.getTenSP(), x.getTenKichThuoc(), x.getTenMauSac(), x.getTenChatLieu(),
+                    x.getGia(), true});
+                sk++;
+            }
+        }
         
     }
     
@@ -368,9 +387,27 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         txtTimKiem.setText("");
         txtTenChuongTrinh.setText("");
-        
+        txtMucGia.setText("");
+        txtTimeBD.setDateFormatString("");
+        txtTimeKT.setDateFormatString("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    // Hàm bắt đầu khuyễn mãi 
+//        private void BDKhuyenMai(){
+//        List<KhuyenMai> listKM = daoKM.selectAll() ; 
+//        
+//        for( KhuyenMai x : listKM ){
+//            if( x.isTrangThai() && XDate.toDay(vn).equals(XDate.toDay(x.getNgayBD()))  && XDate.toMonth(vn).equals(XDate.toMonth(x.getNgayBD()) )   ){
+//                List<SanPham> listSP = daoSP.selectAll_6(x.getMaKM()) ;
+//                for( SanPham k : listSP ){
+//                    if( k.getGiamGia() == 0 || ( x.getGiamGia() > k.getGiamGia() ) ){
+//                        daoSP.Update_4( x.getGiamGia() , k.getMaCTSP() );
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
     // Check trùng 
     public boolean CheckTrung( String s ){
         if( daoKM.selectByID(s) == null ){
@@ -392,14 +429,16 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
             do{
                 cp = new captcha() ;    
                 kh.setMaKM(cp.getCaptcha());
+                
             }while( CheckTrung( cp.getCaptcha() ) == false );
             daoKM.insert(kh);
+            System.out.println(kh.getMaKM() );
             
-            for (int i = 0; i < tbDanhSachSanPham.getRowCount(); i++) {
-                if ( tbDanhSachSanPham.getValueAt(i, 8).toString().equalsIgnoreCase("true") ) {
+            for (int i = 0; i < tbDanhSachSanPham.getRowCount() ;  i++) {
+                if ( tbDanhSachSanPham.getValueAt(i, 7).toString().equalsIgnoreCase("true") ) {
                     KhuyenMai_SanPham km_sp = new KhuyenMai_SanPham();
                     km_sp.setMaCTSP(Integer.valueOf(tbDanhSachSanPham.getValueAt(i, 1).toString()));
-                    km_sp.setMaKM(kh.getMaKM());
+                    km_sp.setMaKM( kh.getMaKM() );
                     daoKM_SP.insert(km_sp);
                 }
             }
@@ -407,23 +446,37 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         }
     }
     
+    public String TraVeTheLoai( String MaKM ) {
+        List<SanPham> list = daoSP.selectAll_6(MaKM) ;
+        
+        for( int i=0 ; i < list.size()-1 ; i++ ){
+            if( list.get(i).getTenLoai().equalsIgnoreCase( list.get(i+1).getTenLoai()) ){
+                
+            }else{
+                return "Tất cả sản phẩm" ;
+            }   
+        }
+        return list.get(0).getTenLoai() ;
+    }
+    
     // Dổ vào table danh sách khuyến mãi 
     private void DoVaoTableKM(){
         List<KhuyenMai> list = daoKM.selectAll() ; 
+        model_KM.setRowCount(0);
         
         for( KhuyenMai x : list ){
-            model_KM.addRow( new Object[] { x.getMaKM() , x.getTenKM() , x.getNgayBD() , x.getNgayKT() , ""  , x.getGiamGia() 
+            model_KM.addRow( new Object[] { x.getMaKM() , x.getTenKM() , x.getNgayBD() , x.getNgayKT() ,  TraVeTheLoai(x.getMaKM())  , x.getGiamGia() 
                     , x.isTrangThai() ? "Đang hoạt động" : "Ngừng hoạt động" });
         }
         
     }
     
     private void DoVaoDanhSachSP2(){
-        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem();
-        System.out.println(lsp.getMaLoaiSP());
-
+//        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem();
+//        System.out.println(lsp.getMaLoaiSP());
         
-        List<SanPham> list = daoSP.selectAll_5( lsp.getMaLoaiSP() , Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
+        
+        List<SanPham> list = daoSP.selectAll_5( model_cbbLoaiSP.getElementAt(cbbTheLoai.getSelectedIndex() ).toString() , Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
         model_SP.setRowCount(0);
         int sk = 1;
 
@@ -436,7 +489,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        ThemChuongTrinh();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinKeyReleased
@@ -446,6 +499,30 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     private void txtMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxKeyReleased
         DoVaoDanhSachSP2();
     }//GEN-LAST:event_txtMaxKeyReleased
+
+    // Hàm hiển thị ngược
+    public void HienThiNguoc( ) {
+        int Index = tbDanhSachKM.getSelectedRow() ;
+        List<SanPham> list = daoSP.selectAll_6(tbDanhSachKM.getValueAt( Index , 0).toString());
+        int sk = 1;
+        model_SP.setRowCount(0);
+
+        for (SanPham x : list) {
+            model_SP.addRow(new Object[]{sk, x.getMaCTSP(), x.getTenSP(), x.getTenKichThuoc(), x.getTenMauSac(), x.getTenChatLieu(),
+                x.getGia(), true});
+            sk++;
+
+        }
+        model_cbbLoaiSP.setSelectedItem( tbDanhSachKM.getValueAt( Index , 4 ).toString() );
+        txtTenChuongTrinh.setText( tbDanhSachKM.getValueAt( Index , 1 ).toString() );
+        txtMucGia.setText( tbDanhSachKM.getValueAt( Index , 5 ).toString()  );
+        txtTimeBD.setDate( XDate.toDate( tbDanhSachKM.getValueAt( Index , 2 ).toString()) );
+        txtTimeKT.setDate( XDate.toDate( tbDanhSachKM.getValueAt( Index , 3 ).toString()) );
+    }
+    
+    private void tbDanhSachKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachKMMouseClicked
+        HienThiNguoc();
+    }//GEN-LAST:event_tbDanhSachKMMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

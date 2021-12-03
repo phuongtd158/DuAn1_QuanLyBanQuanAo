@@ -1,18 +1,25 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package GUI;
 
+import DAO.KhuyenMaiDAO;
 import DAO.NhanVienDAO;
+import DAO.SanPhamDAO;
+import Entity.KhuyenMai;
 import Entity.NhanVien;
+import Entity.SanPham;
 import Ultil.Auth;
 import Ultil.MsgBox;
+import Ultil.XDate;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -31,12 +38,15 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
              */
             ClickColor;
 
+    Date vn = new Date() ;
+    KhuyenMaiDAO daoKM = new KhuyenMaiDAO() ;
+    SanPhamDAO daoSP = new SanPhamDAO() ;
+    
     public Jfr_DangNhap() {
         initComponents();
         setLocationRelativeTo(null);
         hoverButton();
         initMoving(Jfr_DangNhap.this);
-
     }
 
     public void hoverButton() {
@@ -65,7 +75,25 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         });
 
     }
-
+    
+    
+    
+    // Hàm Update khuyến mãi 
+    private void UpdateKhuyenMai(){
+        List<KhuyenMai> listKM = daoKM.selectAll() ; 
+        
+        for( KhuyenMai x : listKM ){
+            if( x.isTrangThai() && XDate.toDay(vn).equals(XDate.toDay(x.getNgayBD()))  && XDate.toMonth(vn).equals(XDate.toMonth(x.getNgayBD()) )   ){
+                List<SanPham> listSP = daoSP.selectAll_6(x.getMaKM()) ;
+                for( SanPham k : listSP ){
+                    if( k.getGiamGia() == 0 || ( x.getGiamGia() > k.getGiamGia() ) ){
+                        daoSP.Update_4( x.getGiamGia() , k.getMaCTSP() );
+                    }
+                }
+            }
+        }
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -377,6 +405,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
         } else if (!matkhau.equals(nv.getMatKhau())) {
             MsgBox.alert(this, "Sai mật khẩu đăng nhập!");
         } else {
+            UpdateKhuyenMai();
             Auth.user = nv;
             MsgBox.alert(this, "Bạn đã đăng nhập thành công!");
             this.dispose();

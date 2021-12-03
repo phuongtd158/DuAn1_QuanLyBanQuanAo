@@ -24,6 +24,7 @@ public class MauSacDAO extends Main< MauSac, String>{
     String Update_2 = "Update MAUSAC set TrangThai = 0  where TenMauSac = ? " ;
     String Select_all = "select * from MAUSAC where TrangThai = 1 " ;
     String Select_all_1 = "select * from MAUSAC " ;
+    String selectById = " select * from MAUSAC where TenMauSac like ? " ;
     
     @Override
     public void insert(MauSac entity) {
@@ -63,7 +64,11 @@ public class MauSacDAO extends Main< MauSac, String>{
 
     @Override
     public MauSac selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<MauSac> list = selectBySQL( selectById,  id );
+        if( list.isEmpty() ){
+            return null ;
+        }
+        return list.get(0) ;
     }
 
     @Override

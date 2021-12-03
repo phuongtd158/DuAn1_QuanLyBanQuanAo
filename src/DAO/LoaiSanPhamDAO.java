@@ -15,14 +15,15 @@ import java.sql.*;
  *
  * @author ADMIN
  */
-public class LoaiSanPhamDAO extends Main<LoaiSP, Integer> {
+public class LoaiSanPhamDAO extends Main<LoaiSP, String> {
 
     private String INSERT = "INSERT INTO dbo.LOAISP(TenLoai ) VALUES(? )";
     private String UPDATE = "UPDATE dbo.LOAISP SET TenLoai = ?  WHERE MaLoai = ?";
     private String Update_1 = "Update LOAISP set TrangThai = 1  where TenLoai = ? ";
-        String Update_2 = "Update LOAISP set TrangThai = 0  where TenLoai = ? " ;
+    String Update_2 = "Update LOAISP set TrangThai = 0  where TenLoai = ? " ;
     private String SELECT_ALL = "SELECT * FROM dbo.LOAISP where TrangThai = 1";
     String SELECT_ALL_1 = "SELECT * FROM dbo.LOAISP ";
+    String selectById = "select * from LOAISP where TenLoai like ? " ;
 
     @Override
     public void insert(LoaiSP entity) {
@@ -47,7 +48,7 @@ public class LoaiSanPhamDAO extends Main<LoaiSP, Integer> {
     
     // Khác 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -61,8 +62,12 @@ public class LoaiSanPhamDAO extends Main<LoaiSP, Integer> {
     }    
 
     @Override
-    public LoaiSP selectByID(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public LoaiSP selectByID( String id) {
+        List<LoaiSP> list = selectBySQL( selectById , id ); 
+        if( list.isEmpty() ){
+            return null ;
+        }
+        return list.get(0) ;
     }
 
     @Override

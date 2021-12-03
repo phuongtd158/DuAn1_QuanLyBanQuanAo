@@ -1166,7 +1166,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         txtTenThuocTinh.setText(table_ThuocTinh.getValueAt(Index, 2).toString());
     }//GEN-LAST:event_table_ThuocTinhMouseClicked
-
+    
     // Sửa thuộc tính
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         jPanel8.setBackground(defualtColor);
@@ -1182,24 +1182,40 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         try {
             if (rbChatLieu.isSelected()) {
-                ChatLieu cl = listCL.get(Index);
-                cl.setTenChatLieu(txtTenThuocTinh.getText());
-                daoCL.update(cl);
+                if (daoCL.selectByID(txtTenThuocTinh.getText()) == null) {
+                    ChatLieu cl = listCL.get(Index);
+                    cl.setTenChatLieu(txtTenThuocTinh.getText());
+                    daoCL.update(cl);            
+                }else{
+                    MsgBox.alert( this , "Chất liệu đã tồn tại");
+                }
                 DoVaotableThuocTinh3();
             } else if (rbKichThuoc.isSelected()) {
-                KichThuoc kt = listKT.get(Index);
-                kt.setTenKT(txtTenThuocTinh.getText());
-                daoKT.update(kt);
+                if (daoKT.selectByID(txtTenThuocTinh.getText()) == null) {
+                    KichThuoc kt = listKT.get(Index);
+                    kt.setTenKT(txtTenThuocTinh.getText());
+                    daoKT.update(kt);
+                }else{
+                    MsgBox.alert( this , "Kích thước đã tồn tại");
+                }
                 DoVaotableThuocTinh2();
             } else if (rbLoaiSP.isSelected()) {
-                LoaiSP sp = listLSP.get(Index);
-                sp.setTenLoaiSP(txtTenThuocTinh.getText());
-                daoLSP.update(sp);
+                if ( daoLSP.selectByID( txtTenThuocTinh.getText() ) == null ) {
+                    LoaiSP sp = listLSP.get(Index);
+                    sp.setTenLoaiSP(txtTenThuocTinh.getText());
+                    daoLSP.update(sp);
+                }else{
+                    MsgBox.alert( this , "Loại sản phẩm đã tồn tại");
+                }
                 DoVaotableThuocTinh4();
             } else {
-                MauSac ms = listMS.get(Index);
-                ms.setTenMau(txtTenThuocTinh.getText());
-                daoMS.update(ms);
+                if (daoMS.selectByID(txtTenThuocTinh.getText()) == null) {
+                    MauSac ms = listMS.get(Index);
+                    ms.setTenMau(txtTenThuocTinh.getText());
+                    daoMS.update(ms);
+                }else{
+                    MsgBox.alert( this , "Màu sắc đã tồn tại");
+                }
                 DoVaotableThuocTinh1();
             }
 
