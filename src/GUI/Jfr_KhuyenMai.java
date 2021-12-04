@@ -15,6 +15,7 @@ import Entity.LoaiSP;
 import Entity.SanPham;
 import Entity.captcha;
 import Ultil.Check;
+import Ultil.MsgBox;
 import Ultil.XDate;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -267,6 +268,11 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Xóa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 150, 60));
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
@@ -284,6 +290,11 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Cập nhật");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 140, 60));
         jPanel3.add(txtTenChuongTrinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 190, 30));
 
@@ -335,6 +346,12 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Tìm kiếm:");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, 20));
+
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
         jPanel4.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 210, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 880, 300));
@@ -523,6 +540,32 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     private void tbDanhSachKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachKMMouseClicked
         HienThiNguoc();
     }//GEN-LAST:event_tbDanhSachKMMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        List<KhuyenMai> list = daoKM.selectAll_1( txtTimKiem.getText() ) ;
+        model_KM.setRowCount(0);
+
+        for (KhuyenMai x : list) {
+            model_KM.addRow(new Object[]{x.getMaKM(), x.getTenKM(), x.getNgayBD(), x.getNgayKT(), TraVeTheLoai(x.getMaKM()), x.getGiamGia(),
+                 x.isTrangThai() ? "Đang hoạt động" : "Ngừng hoạt động"});
+        }
+    }//GEN-LAST:event_txtTimKiemKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (MsgBox.comfirm(this, "Bạn có muốn cập nhập không ? ")) {
+            KhuyenMai km = daoKM.selectByID(tbDanhSachKM.getValueAt(tbDanhSachKM.getSelectedRow(), 0).toString());
+            km.setTenKM(txtTenChuongTrinh.getText());
+            km.setGiamGia(Double.valueOf(txtMucGia.getText()));
+            km.setNgayBD(txtTimeBD.getDate());
+            km.setNgayKT(txtTimeKT.getDate());
+
+            daoKM.Update_2(km);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

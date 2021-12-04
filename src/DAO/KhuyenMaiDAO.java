@@ -19,17 +19,27 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
     private String SelectByID = "Select * from KHUYENMAI where MaKM like ? ";
     private String SelectAll = "select * from KHUYENMAI " ;
     private String Update = " Update KHUYENMAI set TrangThai = 0 where MaKM = ? ";
-
+    private String SelectById_2 = "Select * from KHUYENMAI where TenKM like ? ";
+    private String Update2 = " Update  KHUYENMAI set TenKM = ?  , NgayBatDau = ? , NgayKetThuc = ?, GiamGia = ? where MaKM like ? ";
+            
     @Override
     public void insert(KhuyenMai entity) {
         JDBCHelper.Update(Insert, entity.getMaKM() , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() ) ;
     }
 
+    // Các câu update
+    
     @Override
     public void update(KhuyenMai entity) {
         JDBCHelper.Update( Update , entity.getMaKM() );
     }
 
+    // 
+    public void Update_2 ( KhuyenMai entity ){
+        JDBCHelper.Update( Update2 , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() , entity.getMaKM() );
+    }
+    
+    
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -49,6 +59,11 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
         return list.get(0) ;
     }
 
+    public List<KhuyenMai> selectAll_1(String k) {
+        return selectBySQL(SelectById_2 , "%" + k + "%" );
+    }
+ 
+    
     @Override
     protected List<KhuyenMai> selectBySQL(String sql, Object... args) {
         List<KhuyenMai> list = new ArrayList<>() ;

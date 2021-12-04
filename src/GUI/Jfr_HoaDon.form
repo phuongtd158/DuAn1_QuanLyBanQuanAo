@@ -215,7 +215,6 @@
                                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
                               </AccessibilityProperties>
                               <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbGioHangMouseClicked"/>
                                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbGioHangKeyPressed"/>
                                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbGioHangKeyReleased"/>
                               </Events>
@@ -619,6 +618,8 @@
                                     <Property name="text" type="java.lang.String" value="0"/>
                                   </Properties>
                                   <Events>
+                                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtKhachDuaFocusGained"/>
+                                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtKhachDuaFocusLost"/>
                                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtKhachDuaKeyReleased"/>
                                   </Events>
                                   <Constraints>
@@ -944,6 +945,8 @@
                                     <Property name="text" type="java.lang.String" value="0"/>
                                   </Properties>
                                   <Events>
+                                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTienShipFocusGained"/>
+                                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTienShipFocusLost"/>
                                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTienShipKeyReleased"/>
                                   </Events>
                                   <Constraints>
@@ -1077,7 +1080,7 @@
                                   </Properties>
                                   <Constraints>
                                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                                      <AbsoluteConstraints x="130" y="140" width="140" height="-1"/>
+                                      <AbsoluteConstraints x="130" y="140" width="120" height="-1"/>
                                     </Constraint>
                                   </Constraints>
                                 </Component>
@@ -1246,6 +1249,8 @@
                                     <Property name="text" type="java.lang.String" value="0"/>
                                   </Properties>
                                   <Events>
+                                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtKhachDua2FocusGained"/>
+                                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtKhachDua2FocusLost"/>
                                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtKhachDua2KeyReleased"/>
                                   </Events>
                                   <Constraints>

@@ -66,6 +66,53 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    public String HamDinhDang(String sk) {
+        int a = 0, ac;
+        String d = "";
+
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+
+        if (a == 1) {
+            return "-" + d + " VNĐ";
+        }
+        return d + " VNĐ";
+    }
+    
+        // Hàm đổi lại định dang tiền 
+    public String HamDinhDang2( String sk ){
+        String ab = "";
+        int ak = sk.indexOf(" ");
+
+        if (ak >= 0) {
+            sk = sk.substring(0, ak);
+        }
+        
+        String a[] = sk.split(",");
+        for (int i = 0; i < a.length; i++) {
+            ab += a[i];
+        }
+        return ab ;
+    }
 
     public void DoVaoTableSP() {
         index = tblDanhSachHoaDon.getSelectedRow();
@@ -79,7 +126,8 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
             SanPham sp = spdao.selectByID2(String.valueOf(x.getMaCTSP()));
             String tt = x.getTrangThai() ? "Đã Bán" : "Bị Hủy";
             modeltbSP.addRow(new Object[]{
-                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(), x.getGiamGia(), x.getThanhTien(), tt,x.getGhiChu()
+                1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), HamDinhDang( String.valueOf( x.getGia() )) , x.getGiamGia(), 
+                HamDinhDang( String.valueOf( x.getThanhTien())) , tt,x.getGhiChu()
             });
         }
         SapXepDSSP();
@@ -140,22 +188,11 @@ public class Jfr_LichSuGiaoDich extends javax.swing.JInternalFrame {
     public void TinhTien() {
         Double tien = 0.0;
         for (int i = 0; i < modeltbSP.getRowCount(); i++) {
-            tien += Double.valueOf(modeltbSP.getValueAt(i, 6).toString());
+            tien += Double.valueOf( HamDinhDang2(modeltbSP.getValueAt(i, 6).toString() ) );
         }
-        lbTongTienHang.setText(String.valueOf(tien));
+        lbTongTienHang.setText( HamDinhDang(String.valueOf(tien) ) );
     }
-//    private void HamGiamGia() {
-//        Double tk = Double.valueOf(lbTongTienHang.getText());
-//        if (tk > 1000000) {
-//            lbGiamGia.setText("7"); 
-//        } else if (tk >= 800000) {
-//            lbGiamGia.setText("5"); 
-//        } else if (tk >= 500000) {
-//            lbGiamGia.setText("2"); 
-//        } else {
-//            lbGiamGia.setText("0");
-//        }
-//    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

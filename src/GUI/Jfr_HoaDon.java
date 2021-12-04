@@ -219,7 +219,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
             if (x.isTrangThai() == true && x.getSoLuong() > 0) {
                 model_tableDSSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenChatLieu(), x.getTenKichThuoc(), x.getTenMauSac(),
-                    x.getSoLuong(), x.getGia()});
+                    x.getSoLuong(),  HamDinhDang( String.valueOf( x.getGia())) });
             }
 
         }
@@ -241,8 +241,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             int sk = tbDanhSachHD.getSelectedRow();
             if (sk >= 0) {
                 SanPham sp = daoSP.selectByID2(Ma);
-                model_tableGioHang.addRow(new Object[]{1, sp.getMaCTSP(), sp.getTenSP(), k, sp.getGia(),
-                    sp.getGiamGia(), k * sp.getGia() * (1 - sp.getGiamGia() / 100), "", false});
+                model_tableGioHang.addRow(new Object[]{1, sp.getMaCTSP(), sp.getTenSP(), k,  HamDinhDang( String.valueOf( sp.getGia() )) ,
+                    sp.getGiamGia(), HamDinhDang( String.valueOf( Math.round( k * sp.getGia() * (1 - sp.getGiamGia() / 100))))  , "", false});
                 
                 ThemVaoHoaDonCT( Integer.valueOf( tbDanhSachHD.getValueAt(sk, 1).toString() ) );  
                 DoVaoTableDanhSachSP();
@@ -260,12 +260,12 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void TinhTien() {
         Double tien = 0.0;
         for (int i = 0; i < model_tableGioHang.getRowCount(); i++) {
-            tien += Double.valueOf(model_tableGioHang.getValueAt(i, 6).toString());
+            tien += Double.valueOf( HamDinhDang2(model_tableGioHang.getValueAt(i, 6).toString() ) );
         }
-        lbTongTienHang.setText(String.valueOf(tien));
-        lbTongTienHang2.setText(String.valueOf(tien));
-        lbKhachTra.setText( String.valueOf(tien)) ;
-        lbKhachTra2.setText(String.valueOf(tien)) ;
+        lbTongTienHang.setText( HamDinhDang( String.valueOf(tien) ) );
+        lbTongTienHang2.setText( HamDinhDang( String.valueOf(tien) ));
+        lbKhachTra.setText( HamDinhDang( String.valueOf(tien) ) ) ;
+        lbKhachTra2.setText( HamDinhDang( String.valueOf(tien) ) ) ;
         TienKhachTra2 = tien ;
     }
 
@@ -393,11 +393,6 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         tbGioHang.setRowHeight(25);
         tbGioHang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbGioHang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        tbGioHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbGioHangMouseClicked(evt);
-            }
-        });
         tbGioHang.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tbGioHangKeyPressed(evt);
@@ -586,6 +581,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel52.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         txtKhachDua.setText("0");
+        txtKhachDua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtKhachDuaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtKhachDuaFocusLost(evt);
+            }
+        });
         txtKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtKhachDuaKeyReleased(evt);
@@ -699,6 +702,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel54.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         txtTienShip.setText("0");
+        txtTienShip.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTienShipFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTienShipFocusLost(evt);
+            }
+        });
         txtTienShip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTienShipKeyReleased(evt);
@@ -747,7 +758,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         lbTongTienHang2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbTongTienHang2.setForeground(new java.awt.Color(0, 0, 0));
         lbTongTienHang2.setText("0");
-        jPanel54.add(lbTongTienHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 140, -1));
+        jPanel54.add(lbTongTienHang2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 120, -1));
 
         cbbHTThanhToan2.setBackground(new java.awt.Color(255, 255, 255));
         cbbHTThanhToan2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -811,6 +822,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jPanel54.add(lbKhachTra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 140, -1));
 
         txtKhachDua2.setText("0");
+        txtKhachDua2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtKhachDua2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtKhachDua2FocusLost(evt);
+            }
+        });
         txtKhachDua2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtKhachDua2KeyReleased(evt);
@@ -944,8 +963,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 if ( hdct_1.getSoLuong() > Integer.valueOf(tbGioHang.getValueAt(k, 3).toString())  ) {
                     String sk = JOptionPane.showInputDialog( this , "Vui lòng nhập lý do muốn trả hàng", "Hệ thống quản trị", HEIGHT) ;
                     int SoLuong = Integer.valueOf(tbGioHang.getValueAt(k, 3).toString()) ;
-                    Double DonGia = Double.valueOf(tbGioHang.getValueAt(k, 4).toString()) ;
-                    Double GiamGia = Double.valueOf(tbGioHang.getValueAt(k, 5).toString()) ;
+                    Double DonGia = Double.valueOf( HamDinhDang2( tbGioHang.getValueAt(k, 4).toString()) ) ;
+                    Double GiamGia = Double.valueOf(  tbGioHang.getValueAt(k, 5).toString() ) ;
                     
                     hdct.setMaHD( Integer.valueOf( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow() , 1).toString() ) );
                     hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(k, 1).toString()));
@@ -954,8 +973,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                     hdct.setGiamGia( GiamGia );
                     hdct.setGhiChu(sk);
                     
-                    tbGioHang.setValueAt( SoLuong  * DonGia * (1 - GiamGia / 100), k , 6 ) ; 
-                    hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(k, 6).toString()));
+                    tbGioHang.setValueAt( HamDinhDang( String.valueOf( SoLuong  * DonGia * (1 - GiamGia / 100))) , k , 6 ) ; 
+                    hdct.setThanhTien(Double.valueOf( HamDinhDang2( tbGioHang.getValueAt(k, 6).toString()) ));
                     hdct.setTrangThai(false);
                       
                     daoCTHD.insert(hdct);
@@ -983,11 +1002,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             }
 
             int SoLuong = Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString());
-            Double DonGia = Double.valueOf(tbGioHang.getValueAt(Index, 4).toString());
+            Double DonGia = Double.valueOf( HamDinhDang2(tbGioHang.getValueAt(Index, 4).toString() ) );
             Double GiamGia = Double.valueOf(tbGioHang.getValueAt(Index, 5).toString());
-            
-//            HamCongNguocSoLuong(Index);
-            
 
             HoaDonCT hd = daoCTHD.selectByID3( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow(), 1).toString() , String.valueOf(sp.getMaCTSP()) ) ;
             hd.setSoLuong(SoLuong);
@@ -1003,7 +1019,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             daoCTHD.update(hd);
             
             DoVaoTableDanhSachSP();
-            tbGioHang.setValueAt(SoLuong * DonGia * (1 - GiamGia / 100), Index, 6);
+            tbGioHang.setValueAt( HamDinhDang( String.valueOf(SoLuong * DonGia * (1 - GiamGia / 100) )) , Index, 6);
         }
         TinhTien();
     }//GEN-LAST:event_tbGioHangKeyReleased
@@ -1050,15 +1066,15 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         Index = cbbHTThanhToan.getSelectedIndex();
         
         if (Index > 0) {
-            txtKhachDua.setText( lbTongTienHang.getText() );
+            txtKhachDua.setText(  lbTongTienHang.getText() );
             lbTienThua.setText("0");
             txtKhachDua.setEditable(false);
         } else {
             txtKhachDua.setEditable(true);
             txtKhachDua.setText("0");
-            Double a = Double.valueOf(txtKhachDua.getText());
-            Double b = Double.valueOf(lbTongTienHang.getText());
-            lbTienThua.setText(String.valueOf(a - b));
+//            Double a = Double.valueOf( HamDinhDang2( txtKhachDua.getText() ));
+//            Double b = Double.valueOf( HamDinhDang2( lbTongTienHang.getText()) );
+//            lbTienThua.setText( HamDinhDang(String.valueOf(a - b) ) );
         }
     }//GEN-LAST:event_cbbHTThanhToanItemStateChanged
 
@@ -1143,9 +1159,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(i, 1).toString()));
                 hdct.setSoLuong(  Integer.valueOf(tbGioHang.getValueAt(i, 3).toString()) );
                 HamTruSoLuong(i) ;
-                hdct.setGia(Double.valueOf(tbGioHang.getValueAt(i, 4).toString()));
+                hdct.setGia( Double.valueOf( HamDinhDang2( tbGioHang.getValueAt(i, 4).toString() )));
                 hdct.setGiamGia(Double.valueOf(tbGioHang.getValueAt(i, 5).toString()));
-                hdct.setThanhTien(Double.valueOf(tbGioHang.getValueAt(i, 6).toString()));
+                hdct.setThanhTien(Double.valueOf( HamDinhDang2(tbGioHang.getValueAt(i, 6).toString()) )  );
                 hdct.setTrangThai(true);
                 hdct.setGhiChu("Not");
                 daoCTHD.insert(hdct);
@@ -1166,8 +1182,8 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         if (MsgBox.comfirm(this, "Bạn có muốn thanh toán không?")) {
             int k = tbDanhSachHD.getSelectedRow();
             listHD = (ArrayList<HoaDon>) daoHD.selectAll();
-            Double kkk = Double.valueOf(txtKhachDua.getText()) - Double.valueOf(lbKhachTra.getText());
-            System.out.println(kkk);
+            Double kkk = Double.valueOf( HamDinhDang2( txtKhachDua.getText()) ) - Double.valueOf( HamDinhDang2( lbKhachTra.getText()) );
+           
             if (kkk >= 0) {
                 if (tbGioHang.getRowCount() == 0) {
                     MsgBox.alert(this, "Giỏ hàng trống không thể thanh toán");
@@ -1200,63 +1216,101 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         }
     }//GEN-LAST:event_jButton16ActionPerformed
 
-//    private void ThemHoaDon2( String tthai , double tienShip ) {
-//        try {
-//            KhachHang kh = new KhachHang();
-//            if (daoKH.selectByID_2(txtSDT2.getText()) == 0) {
-//                kh.setTenKH(txtTenKH2.getText());
-//                kh.setDiaChi(txtDiaChi.getText());
-//                kh.setSDT(txtSDT2.getText());
-//            } else {
-//                daoKH.update_dc( txtDiaChi.getText(), txtSDT2.getText() );
-//            }       
-//        } catch (Exception e) {
-//        }
-//    }
+    // Hàm đổi định dạng tiền
+    public String HamDinhDang( String sk ){
+        int a = 0 , ac ;
+        String d = "";
 
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+        
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+        
+        if( a == 1 ){
+            return "-" + d + " VNĐ" ;
+        }
+        return  d + " VNĐ" ;
+    }
+
+    // Hàm đổi lại định dang tiền 
+    public String HamDinhDang2( String sk ){
+        String ab = "";
+        int ak = sk.indexOf(" ");
+
+        if (ak >= 0) {
+            sk = sk.substring(0, ak);
+        }
+        
+        String a[] = sk.split(",");
+        for (int i = 0; i < a.length; i++) {
+            ab += a[i];
+        }
+        return ab ;
+    }
+    
     // nút thanh toán bên dặt hàng
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-  
-        if (MsgBox.comfirm(this, "Bạn có muốn giao hàng không")) {
-            if (Check.checkTrongText(txtTenKH2) && Check.checkTrongText(txtSDT2) && Check.checkTrongText(txtDiaChi) && Check.checkSDT(txtSDT2)) {
-                Double kkk = Double.valueOf( txtKhachDua2.getText()) - Double.valueOf( lbKhachTra2.getText() ) ;
-                
-                if (kkk >= 0) {
-                    HoaDon hd = daoHD.selectByID(tbDanhSachHD.getValueAt(tbDanhSachHD.getSelectedRow(), 1).toString());
+        if (model_tableGioHang.getRowCount() != 0) {
+            if (MsgBox.comfirm(this, "Bạn có muốn giao hàng không")) {
+                if (Check.checkTrongText(txtTenKH2) && Check.checkTrongText(txtSDT2) && Check.checkTrongText(txtDiaChi) && Check.checkSDT(txtSDT2)) {
+                    Double kkk = Double.valueOf(HamDinhDang2(txtKhachDua2.getText())) - Double.valueOf(HamDinhDang2(lbKhachTra2.getText()));
 
-                    KhachHang kh = new KhachHang();
-                    int k;
+                    if (kkk >= 0) {
+                        HoaDon hd = daoHD.selectByID(tbDanhSachHD.getValueAt(tbDanhSachHD.getSelectedRow(), 1).toString());
 
-                    if (daoKH.selectByID_2(txtSDT2.getText()) == 0) {
-                        kh.setTenKH(txtTenKH2.getText());
-                        kh.setDiaChi(txtDiaChi.getText());
-                        kh.setSDT(txtSDT2.getText());
-                        daoKH.insert(kh);
-                        listKH = (ArrayList<KhachHang>) daoKH.selectAll();
-                        k = listKH.get(listKH.size() - 1).getMaKH();
+                        KhachHang kh = new KhachHang();
+                        int k;
+
+                        if (daoKH.selectByID_2(txtSDT2.getText()) == 0) {
+                            kh.setTenKH(txtTenKH2.getText());
+                            kh.setDiaChi(txtDiaChi.getText());
+                            kh.setSDT(txtSDT2.getText());
+                            daoKH.insert(kh);
+                            listKH = (ArrayList<KhachHang>) daoKH.selectAll();
+                            k = listKH.get(listKH.size() - 1).getMaKH();
+                        } else {
+                            daoKH.update_dc(txtDiaChi.getText(), txtSDT2.getText());
+                            k = daoKH.selectByID_2(txtSDT2.getText());
+                        }
+
+                        HinhThucTT htt = (HinhThucTT) cbbHTThanhToan2.getSelectedItem();
+                        hd.setMaKH(k);
+                        hd.setMaHTTT(htt.getMaHTTT());
+                        hd.setTienShip(Double.valueOf(HamDinhDang2(txtTienShip.getText())));
+
+                        daoHD.update2("Đang giao hàng", String.valueOf(hd.getMaHD()));
+                        daoHD.update1(txtGhiChu.getText(), String.valueOf(hd.getMaHD()));
+                        daoHD.update(hd);
+
+                        DoVaoTableDanhSachHD();
+                        MsgBox.alert(this, "Giao hàng thành công");
+                        LamTrangForm();
                     } else {
-                        daoKH.update_dc(txtDiaChi.getText(), txtSDT2.getText());
-                        k = daoKH.selectByID_2(txtSDT2.getText());
+                        MsgBox.alert(this, "Bạn không thể giao hàng khi chưa thanh toán tiền");
                     }
 
-                    HinhThucTT htt = (HinhThucTT) cbbHTThanhToan2.getSelectedItem();
-                    hd.setMaKH(k);
-                    hd.setMaHTTT(htt.getMaHTTT());
-                    hd.setTienShip(Double.valueOf(txtTienShip.getText()));
-
-                    daoHD.update2( "Đang giao hàng", String.valueOf(hd.getMaHD()) );
-                    daoHD.update1(txtGhiChu.getText(), String.valueOf(hd.getMaHD()) );
-                    daoHD.update(hd);
-
-                    DoVaoTableDanhSachHD();
-                    MsgBox.alert( this , "Giao hàng thành công" );
-                    LamTrangForm();
-                }else{
-                    MsgBox.alert( this , "Bạn không thể giao hàng khi chưa thanh toán tiền");
                 }
-                
             }
+        }else{
+            MsgBox.alert( this , "Bạn không thể giao hàng với giỏ hàng trống");
         }
+
     }//GEN-LAST:event_jButton18ActionPerformed
 
     
@@ -1293,18 +1347,19 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     // Nút xác nhận đơn hàng đã được giao
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         int k = tbDanhSachHD.getSelectedRow();
-
-        if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã giao hàng")) {
-            MsgBox.alert(this, "Hàng đã được giao");
-        } else {
-            String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
-            daoHD.update2( "Đã giao hàng" , MaHD);
+        
+        if (MsgBox.comfirm(this, "Bạn có muốn hoàn tất giao hàng không")) {
+            if (tbDanhSachHD.getValueAt(k, 4).toString().equalsIgnoreCase("Đã giao hàng")) {
+                MsgBox.alert(this, "Hàng đã được giao");
+            } else {
+                String MaHD = tbDanhSachHD.getValueAt(k, 1).toString();
+                daoHD.update2("Đã giao hàng", MaHD);
 //            ThemVaoHoaDonCT(Integer.valueOf(MaHD));
-            DoVaoTableDanhSachHD();
-            LamTrangForm();
-            MsgBox.alert(this, "Khách đã nhận được hàng");
+                DoVaoTableDanhSachHD();
+                LamTrangForm();
+                MsgBox.alert(this, "Khách đã nhận được hàng");
+            }
         }
-
     }//GEN-LAST:event_jButton14ActionPerformed
 
     // 
@@ -1333,22 +1388,23 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         for (HoaDonCT x : listHDCT) {
 //            if ( x.getTrangThai() == true ) {
                 SanPham sp = daoSP.selectByID2(String.valueOf(x.getMaCTSP()));
-                model_tableGioHang.addRow(new Object[]{1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), x.getGia(),
-                    x.getGiamGia(), x.getThanhTien() , x.getTrangThai() ? "" : "Hàng Trả"} );
+                model_tableGioHang.addRow(new Object[]{1, x.getMaCTSP(), sp.getTenSP(), x.getSoLuong(), HamDinhDang( String.valueOf( x.getGia())  ) ,
+                    x.getGiamGia(), HamDinhDang ( String.valueOf( x.getThanhTien()) ) , x.getTrangThai() ? "" : "Hàng Trả"} );
 //            }
         }
         
         XapXepLaiGioHang();       
         TinhTien(); 
         
-        if (  hd.getTrangThai().equalsIgnoreCase("Đang giao hàng") ) {          
+        if (  hd.getTrangThai().equalsIgnoreCase("Đang giao hàng") || hd.getTrangThai().equalsIgnoreCase("Đang tạo") ) {          
+           
             tabHoaDon.setSelectedIndex(1);
             txtTenKH2.setText(kh.getTenKH() );
             txtSDT2.setText(kh.getSDT());
             txtDiaChi.setText(kh.getDiaChi());
-            txtTienShip.setText( String.valueOf(hd.getTienShip()) ) ;
-            lbKhachTra2.setText(  String.valueOf( Double.valueOf( lbTongTienHang2.getText() ) + hd.getTienShip() ) );
-            txtKhachDua2.setText( String.valueOf( Double.valueOf( lbTongTienHang2.getText() ) + hd.getTienShip() ) );
+            txtTienShip.setText( HamDinhDang( String.valueOf(hd.getTienShip()))  ) ;
+            lbKhachTra2.setText( HamDinhDang( String.valueOf( Double.valueOf( HamDinhDang2( lbTongTienHang2.getText() ) ) + hd.getTienShip() ))   );
+            txtKhachDua2.setText( HamDinhDang(String.valueOf( Double.valueOf( HamDinhDang2( lbTongTienHang2.getText() ) ) + hd.getTienShip() ) )   );
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan2 );
             txtGhiChu.setText( hd.getGhiChu() );
             
@@ -1367,12 +1423,14 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDuaKeyReleased
         // TODO add your handling code here:
-        lbTienThua.setText(String.valueOf(Double.valueOf(txtKhachDua.getText()) - Double.valueOf(lbKhachTra.getText())));
+        
+        
+        lbTienThua.setText( HamDinhDang(  String.valueOf( Double.valueOf( txtKhachDua.getText() ) - Double.valueOf( HamDinhDang2(lbKhachTra.getText() )  ))));
     }//GEN-LAST:event_txtKhachDuaKeyReleased
 
     private void txtTienShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienShipKeyReleased
         // TODO add your handling code here:
-        lbKhachTra2.setText( String.valueOf( Double.valueOf(txtTienShip.getText()) + TienKhachTra2  )  );
+        lbKhachTra2.setText( HamDinhDang( String.valueOf( Double.valueOf(txtTienShip.getText()) + TienKhachTra2  ))   );
     }//GEN-LAST:event_txtTienShipKeyReleased
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
@@ -1385,7 +1443,12 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtKhachDua2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDua2KeyReleased
         // TODO add your handling code here:
-        lbTienThua2.setText(String.valueOf(Double.valueOf(txtKhachDua2.getText()) - Double.valueOf(lbKhachTra2.getText()) ));
+        double bk =  Double.valueOf( HamDinhDang2( txtKhachDua2.getText())  ) - Double.valueOf( HamDinhDang2(lbKhachTra2.getText() )  ) ;
+        if( bk == 0 ){
+            lbTienThua2.setText("0");
+        }else{
+            lbTienThua2.setText( HamDinhDang(  String.valueOf( bk)));
+        }
     }//GEN-LAST:event_txtKhachDua2KeyReleased
 
     // Check số điện thoại 
@@ -1451,13 +1514,36 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         btnTraHang.setVisible( false );
     }//GEN-LAST:event_btnTraHangActionPerformed
 
-    private void tbGioHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbGioHangMouseClicked
-
-    }//GEN-LAST:event_tbGioHangMouseClicked
-
     private void tbGioHangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbGioHangKeyPressed
 
     }//GEN-LAST:event_tbGioHangKeyPressed
+
+    private void txtTienShipFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTienShipFocusLost
+        // TODO add your handling code here:
+        txtTienShip.setText( HamDinhDang( txtTienShip.getText()));
+    }//GEN-LAST:event_txtTienShipFocusLost
+
+    private void txtTienShipFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTienShipFocusGained
+        txtTienShip.setText("");
+        lbKhachTra2.setText(lbTongTienHang2.getText());
+    }//GEN-LAST:event_txtTienShipFocusGained
+
+    private void txtKhachDua2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDua2FocusLost
+        txtKhachDua2.setText( HamDinhDang( txtKhachDua2.getText()) );
+    }//GEN-LAST:event_txtKhachDua2FocusLost
+
+    private void txtKhachDua2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDua2FocusGained
+        txtKhachDua2.setText("");
+        lbTienThua2.setText("0");
+    }//GEN-LAST:event_txtKhachDua2FocusGained
+
+    private void txtKhachDuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDuaFocusGained
+        txtKhachDua.setText("");
+    }//GEN-LAST:event_txtKhachDuaFocusGained
+
+    private void txtKhachDuaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDuaFocusLost
+        txtKhachDua.setText( HamDinhDang( txtKhachDua.getText()) );
+    }//GEN-LAST:event_txtKhachDuaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

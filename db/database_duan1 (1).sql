@@ -363,6 +363,9 @@ select * from CHITIETSANPHAM
 select * from KHUYENMAI
 select * from SANPHAM_KHUYENMAI
 
+
+update KHUYENMAI set NgayBatDau = '2021-12-03' 
+
 insert into SANPHAM_KHUYENMAI values ( 3 , '9e8aff' )
 
 select  *
