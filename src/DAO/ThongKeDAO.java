@@ -9,14 +9,16 @@ import Ultil.JDBCHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author ADMIN
  */
 public class ThongKeDAO {
-
+    
     public List<Object[]> getDoanhThu(Integer nam) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = null;
@@ -25,7 +27,7 @@ public class ThongKeDAO {
                 rs = JDBCHelper.query(sql, nam);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), rs.getFloat("TongGiaBan"), rs.getFloat("GiamGia"), rs.getFloat("DoanhThu")
+                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), formatter.format(rs.getFloat("DoanhThu"))
                     });
                 }
                 rs.getStatement().getConnection().close();
@@ -37,7 +39,7 @@ public class ThongKeDAO {
         }
         return list;
     }
-
+    
     public List<Object[]> getSanPham() {
         List<Object[]> list = new ArrayList<>();
         try {
@@ -77,7 +79,7 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-
+    
     public int getTongDonHang_huy(String ngayBatDau, String ngayKetThuc) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG_Huy(?, ?)}";
@@ -127,7 +129,7 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-
+    
     public int getTongDonHang_Thang(int thang) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG_Thang(?)}";
@@ -143,7 +145,7 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-
+    
     public int getTongDonHang_Thang_BiHuy(int thang) {
         int tongDonHang = 0;
         String sql = "{CALL SP_TONGDONHANG_BiHuy_Thang(?)}";
@@ -159,7 +161,7 @@ public class ThongKeDAO {
         }
         return tongDonHang;
     }
-
+    
     public float getTongDoanhThu(String ngayBatDau, String ngayKetThuc) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_TONGDOANHTHU(?, ?)}";
@@ -175,7 +177,7 @@ public class ThongKeDAO {
         }
         return tongDoanhThu;
     }
-
+    
     public float getTongDoanhThu_ngay(String ngayBatDau) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_TONGDOANHTHU_Ngay(?)}";
@@ -191,7 +193,7 @@ public class ThongKeDAO {
         }
         return tongDoanhThu;
     }
-
+    
     public float getTongDoanhThuThang(int thang) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_DOANHTHUTHANG(?)}";
@@ -207,7 +209,7 @@ public class ThongKeDAO {
         }
         return tongDoanhThu;
     }
-
+    
     public float getTongDoanhThuNam(int nam) {
         float tongDoanhThu = 0;
         String sql = "{CALL SP_DOANHTHUNAM(?)}";
