@@ -35,6 +35,17 @@ CREATE TABLE KHACHHANG(
 	PRIMARY KEY(MaKH)
 )
 
+ALTER TABLE KHACHHANG
+ALTER COLUMN SoDienThoai varchar(12) null 
+
+ALTER TABLE KHACHHANG
+ALTER COLUMN TenKH nvarchar(30) null 
+
+select * from KHACHHANG join HOADON on HOADON.MaKH = KHACHHANG.MaKH
+
+delete from HOADONCHITIET
+delete from HOADON
+delete from KHACHHANG
 
 CREATE TABLE HINHTHUCTHANHTOAN(
 	MaHTTT INT IDENTITY(1, 1)NOT NULL,
@@ -167,6 +178,19 @@ CREATE TABLE HOADON(
 	FOREIGN KEY(MaHTTT) REFERENCES dbo.HINHTHUCTHANHTOAN(MaHTTT)
 )
 
+ALTER TABLE HOADON
+ALTER COLUMN MaKH int null 
+
+ALTER TABLE HOADON
+ALTER COLUMN MaHTTT int null 
+
+select * from HOADON
+select * from HOADONCHITIET
+select * from KHUYENMAI
+select * from SANPHAM_KHUYENMAI
+
+delete from KHUYENMAI
+Delete from HOADONCHITIET where MaHD like 1375418 and MaCTSP like 1
 
 CREATE TABLE HOADONCHITIET(
 	MaHDCT INT IDENTITY(1, 1),
@@ -315,11 +339,11 @@ AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuThang 
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE MONTH(NgayKhoiTao) = 11 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
+	WHERE MONTH(NgayKhoiTao) = MONTH(GETDATE()) AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
 	AND HOADONCHITIET.TrangThai = 1
 END
 GO
-
+drop proc SP_DOANHTHUNAM
 ---------------------------------------------------------------------------------------------------------------
 
 --SP tổng doanh thu theo năm ok 
@@ -328,9 +352,19 @@ AS BEGIN
 	SELECT 
 	SUM(SoLuong * Gia) -   SUM(SoLuong * Gia *(GiamGia/100)) AS DoanhThuNam
 	FROM dbo.HOADONCHITIET JOIN dbo.HOADON ON HOADON.MaHD = HOADONCHITIET.MaHD
-	WHERE YEAR(NgayKhoiTao) = 2021 AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
+	WHERE YEAR(NgayKhoiTao) = YEAR(GETDATE()) AND (HOADON.TrangThai = N'Đã giao hàng' OR dbo.HOADON.TrangThai = N'Đã thanh toán') 
 	AND HOADONCHITIET.TrangThai = 1
 END
 GO
 
 ---------------------------------------------------------------------------------------------------------------
+select * from HOADON
+select * from CHITIETSANPHAM
+select * from KHUYENMAI
+select * from SANPHAM_KHUYENMAI
+
+insert into SANPHAM_KHUYENMAI values ( 3 , '9e8aff' )
+
+select  *
+from CHITIETSANPHAM join SANPHAM_KHUYENMAI on CHITIETSANPHAM.MaCTSP = SANPHAM_KHUYENMAI.MaCTSP
+               

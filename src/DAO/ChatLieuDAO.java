@@ -23,6 +23,7 @@ public class ChatLieuDAO extends Main< ChatLieu , String > {
     String Update_2 = "Update CHATLIEU set TrangThai = 0  where TenChatLieu = ? " ;
     final String SELECT_ALL = "SELECT * FROM dbo.CHATLIEU where TrangThai = 1";
     String SELECT_ALL_1 = "SELECT * FROM dbo.CHATLIEU" ;
+    String selectById = " select * from CHATLIEU where TenChatLieu like ?  " ;
 
     @Override
     public void insert(ChatLieu entity) {
@@ -83,7 +84,11 @@ public class ChatLieuDAO extends Main< ChatLieu , String > {
 
     @Override
     public ChatLieu selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<ChatLieu> list = selectBySQL( selectById , id ) ;
+        if( list.isEmpty() ){
+            return null ;
+        }
+        return list.get(0) ;
     }
 
 }

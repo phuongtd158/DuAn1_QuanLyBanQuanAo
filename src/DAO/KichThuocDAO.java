@@ -22,6 +22,7 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
     String Update_2 = "Update KICHTHUOC set TrangThai = 0  where KichThuoc = ? " ;
     String Select_all = "select * from KICHTHUOC where TrangThai = 1 " ;
     String Select_all_1 = "select * from KICHTHUOC " ;
+    String selectById = " select * from KICHTHUOC where  KichThuoc like ? " ;
     
     @Override
     public void insert(KichThuoc entity) {
@@ -60,7 +61,11 @@ public class KichThuocDAO extends Main< KichThuoc, String >{
 
     @Override
     public KichThuoc selectByID(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<KichThuoc> list = selectBySQL( selectById , id );
+        if(  list.isEmpty()  ){
+            return null ;
+        }
+        return list.get(0) ;
     }
 
     @Override

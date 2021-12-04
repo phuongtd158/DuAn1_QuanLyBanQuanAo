@@ -18,10 +18,13 @@ public class HoaDonDAO extends Main< HoaDon, String> {
 
     private String selectAll = "select * from HOADON";
     private String Insert = "Insert into HOADON ( MaKH , MaNV , MaHTTT , TrangThai , GhiChu , TienShip ) values ( ? , ? , ? , ? , ? , ?) ";
+    private String Insert_1 = "Insert into HOADON (  MaNV , TrangThai , GhiChu , TienShip ) values (  ? , ? , ? , ?) ";
     private String selectByID = "select * from HOADON where MaHD like ? ";
     String Update = "Update HOADON set GhiChu = ? where MaHD like ? ";
     String Update_1 = "Update HOADON set TrangThai = ? where MaHD like ? ";
     String Update_2 = "Update HOADON set MaHTTT = ? where MaHD like ? " ;
+    String Update_3 = "Update HOADON set MaKH = ? where MaHD like ? " ;
+    String Update_4 = "Update HOADON set MaKH = ? , MaHTTT = ? , TienShip = ?  where MaHD like ? " ;
     private String selectAll_2 = "SELECT * FROM dbo.HOADON JOIN dbo.NHANVIEN ON NHANVIEN.MaNV = HOADON.MaNV JOIN dbo.KHACHHANG ON KHACHHANG.MaKH = HOADON.MaKH\n"
             + "            WHERE MaHD LIKE ? AND TenNV LIKE ? AND TenKH LIKE ? AND NgayKhoiTao LIKE ? AND HOADON.TrangThai LIKE ?";
 
@@ -33,19 +36,31 @@ public class HoaDonDAO extends Main< HoaDon, String> {
         JDBCHelper.Update(Update, a, b);
     }
     
+    public void update3( int a , int b ){
+        JDBCHelper.Update(Update_3, a, b);
+    }
+    
     public void update_HTTT ( int a , String b ){
         JDBCHelper.Update(Update_2 , a , b );
     }
 
+    // Vài câu insetrt
+    
     @Override
     public void insert(HoaDon entity) {
         JDBCHelper.Update(Insert, entity.getMaKH(), entity.getMaNV(), entity.getMaHTTT(), entity.getTrangThai(),
                 entity.getGhiChu(), entity.getTienShip());
     }
 
+    public void insert_1(HoaDon entity) {
+        JDBCHelper.Update(Insert_1,  entity.getMaNV() , entity.getTrangThai(),
+                entity.getGhiChu(), entity.getTienShip());
+    }
+    
+    // Các câu update
     @Override
     public void update(HoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.Update( Update_4 , entity.getMaKH() , entity.getMaHTTT() , entity.getTienShip() , entity.getMaHD() ) ;
     }
 //
 //    public void update1(String k) {
