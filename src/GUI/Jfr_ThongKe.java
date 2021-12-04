@@ -16,6 +16,7 @@ import Ultil.MsgBox;
 import Ultil.XDate;
 import java.awt.Color;
 import java.awt.Component;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -306,6 +307,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     model.addRow(x);
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -374,6 +376,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
     //Hiển thị sô lượng lên các label thống kê
     private void thongKe() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
         try {
 
             //Lấy ngày tháng từ textfield
@@ -386,10 +389,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             int nam = c1.get(Calendar.YEAR);
 
             float tongDoanhThuThang = dao_tk.getTongDoanhThuThang(thang);
-            lbTongDoanhThuThang.setText(String.valueOf(tongDoanhThuThang) + " VND");
+            lbTongDoanhThuThang.setText(String.valueOf(formatter.format(tongDoanhThuThang)) + " VND");
 
             float tongDoanhThuNam = dao_tk.getTongDoanhThuNam(nam);
-            lbTongDoanhThuNam.setText(String.valueOf(tongDoanhThuNam) + " VND");
+            lbTongDoanhThuNam.setText(String.valueOf(formatter.format(tongDoanhThuNam)) + " VND");
 
             int tongDonThang = dao_tk.getTongDonHang_Thang(thang);
             lbTongDonThang.setText(String.valueOf(tongDonThang));
@@ -413,7 +416,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                         lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
 
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
-                        lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+                        lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
                         lbTongDoanhThuNam.setText("0" + " VND");
 
                     } else {
@@ -428,7 +431,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                         lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
 
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
-                        lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+                        lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
                     }
 
                 } else { //Tìm kiếm
@@ -446,7 +449,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
                     //doanh thu
                     float tongDoanhThu = dao_tk.getTongDoanhThu(ngayBatDau, ngayKetThuc);
-                    lbTongDoanhThuNgay.setText(String.valueOf(tongDoanhThu) + " VND");
+                    lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
 
                 }
             }
