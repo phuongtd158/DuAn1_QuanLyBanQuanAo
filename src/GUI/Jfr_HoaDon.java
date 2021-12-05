@@ -262,11 +262,20 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         for (int i = 0; i < model_tableGioHang.getRowCount(); i++) {
             tien += Double.valueOf( HamDinhDang2(model_tableGioHang.getValueAt(i, 6).toString() ) );
         }
-        lbTongTienHang.setText( HamDinhDang( String.valueOf(tien) ) );
-        lbTongTienHang2.setText( HamDinhDang( String.valueOf(tien) ));
-        lbKhachTra.setText( HamDinhDang( String.valueOf(tien) ) ) ;
-        lbKhachTra2.setText( HamDinhDang( String.valueOf(tien) ) ) ;
-        TienKhachTra2 = tien ;
+        
+        if( tien == 0 ){
+            lbTongTienHang.setText("0");
+            lbTongTienHang2.setText("0");
+            lbKhachTra.setText("0");
+            lbKhachTra2.setText("0");
+        } else {
+            lbTongTienHang.setText(HamDinhDang(String.valueOf(tien)));
+            lbTongTienHang2.setText(HamDinhDang(String.valueOf(tien)));
+            lbKhachTra.setText(HamDinhDang(String.valueOf(tien)));
+            lbKhachTra2.setText(HamDinhDang(String.valueOf(tien)));
+        }
+        TienKhachTra2 = tien;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -1402,7 +1411,13 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             txtTenKH2.setText(kh.getTenKH() );
             txtSDT2.setText(kh.getSDT());
             txtDiaChi.setText(kh.getDiaChi());
-            txtTienShip.setText( HamDinhDang( String.valueOf(hd.getTienShip()))  ) ;
+            if( hd.getTienShip() == 0 ){
+                txtTienShip.setText("0");
+            }else{
+                txtTienShip.setText( HamDinhDang( String.valueOf(hd.getTienShip()) )  ) ;
+            }
+            
+            System.out.println( hd.getTienShip() );
             lbKhachTra2.setText( HamDinhDang( String.valueOf( Double.valueOf( HamDinhDang2( lbTongTienHang2.getText() ) ) + hd.getTienShip() ))   );
             txtKhachDua2.setText( HamDinhDang(String.valueOf( Double.valueOf( HamDinhDang2( lbTongTienHang2.getText() ) ) + hd.getTienShip() ) )   );
             setSelectedComboboxHTTT( hd.getMaHTTT() , cbbHTThanhToan2 );
@@ -1418,14 +1433,16 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     }
 
     private void tbDanhSachHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachHDMouseClicked
-        HienThiNguoc();
+         HienThiNguoc();
     }//GEN-LAST:event_tbDanhSachHDMouseClicked
 
     private void txtKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachDuaKeyReleased
-        // TODO add your handling code here:
-        
-        
-        lbTienThua.setText( HamDinhDang(  String.valueOf( Double.valueOf( txtKhachDua.getText() ) - Double.valueOf( HamDinhDang2(lbKhachTra.getText() )  ))));
+        double bk =  Double.valueOf( HamDinhDang2( txtKhachDua.getText())  ) - Double.valueOf( HamDinhDang2(lbKhachTra.getText() )  ) ;
+        if( bk == 0 ){
+            lbTienThua.setText("0");
+        }else{
+            lbTienThua.setText( HamDinhDang( String.valueOf(bk)) );
+        }
     }//GEN-LAST:event_txtKhachDuaKeyReleased
 
     private void txtTienShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienShipKeyReleased
@@ -1539,6 +1556,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
     private void txtKhachDuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDuaFocusGained
         txtKhachDua.setText("");
+        lbTienThua2.setText("0");
     }//GEN-LAST:event_txtKhachDuaFocusGained
 
     private void txtKhachDuaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDuaFocusLost

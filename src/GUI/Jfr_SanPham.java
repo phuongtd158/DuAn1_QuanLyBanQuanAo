@@ -100,6 +100,53 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    public String HamDinhDang(String sk) {
+        int a = 0, ac;
+        String d = "";
+
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+
+        if (a == 1) {
+            return "-" + d + " VNĐ";
+        }
+        return d + " VNĐ";
+    }
+
+    // Hàm đổi lại định dang tiền 
+    public String HamDinhDang2( String sk ){
+        String ab = "";
+        int ak = sk.indexOf(" ");
+
+        if (ak >= 0) {
+            sk = sk.substring(0, ak);
+        }
+        
+        String a[] = sk.split(",");
+        for (int i = 0; i < a.length; i++) {
+            ab += a[i];
+        }
+        return ab ;
+    }
 
     //Đổ dữ liệu từ thuộc tính vào combobox chất liệu
     public void doVaoChatLieu() {
@@ -367,7 +414,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         btnXoa.setForeground(new java.awt.Color(0, 0, 0));
         btnXoa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_delete_trash_25px.png"))); // NOI18N
-        btnXoa.setText("Xóa");
+        btnXoa.setText("Ẩn");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXoaMouseClicked(evt);
@@ -744,7 +791,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         sp.setTenChatLieu(cl.getTenChatLieu());
         sp.setTenLoai(lsp.getTenLoaiSP());
         sp.setTenMauSac(ms.getTenMau());
-        sp.setGia(Double.valueOf(txtDonGia.getText()));
+        sp.setGia( Double.valueOf( HamDinhDang2( txtDonGia.getText())  ));
         sp.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
         sp.setMaSP(daoSP.SelectByIDSp(txtTenSP.getText()));
         System.out.println("" + daoSP.SelectByIDSp(txtTenSP.getText()));
@@ -774,9 +821,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         if (Check.checkSoDuong(txtSoLuong) == false) {
             return;
         }
-        if (Check.checkSoDuong_double(txtDonGia) == false) {
-            return;
-        }
+//        if ( ) {
+//            return;
+//        }
 
         ChatLieu cl = (ChatLieu) cbbChatLieu.getSelectedItem();
         KichThuoc kt = (KichThuoc) cbbKichThuoc.getSelectedItem();
@@ -817,8 +864,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel14.setBackground(defualtColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
-        ThemSP();
-
+        if( MsgBox.comfirm(this , "Bạn có muốn thêm sản phẩm không") ){
+            ThemSP();
+        }
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
@@ -850,7 +898,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel14.setBackground(ClickColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
-        XoaSP();
+        if( MsgBox.comfirm( this , "Bạn có muốn ẩn sản phẩm không") ){
+            XoaSP();
+        }        
     }//GEN-LAST:event_btnXoaMouseClicked
 
     // Hàm Sửa
@@ -871,7 +921,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         if (Check.checkSoDuong(txtSoLuong) == false) {
             return;
         }
-        if (Check.checkSoDuong_double(txtDonGia) == false) {
+        if ( Double.valueOf( HamDinhDang2( txtDonGia.getText())) <= 0 ) {
+           
             return;
         }
         SanPham sp = GetForm();
@@ -893,7 +944,9 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
         jPanel14.setBackground(defualtColor);
         jPanel15.setBackground(defualtColor);
         jPanel17.setBackground(defualtColor);
-        Update();
+        if( MsgBox.comfirm( this , "Bạn có muốn cập nhập không!") ){
+            Update();
+        }      
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnHienThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHienThiMouseClicked
@@ -1238,7 +1291,7 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
             if (x.isTrangThai() == true && x.getSoLuong() > 0) {
                 modelSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
-                    x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
+                    x.getTenChatLieu(), HamDinhDang( String.valueOf( x.getGia())) , x.getSoLuong()});
             }
         }
     }
@@ -1261,8 +1314,8 @@ public class Jfr_SanPham extends javax.swing.JInternalFrame {
 
         txtMaSP.setText(String.valueOf(sp.getMaCTSP()));
         txtTenSP.setText(sp.getTenSP());
-        txtSoLuong.setText(String.valueOf(sp.getSoLuong()));
-        txtDonGia.setText(String.valueOf(sp.getGia()));
+        txtSoLuong.setText(  String.valueOf(sp.getSoLuong()));
+        txtDonGia.setText( HamDinhDang(String.valueOf(sp.getGia()) ) );
         
         setSelectedComboboxMauSac(tblSanPham.getValueAt(Index, 4).toString(), cbbMauSac);
         setSelectedComboboxTenLoai(tblSanPham.getValueAt(Index, 2).toString(), cbbLoaiSanPham);

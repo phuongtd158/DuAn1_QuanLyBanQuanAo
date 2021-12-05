@@ -27,7 +27,7 @@ public class ThongKeDAO {
                 rs = JDBCHelper.query(sql, nam);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), rs.getFloat("TongGiaBan"), rs.getFloat("GiamGia"), rs.getFloat("DoanhThu")
+                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), formatter.format(rs.getFloat("DoanhThu"))
                     });
                 }
                 rs.getStatement().getConnection().close();

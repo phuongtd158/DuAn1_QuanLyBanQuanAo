@@ -511,11 +511,13 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        if (Check.checkTrongText(txtMaNV) && Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
-                && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
-            if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
-                if (checkTrungMa(txtMaNV)) {
-                    insert();
+        if (MsgBox.comfirm(this, "Bạn có muốn thêm nhân viên không")) {
+            if (Check.checkTrongText(txtMaNV) && Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
+                    && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
+                if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
+                    if (checkTrungMa(txtMaNV)) {
+                        insert();
+                    }
                 }
             }
         }
@@ -526,10 +528,12 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(ClickColor);
         btnAn.setBackground(defaulColor);
         btnMoi.setBackground(defaulColor);
-        if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
-                && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
-            if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
-                update();
+        if (MsgBox.comfirm(this, "Bạn có muốn sửa thông tin nhân viên không!")) {
+            if (Check.checkTrongText(txtDiaChi) && Check.checkTrongText(txtEmail) && Check.checkTrongText(txtMatKhau)
+                    && Check.checkTrongText(txtSDT) && Check.checkTrongText(txtTenNhanVien) && Check.checkTrongJdate(txtNgaySinh)) {
+                if (Check.checkEmail(txtEmail) && Check.checkSDT(txtSDT)) {
+                    update();
+                }
             }
         }
     }//GEN-LAST:event_jLabel13MouseClicked
@@ -539,7 +543,9 @@ public class Jfr_NhanVien extends javax.swing.JInternalFrame {
         btnSua.setBackground(defaulColor);
         btnAn.setBackground(ClickColor);
         btnMoi.setBackground(defaulColor);
-        anTrangThai();
+        if( MsgBox.comfirm( this , "Bạn có muốn ẩn nhân viên không! ") ){
+           anTrangThai(); 
+        }      
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked

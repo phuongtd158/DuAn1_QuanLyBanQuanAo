@@ -15,16 +15,16 @@ import java.sql.* ;
  * @author ASUS
  */
 public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
-    private String Insert = "Insert into KHUYENMAI ( MaKM , TenKM , NgayBatDau , NgayKetThuc , GiamGia ) values ( ? , ? , ? , ? , ? )";
+    private String Insert = "Insert into KHUYENMAI ( MaKM , TenKM , NgayBatDau , NgayKetThuc , GiamGia , TrangThai ) values ( ? , ? , ? , ? , ? , ? )";
     private String SelectByID = "Select * from KHUYENMAI where MaKM like ? ";
     private String SelectAll = "select * from KHUYENMAI " ;
     private String Update = " Update KHUYENMAI set TrangThai = 0 where MaKM = ? ";
     private String SelectById_2 = "Select * from KHUYENMAI where TenKM like ? ";
-    private String Update2 = " Update  KHUYENMAI set TenKM = ?  , NgayBatDau = ? , NgayKetThuc = ?, GiamGia = ? where MaKM like ? ";
+    private String Update2 = " Update  KHUYENMAI set TenKM = ?  , NgayBatDau = ? , NgayKetThuc = ?, GiamGia = ? , TrangThai = ? where MaKM like ? ";
             
     @Override
     public void insert(KhuyenMai entity) {
-        JDBCHelper.Update(Insert, entity.getMaKM() , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() ) ;
+        JDBCHelper.Update(Insert, entity.getMaKM() , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() , entity.isTrangThai() ) ;
     }
 
     // Các câu update
@@ -36,7 +36,7 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
 
     // 
     public void Update_2 ( KhuyenMai entity ){
-        JDBCHelper.Update( Update2 , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() , entity.getMaKM() );
+        JDBCHelper.Update( Update2 , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia()  , entity.isTrangThai() , entity.getMaKM() );
     }
     
     
