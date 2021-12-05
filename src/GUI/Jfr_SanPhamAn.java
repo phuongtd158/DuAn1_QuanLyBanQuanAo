@@ -64,6 +64,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
                 "Mã CTSP", "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Kích thước", "Màu sắc", "Chất liệu", "Đơn giá", "Số lượng"
             }
         ));
+        tblSanPhamAn.setRowHeight(25);
         jScrollPane2.setViewportView(tblSanPhamAn);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 17, 1010, 390));
@@ -100,7 +101,37 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public String HamDinhDang(String sk) {
+        int a = 0, ac;
+        String d = "";
 
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+
+        if (a == 1) {
+            return "-" + d + " VNĐ";
+        }
+        return d + " VNĐ";
+    }
+    
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         jPanel2.setBackground(ClickColor);
         int row = tblSanPhamAn.getSelectedRow();
@@ -123,7 +154,7 @@ public class Jfr_SanPhamAn extends javax.swing.JFrame {
         for (SanPham x : list ) {
             if (x.isTrangThai() == false) {
                 model.addRow(new Object[]{x.getMaCTSP(), x.getMaSP(), x.getTenSP(), x.getTenLoai(), x.getTenKichThuoc(), x.getTenMauSac(),
-                    x.getTenChatLieu(), x.getGia(), x.getSoLuong()});
+                    x.getTenChatLieu(), HamDinhDang(String.valueOf( x.getGia())), x.getSoLuong()});
             }
         }
     }

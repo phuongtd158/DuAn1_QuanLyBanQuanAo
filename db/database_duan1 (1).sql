@@ -362,7 +362,7 @@ select * from HOADON
 select * from CHITIETSANPHAM
 select * from KHUYENMAI
 select * from SANPHAM_KHUYENMAI
-
+select * from HOADONCHITIET
 
 update KHUYENMAI set NgayBatDau = '2021-12-03' 
 

@@ -107,6 +107,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbDen = new javax.swing.JLabel();
@@ -132,6 +133,9 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         txtTenChuongTrinh = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        rdbHoatDong = new javax.swing.JRadioButton();
+        rdbNgung = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDanhSachKM = new javax.swing.JTable();
@@ -308,6 +312,24 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         });
         jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 300, 60));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Trạng Thái:");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+
+        buttonGroup1.add(rdbHoatDong);
+        rdbHoatDong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdbHoatDong.setForeground(new java.awt.Color(0, 0, 0));
+        rdbHoatDong.setSelected(true);
+        rdbHoatDong.setText("Đang hoạt động");
+        jPanel3.add(rdbHoatDong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+
+        buttonGroup1.add(rdbNgung);
+        rdbNgung.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdbNgung.setForeground(new java.awt.Color(0, 0, 0));
+        rdbNgung.setText("Ngừng hoạt động");
+        jPanel3.add(rdbNgung, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
+
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 340, 710));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -401,12 +423,17 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
        }
     }//GEN-LAST:event_cbbTheLoaiItemStateChanged
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    public void LamMoi(){
         txtTimKiem.setText("");
         txtTenChuongTrinh.setText("");
         txtMucGia.setText("");
         txtTimeBD.setDateFormatString("");
         txtTimeKT.setDateFormatString("");
+        rdbHoatDong.setSelected(true);
+    }
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       LamMoi();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Hàm bắt đầu khuyễn mãi 
@@ -442,6 +469,8 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
             kh.setNgayBD( txtTimeBD.getDate());
             kh.setNgayKT( txtTimeKT.getDate() );
             kh.setGiamGia( Double.valueOf(txtMucGia.getText()) );
+            kh.setTrangThai( rdbHoatDong.isSelected() ? true : false );
+            
             captcha cp ;
             do{
                 cp = new captcha() ;    
@@ -459,6 +488,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
                     daoKM_SP.insert(km_sp);
                 }
             }
+            LamMoi();
             DoVaoTableKM();
         }
     }
@@ -506,7 +536,9 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ThemChuongTrinh();
+        if( MsgBox.comfirm(  this , "Bạn có muốn thêm khuyến mãi không")){
+            ThemChuongTrinh();
+        }      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtMinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinKeyReleased
@@ -535,6 +567,11 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         txtMucGia.setText( tbDanhSachKM.getValueAt( Index , 5 ).toString()  );
         txtTimeBD.setDate( XDate.toDate( tbDanhSachKM.getValueAt( Index , 2 ).toString()) );
         txtTimeKT.setDate( XDate.toDate( tbDanhSachKM.getValueAt( Index , 3 ).toString()) );
+        if(  tbDanhSachKM.getValueAt( Index , 6 ).toString().equalsIgnoreCase("Đang hoạt động")  ){
+            rdbHoatDong.setSelected( true);
+        }else{
+            rdbNgung.setSelected(true);
+        }
     }
     
     private void tbDanhSachKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachKMMouseClicked
@@ -558,7 +595,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
             km.setGiamGia(Double.valueOf(txtMucGia.getText()));
             km.setNgayBD(txtTimeBD.getDate());
             km.setNgayKT(txtTimeKT.getDate());
-
+            km.setTrangThai( rdbHoatDong.isSelected() ? true : false );
             daoKM.Update_2(km);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -569,6 +606,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbbHinhThucGG;
     private javax.swing.JComboBox<String> cbbTheLoai;
     private javax.swing.JButton jButton1;
@@ -578,6 +616,7 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -590,6 +629,8 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbDen;
     private javax.swing.JLabel lbTu;
+    private javax.swing.JRadioButton rdbHoatDong;
+    private javax.swing.JRadioButton rdbNgung;
     private javax.swing.JTable tbDanhSachKM;
     private javax.swing.JTable tbDanhSachSanPham;
     private javax.swing.JTextField txtMax;

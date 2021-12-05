@@ -706,11 +706,16 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangXuatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
-        Jfr_KhuyenMai menu9 = new Jfr_KhuyenMai();
-        jDesktopPane1.add(menu9).setVisible(true);
-        if (Jfr_HoaDon.webcam != null) {
-            Jfr_HoaDon.webcam.close();
+        if (Auth.isManager()) {
+            Jfr_KhuyenMai menu9 = new Jfr_KhuyenMai();
+            jDesktopPane1.add(menu9).setVisible(true);
+            if (Jfr_HoaDon.webcam != null) {
+                Jfr_HoaDon.webcam.close();
+            }
+        }else{
+            MsgBox.alert( this , "Bạn không có quyền truy cập chức năng này");
         }
+
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     public static void main(String args[]) {
