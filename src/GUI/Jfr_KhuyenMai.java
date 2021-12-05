@@ -253,9 +253,11 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 20));
 
         txtTimeBD.setBackground(new java.awt.Color(255, 255, 255));
+        txtTimeBD.setDateFormatString("dd-MM-yyyy");
         jPanel3.add(txtTimeBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 190, 30));
 
         txtTimeKT.setBackground(new java.awt.Color(255, 255, 255));
+        txtTimeKT.setDateFormatString("dd-MM-yyyy");
         jPanel3.add(txtTimeKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 190, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
