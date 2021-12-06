@@ -215,7 +215,7 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         lb3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lb3.setForeground(new java.awt.Color(255, 255, 255));
         lb3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_more_details_30px.png"))); // NOI18N
-        lb3.setText("    Hóa đơn");
+        lb3.setText("    Bán Hàng");
 
         javax.swing.GroupLayout btnHoaDonLayout = new javax.swing.GroupLayout(btnHoaDon);
         btnHoaDon.setLayout(btnHoaDonLayout);

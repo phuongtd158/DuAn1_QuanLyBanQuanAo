@@ -524,8 +524,14 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
 //        LoaiSP lsp = (LoaiSP) model_cbbLoaiSP.getSelectedItem();
 //        System.out.println(lsp.getMaLoaiSP());
         
+        List<SanPham> list ;
         
-        List<SanPham> list = daoSP.selectAll_5( model_cbbLoaiSP.getElementAt(cbbTheLoai.getSelectedIndex() ).toString() , Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
+        if( model_cbbLoaiSP.getElementAt(cbbTheLoai.getSelectedIndex() ).toString().equalsIgnoreCase("Tất cả sản phẩm") ) {
+            list = daoSP.selectAll_7(  Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
+        }else{
+            list = daoSP.selectAll_5( model_cbbLoaiSP.getElementAt(cbbTheLoai.getSelectedIndex() ).toString() , Double.valueOf(txtMin.getText()) , Double.valueOf(txtMax.getText()) );
+        }
+       
         model_SP.setRowCount(0);
         int sk = 1;
 

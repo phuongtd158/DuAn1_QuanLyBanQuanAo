@@ -85,6 +85,13 @@ public class SanPhamDAO extends Main< SanPham, String> {
             + "         join SANPHAM_KHUYENMAI on CHITIETSANPHAM.MaCTSP = SANPHAM_KHUYENMAI.MaCTSP where MaKM like ? " ;
 // Insert
 
+    String SelectAll_7 = "SELECT * FROM dbo.CHITIETSANPHAM JOIN dbo.CHATLIEU ON CHATLIEU.MaChatLieu = CHITIETSANPHAM.MaChatLieu\n"
+            + "		JOIN dbo.KICHTHUOC ON KICHTHUOC.MaKichThuoc = CHITIETSANPHAM.MaKichThuoc\n"
+            + "		JOIN dbo.MAUSAC ON MAUSAC.MaMauSac = CHITIETSANPHAM.MaMauSac\n"
+            + "		JOIN dbo.LOAISP ON LOAISP.MaLoai = CHITIETSANPHAM.MaLoai\n"
+            + "		JOIN dbo.SANPHAM ON SANPHAM.MaSP = CHITIETSANPHAM.MaSP "
+            + " where  Gia between ? and ? ";
+    
     @Override
     public void insert(SanPham entity) {
         JDBCHelper.Update( Update_3, entity.getSoLuong() , entity.getMaCTSP() ) ;
@@ -165,6 +172,9 @@ public class SanPhamDAO extends Main< SanPham, String> {
         return selectBySQL( selectAll_6, k );
     }
     
+    public List<SanPham> selectAll_7(double a , double b ) {
+        return selectBySQL(SelectAll_7, a , b );
+    }
     
     public void hienThiSanPham(int id, int soLuong) {
         if (soLuong > 0) {
