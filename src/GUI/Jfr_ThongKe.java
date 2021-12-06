@@ -50,7 +50,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author ADMIN
  */
 public class Jfr_ThongKe extends javax.swing.JInternalFrame {
-    
+
     ChartPanel c;
     ThongKeDAO dao_tk = new ThongKeDAO();
     HoaDonDAO dao_hd = new HoaDonDAO();
@@ -65,7 +65,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
      */
     public Jfr_ThongKe() {
         initComponents();
-        
+
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
@@ -73,7 +73,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         doVaoCbbTG();
         if (Auth.user.getVaiTro() == false) {
             jTabbedPane1.remove(0);
-            
+
             lbTongDoanhThuNam.setText("0" + " VND");
             cbbLoaiThoiGian.removeItemAt(1);
         } else {
@@ -95,23 +95,23 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             List<Object> obj = new ArrayList<>();
             List<Object> obj2 = new ArrayList<>();
             List<Object> obj3 = new ArrayList<>();
-            
+
             long millis = System.currentTimeMillis();
             java.sql.Date date = new java.sql.Date(millis);
             String ngay = XDate.toString(date);
             for (HoaDon x : list) {
                 if (x.getTrangThai().equalsIgnoreCase("Đơn hàng âm") && x.getNgayTao().equals(XDate.toDate(ngay))) {
-                    
+
                     obj.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
-                    
+
                 }
             }
             System.out.println(obj);
-            
+
             for (HoaDon x : list) {
                 if (x.getTrangThai().equalsIgnoreCase("Đã Hủy") && x.getNgayTao().equals(XDate.toDate(ngay))) {
                     obj2.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
-                    
+
                 }
             }
             System.out.println(obj2);
@@ -121,16 +121,16 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             String s = "";
             for (SanPham x : listsp) {
                 if (x.getSoLuong() < 20 && x.isTrangThai() == true) {
-                    
+
                     obj3.add("\n" + "+Mã sản phẩm: " + x.getMaCTSP() + "   Tên sản phẩm: " + x.getTenSP() + "   Số lượng còn lại: " + x.getSoLuong());
                 }
             }
-            
+
             if (obj3.isEmpty()) {
                 s = "Không có sản phẩm nào gần hết hàng";
             }
             System.out.println("" + s + obj3);
-            
+
             Calendar c1 = Calendar.getInstance();
             c1.get(Calendar.DATE);
             String host = "smtp.gmail.com";
@@ -164,22 +164,22 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             msg.setSubject(subjectString);
             msg.setText(message);
             Transport transport = mailSession.getTransport("smtps");
-            
+
             transport.connect(host, user, pass);
             transport.sendMessage(msg, msg.getAllRecipients());
-            
+
             transport.close();
             MsgBox.alert(this, "Báo cáo doanh thu tháng thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
     }
 
     //Gửi email báo cáo cuối tháng
     public void sendEmail_Thang() {
         try {
-            
+
             List<HoaDon> list = dao_hd.selectAll();
             List<Object> obj = new ArrayList<>();
             List<Object> obj2 = new ArrayList<>();
@@ -191,17 +191,17 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             //Thống kê hóa đơn theo tháng
             for (HoaDon x : list) {
                 if (x.getTrangThai().equalsIgnoreCase("Đơn hàng âm") && XDate.toMonth(x.getNgayTao()).equals(String.valueOf(thang))) {
-                    
+
                     obj.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
-                    
+
                 }
             }
             System.out.println(obj);
-            
+
             for (HoaDon x : list) {
                 if (x.getTrangThai().equalsIgnoreCase("Đã Hủy") && XDate.toMonth(x.getNgayTao()).equals(String.valueOf(thang))) {
                     obj2.add("\n" + "+Mã hóa đơn: " + x.getMaHD() + "   " + "Lý do: " + x.getGhiChu());
-                    
+
                 }
             }
             System.out.println(obj2);
@@ -211,16 +211,16 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             String s = "";
             for (SanPham x : listsp) {
                 if (x.getSoLuong() < 20 && x.isTrangThai() == true) {
-                    
+
                     obj3.add("\n" + "+Mã sản phẩm: " + x.getMaCTSP() + "   Tên sản phẩm: " + x.getTenSP() + "   Số lượng còn lại: " + x.getSoLuong());
                 }
             }
-            
+
             if (obj3.isEmpty()) {
                 s = "Không có sản phẩm nào gần hết hàng";
             }
             System.out.println("" + s + obj3);
-            
+
             c1.get(Calendar.DATE);
             String host = "smtp.gmail.com";
             String user = "quanlybanquanaopoly@gmail.com";
@@ -253,31 +253,31 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             msg.setSubject(subjectString);
             msg.setText(message);
             Transport transport = mailSession.getTransport("smtps");
-            
+
             transport.connect(host, user, pass);
             transport.sendMessage(msg, msg.getAllRecipients());
-            
+
             transport.close();
             MsgBox.alert(this, "Báo cáo thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
     }
 
 //Đổ vào cbb năm
     private void doVaoCbbNam() {
         try {
             model_cbbNam = (DefaultComboBoxModel) cbbNam_DoanhThu.getModel();
-            
+
             model_cbbNam.removeAllElements();
-            
+
             List<Integer> list = dao_hd.getYear();
-            
+
             for (Integer x : list) {
                 model_cbbNam.addElement(x);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -298,7 +298,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblDoanhThu.getModel();
             model.setRowCount(0);
-            
+
             changeColor();
             if (cbbNam_DoanhThu.getSelectedItem() != null) {
                 int nam = (Integer) cbbNam_DoanhThu.getSelectedItem();
@@ -307,7 +307,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     model.addRow(x);
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -336,9 +336,9 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     tblSanPham.setSelectionForeground(Color.BLACK);
                     return label;
                 }
-                
+
             }
-            
+
         });
     }
 
@@ -348,10 +348,10 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
             List<Object[]> list = dao_tk.getSanPham();
-            
+
             for (Object[] x : list) {
                 model.addRow(x);
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -387,53 +387,53 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             Calendar c1 = Calendar.getInstance();
             int thang = c1.get(Calendar.MONTH) + 1;
             int nam = c1.get(Calendar.YEAR);
-            
+
             float tongDoanhThuThang = dao_tk.getTongDoanhThuThang(thang);
             lbTongDoanhThuThang.setText(String.valueOf(formatter.format(tongDoanhThuThang)) + " VND");
-            
+
             float tongDoanhThuNam = dao_tk.getTongDoanhThuNam(nam);
             lbTongDoanhThuNam.setText(String.valueOf(formatter.format(tongDoanhThuNam)) + " VND");
-            
+
             int tongDonThang = dao_tk.getTongDonHang_Thang(thang);
             lbTongDonThang.setText(String.valueOf(tongDonThang));
-            
+
             int tongDonThangBiHuy = dao_tk.getTongDonHang_Thang_BiHuy(thang);
             lbTongHuyThang.setText(String.valueOf(tongDonThangBiHuy));
-            
+
             if (cbbLoaiThoiGian.getSelectedItem() != null) {
                 if (cbbLoaiThoiGian.getSelectedItem().toString().equals("Hôm nay")) {
                     hide_();
                     if (Auth.user.getVaiTro() == false) {
-                        
+
                         int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
                         lbTongDonHang.setText(String.valueOf(tongDonHang));
                         lbTongDonHang1.setText(String.valueOf(tongDonHang));
-                        
+
                         int tongDonHuy = dao_tk.getTongDonHang_Ngay_BiHuy(LocalDate.now().toString());
                         lbTongDonHangHuy.setText(tongDonHuy + "");
                         lbTongDonHangHuy1.setText(tongDonHuy + "");
-                        
+
                         lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
-                        
+
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                         lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
                         lbTongDoanhThuNam.setText("0" + " VND");
-                        
+
                     } else {
                         int tongDonHang = dao_tk.getTongDonHang_Ngay(LocalDate.now().toString());
                         lbTongDonHang.setText(String.valueOf(tongDonHang));
                         lbTongDonHang1.setText(String.valueOf(tongDonHang));
-                        
+
                         int tongDonHuy = dao_tk.getTongDonHang_Ngay_BiHuy(LocalDate.now().toString());
                         lbTongDonHangHuy.setText(tongDonHuy + "");
                         lbTongDonHangHuy1.setText(tongDonHuy + "");
-                        
+
                         lbTong.setText(tongDonHang + tongDonHuy + " đơn hàng");
-                        
+
                         float tongDoanhThu = dao_tk.getTongDoanhThu_ngay(LocalDate.now().toString());
                         lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
                     }
-                    
+
                 } else { //Tìm kiếm
                     show_();
                     //thành công
@@ -444,16 +444,16 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
                     int tongDonHuy_tk = dao_tk.getTongDonHang_huy(ngayBatDau, ngayKetThuc);
                     lbTongDonHangHuy.setText(String.valueOf(tongDonHuy_tk));
                     lbTongDonHangHuy1.setText(String.valueOf(tongDonHuy_tk));
-                    
+
                     lbTong.setText(tongDonHang + tongDonHuy_tk + " đơn hàng");
 
                     //doanh thu
                     float tongDoanhThu = dao_tk.getTongDoanhThu(ngayBatDau, ngayKetThuc);
                     lbTongDoanhThuNgay.setText(String.valueOf(formatter.format(tongDoanhThu)) + " VND");
-                    
+
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -973,16 +973,47 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     public String HamDinhDang2(String sk) {
         String ab = "";
         int ak = sk.indexOf(" ");
-        
+
         if (ak >= 0) {
             sk = sk.substring(0, ak);
         }
-        
+
         String a[] = sk.split(",");
         for (int i = 0; i < a.length; i++) {
             ab += a[i];
         }
         return ab;
+    }
+
+    public String HamDinhDang(String sk) {
+        int a = 0, ac;
+        String d = "";
+
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+
+        if (a == 1) {
+            return "-" + d + " VNĐ";
+        }
+        return d + " VNĐ";
     }
 
     //Radio show biểu đồ thống kê doanh thu
@@ -993,18 +1024,18 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         for (int i = 0; i < tblDoanhThu.getRowCount(); i++) {
             set.setValue(Float.parseFloat(HamDinhDang2(tblDoanhThu.getValueAt(i, 4).toString())), "Doanh thu", String.valueOf(tblDoanhThu.getValueAt(i, 0)));
         }
-        
+
         JFreeChart chart = ChartFactory.createBarChart("Doanh thu", "Tháng", "Tổng doanh thu", set, PlotOrientation.VERTICAL, true, true, true);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.ORANGE);
         c = new ChartPanel(chart);
-        
+
         jPanel7.removeAll();
         jPanel7.add(c);
         tblDoanhThu.updateUI();
         jPanel7.updateUI();
     }//GEN-LAST:event_jRadioButton1MouseClicked
-    
+
 
     private void cbbNam_DoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNam_DoanhThuActionPerformed
         doVaoDoanhThu();
@@ -1022,7 +1053,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         if (Check.checkTrongJdate(txtNgayBatDau) && Check.checkTrongJdate(txtNgayKetThuc)) {
             if (checkNgay()) {
                 if (Auth.user.getVaiTro() == false) {
-                    
+
                     lbTongDoanhThuNam.setText("0" + " VND");
                 } else {
                     thongKe();
@@ -1048,7 +1079,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbbLoaiThoiGianActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        
+
         sendEmail();
 
     }//GEN-LAST:event_jButton2MouseClicked

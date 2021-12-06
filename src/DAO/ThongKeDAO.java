@@ -16,7 +16,36 @@ import java.text.DecimalFormat;
  * @author ADMIN
  */
 public class ThongKeDAO {
+public String HamDinhDang( String sk ){
+        int a = 0 , ac ;
+        String d = "";
 
+        if (sk.charAt(0) == '-') {
+            a = 1;
+            sk = sk.substring(1);
+        }
+        
+        ac = sk.indexOf(".");
+        if (ac >= 0) {
+            sk = sk.substring(0, sk.indexOf("."));
+        }
+        int k = sk.length();
+
+        if (k >= 4 && k <= 6) {
+            if (k == 6 || k == 5) {
+                d = sk.substring(0, k / 2) + "," + sk.substring(k / 2, k);
+            } else {
+                d = sk.substring(0, k / 2 - 1) + "," + sk.substring(k / 2 - 1, k);
+            }
+        } else if (k == 7 || k == 8) {
+            d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
+        }
+        
+        if( a == 1 ){
+            return "-" + d + " VNĐ" ;
+        }
+        return  d + " VNĐ" ;
+    }
     public List<Object[]> getDoanhThu(Integer nam) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         List<Object[]> list = new ArrayList<>();
@@ -27,7 +56,7 @@ public class ThongKeDAO {
                 rs = JDBCHelper.query(sql, nam);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), formatter.format(rs.getFloat("DoanhThu"))
+                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), HamDinhDang(String.valueOf(rs.getFloat("DoanhThu")))  
                     });
                 }
                 rs.getStatement().getConnection().close();
