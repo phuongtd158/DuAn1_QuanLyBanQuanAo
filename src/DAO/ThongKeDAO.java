@@ -16,15 +16,16 @@ import java.text.DecimalFormat;
  * @author ADMIN
  */
 public class ThongKeDAO {
-public String HamDinhDang( String sk ){
-        int a = 0 , ac ;
+
+    public String HamDinhDang(String sk) {
+        int a = 0, ac;
         String d = "";
 
         if (sk.charAt(0) == '-') {
             a = 1;
             sk = sk.substring(1);
         }
-        
+
         ac = sk.indexOf(".");
         if (ac >= 0) {
             sk = sk.substring(0, sk.indexOf("."));
@@ -40,12 +41,13 @@ public String HamDinhDang( String sk ){
         } else if (k == 7 || k == 8) {
             d = sk.substring(0, k / 2 - 2) + "," + sk.substring(k / 2 - 2, k / 2 + 1) + "," + sk.substring(k / 2 + 1, k);
         }
-        
-        if( a == 1 ){
-            return "-" + d + " VNĐ" ;
+
+        if (a == 1) {
+            return "-" + d + " VNĐ";
         }
-        return  d + " VNĐ" ;
+        return d + " VNĐ";
     }
+
     public List<Object[]> getDoanhThu(Integer nam) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         List<Object[]> list = new ArrayList<>();
@@ -56,7 +58,7 @@ public String HamDinhDang( String sk ){
                 rs = JDBCHelper.query(sql, nam);
                 while (rs.next()) {
                     list.add(new Object[]{
-                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), HamDinhDang(String.valueOf(rs.getFloat("DoanhThu")))  
+                        rs.getInt("Thang"), rs.getInt("SanPhamBan"), formatter.format(rs.getFloat("TongGiaBan")), rs.getFloat("GiamGia"), HamDinhDang(String.valueOf(rs.getFloat("DoanhThu")))
                     });
                 }
                 rs.getStatement().getConnection().close();
@@ -69,12 +71,35 @@ public String HamDinhDang( String sk ){
         return list;
     }
 
-    public List<Object[]> getSanPham() {
+    public List<Object[]> getSanPham(int min, int max) {
         List<Object[]> list = new ArrayList<>();
         try {
             ResultSet rs = null;
             try {
-                String sql = "{CALL SP_SANPHAM}";
+                String sql = "{CALL SP_SANPHAM(?, ?)}";
+                rs = JDBCHelper.query(sql, min, max);
+                while (rs.next()) {
+                    list.add(new Object[]{
+                        rs.getInt("STT"), rs.getString("MaSP"), rs.getString("TenLoai"), rs.getString("TenSP"), rs.getString("ChatLieu"),
+                        rs.getString("MauSac"), rs.getString("KichThuoc"), rs.getInt("SoLuong")
+                    });
+                }
+                rs.getStatement().getConnection().close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+        public List<Object[]> getSanPham1() {
+        List<Object[]> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                String sql = "{CALL SP_SANPHAM1}";
                 rs = JDBCHelper.query(sql);
                 while (rs.next()) {
                     list.add(new Object[]{
@@ -91,7 +116,7 @@ public String HamDinhDang( String sk ){
         }
         return list;
     }
-
+    
     //Thống kê tổng đơn hàng theo ngày tìm kiếm
     public int getTongDonHang(String ngayBatDau, String ngayKetThuc) {
         int tongDonHang = 0;

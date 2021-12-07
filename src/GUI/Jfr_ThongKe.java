@@ -79,7 +79,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         } else {
             jButton2.setVisible(false);
         }
-        doVaoSanPham();
+        doVaoSanPham1();
         tk = this;
 
 //        Calendar c = Calendar.getInstance();
@@ -347,7 +347,22 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         try {
             model = (DefaultTableModel) tblSanPham.getModel();
             model.setRowCount(0);
-            List<Object[]> list = dao_tk.getSanPham();
+            List<Object[]> list = dao_tk.getSanPham(Integer.parseInt(txtTu.getText()), Integer.parseInt(txtDen.getText()));
+
+            for (Object[] x : list) {
+                model.addRow(x);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doVaoSanPham1() {
+        try {
+            model = (DefaultTableModel) tblSanPham.getModel();
+            model.setRowCount(0);
+            List<Object[]> list = dao_tk.getSanPham1();
 
             for (Object[] x : list) {
                 model.addRow(x);
@@ -512,6 +527,11 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jLabel21 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtTu = new javax.swing.JTextField();
+        txtDen = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -669,6 +689,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Doanh thu", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -752,6 +773,34 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 210, 50));
+
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Tìm kiếm theo số lượng:");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, 20));
+
+        txtTu.setText("0");
+        txtTu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTuKeyReleased(evt);
+            }
+        });
+        jPanel3.add(txtTu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 70, -1));
+
+        txtDen.setText("0");
+        txtDen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDenKeyReleased(evt);
+            }
+        });
+        jPanel3.add(txtDen, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 70, -1));
+
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Đến");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, 20));
+
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Từ");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 20));
 
         jTabbedPane1.addTab("Sản phẩm", jPanel3);
 
@@ -1084,6 +1133,15 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void txtTuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTuKeyReleased
+        doVaoSanPham();
+    }//GEN-LAST:event_txtTuKeyReleased
+
+    private void txtDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDenKeyReleased
+        doVaoSanPham();
+
+    }//GEN-LAST:event_txtDenKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1094,12 +1152,15 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -1146,7 +1207,9 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbTongHuyThang;
     private javax.swing.JTable tblDoanhThu;
     private javax.swing.JTable tblSanPham;
+    private javax.swing.JTextField txtDen;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
     private com.toedter.calendar.JDateChooser txtNgayKetThuc;
+    private javax.swing.JTextField txtTu;
     // End of variables declaration//GEN-END:variables
 }
