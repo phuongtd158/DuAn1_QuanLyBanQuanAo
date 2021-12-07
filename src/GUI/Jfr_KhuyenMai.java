@@ -608,8 +608,18 @@ public class Jfr_KhuyenMai extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    // Hàm xóa khuyến mãi
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        if (MsgBox.comfirm(this, "Bạn có muốn xóa không")) {
+            int k = tbDanhSachKM.getSelectedRow();
+            String MaKM = tbDanhSachKM.getValueAt(k, 0).toString() ;
+            List<SanPham> listSP = daoSP.selectAll_6(MaKM);
+            for (SanPham x : listSP) {
+                daoSP.Update_4(0, x.getMaCTSP());
+            }
+            daoKM_SP.delete(MaKM);
+            daoKM.delete(MaKM);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

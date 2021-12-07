@@ -219,7 +219,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
             if (x.isTrangThai() == true && x.getSoLuong() > 0) {
                 model_tableDSSP.addRow(new Object[]{x.getMaCTSP(), x.getTenSP(), x.getTenLoai(), x.getTenChatLieu(), x.getTenKichThuoc(), x.getTenMauSac(),
-                    x.getSoLuong(),  HamDinhDang( String.valueOf( x.getGia())) });
+                    x.getSoLuong(),  HamDinhDang( String.valueOf( x.getGia())) , x.getGiamGia()});
             }
 
         }
@@ -301,6 +301,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         txtKichThuoc = new javax.swing.JTextField();
         txtMauSac = new javax.swing.JTextField();
         jTextField51 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jTextField52 = new javax.swing.JTextField();
         jScrollPane11 = new javax.swing.JScrollPane();
         tbDanhSachSP = new javax.swing.JTable();
@@ -493,6 +494,9 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
         jTextField51.setEditable(false);
         jPanel49.add(jTextField51);
 
+        jTextField1.setEditable(false);
+        jPanel49.add(jTextField1);
+
         jTextField52.setEditable(false);
         jPanel49.add(jTextField52);
 
@@ -500,17 +504,17 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
 
         tbDanhSachSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã SP", "Tên sản phẩm", "Thể loại", "Chất liệu", "Kích thước", "Màu sắc", "Số lượng", "Đơn giá"
+                "Mã SP", "Tên sản phẩm", "Thể loại", "Chất liệu", "Kích thước", "Màu sắc", "Số lượng", "Đơn giá", "Giảm Giá"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1613,6 +1617,7 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField51;
     private javax.swing.JTextField jTextField52;
     private javax.swing.JLabel lbKhachTra;

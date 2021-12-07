@@ -21,7 +21,8 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
     private String Update = " Update KHUYENMAI set TrangThai = 0 where MaKM = ? ";
     private String SelectById_2 = "Select * from KHUYENMAI where TenKM like ? ";
     private String Update2 = " Update  KHUYENMAI set TenKM = ?  , NgayBatDau = ? , NgayKetThuc = ?, GiamGia = ? , TrangThai = ? where MaKM like ? ";
-            
+    private String delete = " delete from KHUYENMAI where MaKM like ? " ;
+    
     @Override
     public void insert(KhuyenMai entity) {
         JDBCHelper.Update(Insert, entity.getMaKM() , entity.getTenKM() , entity.getNgayBD() , entity.getNgayKT() , entity.getGiamGia() , entity.isTrangThai() ) ;
@@ -42,7 +43,7 @@ public class KhuyenMaiDAO extends Main< KhuyenMai , String >{
     
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.Update( delete , id );
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.sql.* ;
 public class KhuyenMai_SanPhamDAO extends Main< KhuyenMai_SanPham, String >{
     String Insert = "Insert into SANPHAM_KHUYENMAI ( MaCTSP , MaKM ) values ( ? , ? ) " ;
     String selectById = "select * from SANPHAM_KHUYENMAI where MaCTSP like ? " ;
-
+    String delete = " delete from SANPHAM_KHUYENMAI where MaKM = ? " ;
     
     // Các phương thức insert 
     @Override
@@ -35,7 +35,7 @@ public class KhuyenMai_SanPhamDAO extends Main< KhuyenMai_SanPham, String >{
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JDBCHelper.Update( delete , id );
     }
 
     @Override
