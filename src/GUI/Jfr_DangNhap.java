@@ -86,8 +86,7 @@ public class Jfr_DangNhap extends javax.swing.JFrame {
             if( x.isTrangThai() && XDate.toDay(vn).equals(XDate.toDay(x.getNgayBD()))  && XDate.toMonth(vn).equals(XDate.toMonth(x.getNgayBD()) )   ){
                 List<SanPham> listSP = daoSP.selectAll_6(x.getMaKM()) ;
                 for( SanPham k : listSP ){
-                    if( k.getGiamGia() == 0 || ( x.getGiamGia() > k.getGiamGia() ) ){
-                        
+                    if( k.getGiamGia() == 0 || ( x.getGiamGia() > k.getGiamGia() ) ){                      
                         daoSP.Update_4( x.getGiamGia() , k.getMaCTSP() );
                     }
                 }
