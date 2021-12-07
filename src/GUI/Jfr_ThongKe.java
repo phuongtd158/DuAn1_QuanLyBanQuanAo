@@ -1135,11 +1135,14 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
 
     private void txtTuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTuKeyReleased
         doVaoSanPham();
+        if (txtDen.getText().trim().equalsIgnoreCase("")) {
+            doVaoSanPham1();
+        }
     }//GEN-LAST:event_txtTuKeyReleased
 
     private void txtDenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDenKeyReleased
         doVaoSanPham();
-        if (txtDen.getText().equals("")) {
+        if (txtDen.getText().trim().equalsIgnoreCase("")) {
             doVaoSanPham1();
         }
     }//GEN-LAST:event_txtDenKeyReleased
