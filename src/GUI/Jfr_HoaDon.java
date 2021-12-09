@@ -975,30 +975,40 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 HoaDonCT hdct_1 = daoCTHD.selectByID3( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow() , 1).toString() , tbGioHang.getValueAt( k, 1).toString()) ;
                 if ( hdct_1.getSoLuong() > Integer.valueOf(tbGioHang.getValueAt(k, 3).toString())  ) {
                     String sk = JOptionPane.showInputDialog( this , "Vui lòng nhập lý do muốn trả hàng", "Hệ thống quản trị", HEIGHT) ;
-                    int SoLuong = Integer.valueOf(tbGioHang.getValueAt(k, 3).toString()) ;
-                    Double DonGia = Double.valueOf( HamDinhDang2( tbGioHang.getValueAt(k, 4).toString()) ) ;
-                    Double GiamGia = Double.valueOf(  tbGioHang.getValueAt(k, 5).toString() ) ;
-                    
-                    hdct.setMaHD( Integer.valueOf( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow() , 1).toString() ) );
-                    hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(k, 1).toString()));
-                    hdct.setSoLuong( SoLuong );
-                    hdct.setGia(DonGia);
-                    hdct.setGiamGia( GiamGia );
-                    hdct.setGhiChu(sk);
-                    
-                    tbGioHang.setValueAt( HamDinhDang( String.valueOf( SoLuong  * DonGia * (1 - GiamGia / 100))) , k , 6 ) ; 
-                    hdct.setThanhTien(Double.valueOf( HamDinhDang2( tbGioHang.getValueAt(k, 6).toString()) ));
-                    hdct.setTrangThai(false);
-                      
-                    daoCTHD.insert(hdct);
-                    HamCongNguocSoLuong(k);
+                   
+                    try {
+                        int SoLuong = Integer.valueOf(tbGioHang.getValueAt(k, 3).toString());
 
-                    hdct_1.setSoLuong( hdct_1.getSoLuong() - Integer.valueOf(tbGioHang.getValueAt(k, 3).toString() ) );
-                    hdct_1.setThanhTien( hdct_1.getThanhTien() - ( SoLuong  * DonGia * (1 - GiamGia / 100)) );
-                    daoCTHD.update(hdct_1);
-                    
-                    HienThiNguoc();
-                  
+                        if (SoLuong >= 0) {
+                            Double DonGia = Double.valueOf(HamDinhDang2(tbGioHang.getValueAt(k, 4).toString()));
+                            Double GiamGia = Double.valueOf(tbGioHang.getValueAt(k, 5).toString());
+
+                            hdct.setMaHD(Integer.valueOf(tbDanhSachHD.getValueAt(tbDanhSachHD.getSelectedRow(), 1).toString()));
+                            hdct.setMaCTSP(Integer.valueOf(tbGioHang.getValueAt(k, 1).toString()));
+                            hdct.setSoLuong(SoLuong);
+                            hdct.setGia(DonGia);
+                            hdct.setGiamGia(GiamGia);
+                            hdct.setGhiChu(sk);
+
+                            tbGioHang.setValueAt(HamDinhDang(String.valueOf(SoLuong * DonGia * (1 - GiamGia / 100))), k, 6);
+                            hdct.setThanhTien(Double.valueOf(HamDinhDang2(tbGioHang.getValueAt(k, 6).toString())));
+                            hdct.setTrangThai(false);
+
+                            daoCTHD.insert(hdct);
+                            HamCongNguocSoLuong(k);
+
+                            hdct_1.setSoLuong(hdct_1.getSoLuong() - Integer.valueOf(tbGioHang.getValueAt(k, 3).toString()));
+                            hdct_1.setThanhTien(hdct_1.getThanhTien() - (SoLuong * DonGia * (1 - GiamGia / 100)));
+                            daoCTHD.update(hdct_1);
+
+                            HienThiNguoc();
+                        } else {
+                            MsgBox.alert( this , "số lượng không đc ");
+                        }
+                    } catch (Exception e) {
+                        MsgBox.alert( this , "vui lòng nhập số vào ô số lượng ở hàng " + k );
+                    }
+             
                 }else{
                     MsgBox.alert( this , "Số hàng khách mua là: " + hdct_1.getSoLuong() );
                 }       
@@ -1009,30 +1019,42 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
             Index = tbGioHang.getSelectedRow();
             SanPham sp = daoSP.selectByID2(tbGioHang.getValueAt(Index, 1).toString());
 
-            if (sp.getSoLuong() < Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString())) {
-                MsgBox.alert(this, "Số lượng sản phẩm còn " + sp.getSoLuong());
-                tbGioHang.setValueAt(sp.getSoLuong(), Index, 3);
+
+
+            try {
+                int SoLuong = Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString());
+                
+                if (SoLuong > 0) {
+                    Double DonGia = Double.valueOf(HamDinhDang2(tbGioHang.getValueAt(Index, 4).toString()));
+                    Double GiamGia = Double.valueOf(tbGioHang.getValueAt(Index, 5).toString());
+                    
+                    if (sp.getSoLuong() < Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString())) {
+                        MsgBox.alert(this, "Số lượng sản phẩm còn " + sp.getSoLuong());
+                        tbGioHang.setValueAt(sp.getSoLuong(), Index, 3);
+                    }
+                    
+                    HoaDonCT hd = daoCTHD.selectByID3(tbDanhSachHD.getValueAt(tbDanhSachHD.getSelectedRow(), 1).toString(), String.valueOf(sp.getMaCTSP()));
+                    hd.setSoLuong(SoLuong);
+                    hd.setThanhTien(SoLuong * DonGia * (1 - GiamGia / 100));
+
+                    listHDCT = (ArrayList<HoaDonCT>) daoCTHD.selectAll_2(String.valueOf(hd.getMaHD()));
+                    if (listHDCT.get(Index).getSoLuong() != SoLuong) {
+                        sp.setSoLuong(listHDCT.get(Index).getSoLuong() + sp.getSoLuong());
+                        daoSP.Update_1_1(sp);
+                    }
+                    HamTruSoLuong(Index);
+
+                    daoCTHD.update(hd);
+
+                    DoVaoTableDanhSachSP();
+                    tbGioHang.setValueAt(HamDinhDang(String.valueOf(SoLuong * DonGia * (1 - GiamGia / 100))), Index, 6);
+                }else{
+                    MsgBox.alert( this , "Bạn không thể nhập số lượng âm");
+                }
+            } catch (Exception e) {
+                MsgBox.alert( this , "vui lòng nhập số vào ô số lượng ở hàng " + Index  );
             }
 
-            int SoLuong = Integer.valueOf(tbGioHang.getValueAt(Index, 3).toString());
-            Double DonGia = Double.valueOf( HamDinhDang2(tbGioHang.getValueAt(Index, 4).toString() ) );
-            Double GiamGia = Double.valueOf(tbGioHang.getValueAt(Index, 5).toString());
-
-            HoaDonCT hd = daoCTHD.selectByID3( tbDanhSachHD.getValueAt( tbDanhSachHD.getSelectedRow(), 1).toString() , String.valueOf(sp.getMaCTSP()) ) ;
-            hd.setSoLuong(SoLuong);
-            hd.setThanhTien( SoLuong * DonGia * (1 - GiamGia / 100));
-            
-            listHDCT = (ArrayList<HoaDonCT>) daoCTHD.selectAll_2( String.valueOf( hd.getMaHD()  )  ) ;
-            if( listHDCT.get(Index).getSoLuong() != SoLuong  ){    
-                sp.setSoLuong( listHDCT.get(Index).getSoLuong() + sp.getSoLuong());
-                daoSP.Update_1_1(sp);
-            }
-            HamTruSoLuong(Index);
-            
-            daoCTHD.update(hd);
-            
-            DoVaoTableDanhSachSP();
-            tbGioHang.setValueAt( HamDinhDang( String.valueOf(SoLuong * DonGia * (1 - GiamGia / 100) )) , Index, 6);
         }
         TinhTien();
     }//GEN-LAST:event_tbGioHangKeyReleased

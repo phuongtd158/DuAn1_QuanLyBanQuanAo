@@ -3,18 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/KichThuocDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_ThongKe.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/ThongKeDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/SanPhamDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/LoaiSanPhamDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/MauSacDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/HoaDonCTDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_SanPham.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/DAO/NhanVienDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/DuAn1/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_DangNhap.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/DAO/KhuyenMai_SanPhamDAO.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_CuaSoChinh.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/DAO/KhuyenMaiDAO.java</file>
+            <file>file:/C:/Mon_Hoc/Du%20An%2011/DuAn1_QuanLyBanQuanAo/src/GUI/Jfr_HoaDon.java</file>
         </group>
     </open-files>
 </project-private>
