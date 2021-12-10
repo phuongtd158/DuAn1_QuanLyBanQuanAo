@@ -32,10 +32,10 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     Color defualtColor, ClickColor;
     private int x, y;
 
-    Date vn = new Date() ;
+    Date vn = new Date();
     KhuyenMaiDAO daoKM = new KhuyenMaiDAO();
     SanPhamDAO daoSP = new SanPhamDAO();
-    
+
     public Jfr_CuaSoChinh() {
         initComponents();
         setLocationRelativeTo(null);
@@ -46,10 +46,6 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
         ClickColor = new Color(144, 202, 249);
         initMoving(Jfr_CuaSoChinh.this);
 
-//        long millis = System.currentTimeMillis();
-//        java.sql.Date date = new java.sql.Date(millis);
-//        Calendar c = Calendar.getInstance();
-//        int ngayCuoiThang = c.getMaximum(Calendar.DATE);
 //        if (Auth.user.getVaiTro() == false) {
 //            if (XDate.toDay(date).equals(String.valueOf(25))) {
 //                new Jfr_ThongKe().setVisible(true);
@@ -60,24 +56,23 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
 //            }
 //        }
     }
-    
+
     // hàm update time 
-        private void UpdateKhuyenMai() {
+    private void UpdateKhuyenMai() {
         List<KhuyenMai> listKM = daoKM.selectAll();
 
         for (KhuyenMai x : listKM) {
             if (x.isTrangThai() && XDate.toDay(vn).equals(XDate.toDay(x.getNgayKT())) && XDate.toMonth(vn).equals(XDate.toMonth(x.getNgayKT()))) {
                 List<SanPham> listSP = daoSP.selectAll_6(x.getMaKM());
                 for (SanPham k : listSP) {
-                    if (k.getGiamGia() == x.getGiamGia() ) {
-                        daoSP.Update_4(0 , k.getMaCTSP());
+                    if (k.getGiamGia() == x.getGiamGia()) {
+                        daoSP.Update_4(0, k.getMaCTSP());
                     }
                 }
-                daoKM.update( x ) ;
+                daoKM.update(x);
             }
         }
     }
-   
 
     //Di chuyển form khi giữ chuột
     public void initMoving(JFrame frame) {
@@ -416,14 +411,14 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
             .addGroup(btnDangXuatLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         btnDangXuatLayout.setVerticalGroup(
             btnDangXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lb8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jPanel2.add(btnDangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, -1, -1));
+        jPanel2.add(btnDangXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 220, -1));
 
         menu.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 73, 221, 770));
 
@@ -532,20 +527,37 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHoaDonMousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        if( vn.getHours() > 20 ){
+
+        if (vn.getHours() > 20) {
             UpdateKhuyenMai();
         }
-        
         if (Auth.user.getVaiTro() == false) {
             try {
-                if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
+                Calendar c = Calendar.getInstance();
 
-                    Jfr_ThongKe.tk.sendEmail();
+                int ngayCuoiThang = c.getMaximum(Calendar.DATE);
+                if (Auth.user.getVaiTro() == false) {
+                    if (XDate.toDay(date).equals(String.valueOf(ngayCuoiThang)) && XDate.toT(XDate.toTime(c.getTime())).after(XDate.toT("08:59 PM"))) {
+                        Jfr_ThongKe.tk.sendEmail_Thang();
+                        System.exit(0);
 
-                    System.exit(0);
-                } else {
-                    System.exit(0);
+                        System.out.println("ok");
+                    } else {
+                        if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu ngày không ?")) {
+
+                            Jfr_ThongKe.tk.sendEmail();
+
+                            System.exit(0);
+                        } else {
+                            if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn chắc chắn muốn thoát ?")) {
+                                System.exit(0);
+                            }
+                        }
+                    }
                 }
+
             } catch (Exception e) {
                 MsgBox.alert(this, "Kiểm tra doanh thu trước khi báo cáo");
             }
@@ -680,21 +692,41 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDoiMatKhauMouseClicked
 
     private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-
         if (Auth.user.getVaiTro() == false) {
             try {
-                if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu không ?")) {
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
+                Calendar c = Calendar.getInstance();
 
-                    Jfr_ThongKe.tk.sendEmail();
+                int ngayCuoiThang = c.getMaximum(Calendar.DATE);
+                if (Auth.user.getVaiTro() == false) {
+                    if (XDate.toDay(date).equals(String.valueOf(ngayCuoiThang)) && XDate.toT(XDate.toTime(c.getTime())).after(XDate.toT("08:59 PM"))) {
+                        if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu ngày và tháng không ?")) {
 
-                    this.dispose();
-                    Jfr_DangNhap menu8 = new Jfr_DangNhap();
-                    menu8.setVisible(true);
-                } else {
-                    this.dispose();
-                    Jfr_DangNhap menu8 = new Jfr_DangNhap();
-                    menu8.setVisible(true);
+                            Jfr_ThongKe.tk.sendEmail();
+                            Jfr_ThongKe.tk.sendEmail_Thang();
+
+                            System.exit(0);
+                        } else {
+                            if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn chắc chắn muốn thoát ?")) {
+                                System.exit(0);
+                            }
+                        }
+                        System.out.println("ok");
+                    } else {
+                        if (MsgBox.comfirm(this, "Bạn có muốn báo cáo doanh thu ngày không ?")) {
+
+                            Jfr_ThongKe.tk.sendEmail();
+
+                            System.exit(0);
+                        } else {
+                            if (MsgBox.comfirm(this, "Bạn chưa báo cáo doanh thu. Bạn chắc chắn muốn thoát ?")) {
+                                System.exit(0);
+                            }
+                        }
+                    }
                 }
+
             } catch (Exception e) {
                 MsgBox.alert(this, "Kiểm tra doanh thu trước khi báo cáo");
             }
@@ -712,8 +744,8 @@ public class Jfr_CuaSoChinh extends javax.swing.JFrame {
             if (Jfr_HoaDon.webcam != null) {
                 Jfr_HoaDon.webcam.close();
             }
-        }else{
-            MsgBox.alert( this , "Bạn không có quyền truy cập chức năng này");
+        } else {
+            MsgBox.alert(this, "Bạn không có quyền truy cập chức năng này");
         }
 
     }//GEN-LAST:event_btnThongKeMouseClicked

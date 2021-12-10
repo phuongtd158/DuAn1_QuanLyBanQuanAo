@@ -169,7 +169,7 @@ public class Jfr_ThongKe extends javax.swing.JInternalFrame {
             transport.sendMessage(msg, msg.getAllRecipients());
 
             transport.close();
-            MsgBox.alert(this, "Báo cáo doanh thu tháng thành công");
+            MsgBox.alert(this, "Báo cáo doanh thu thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -4,6 +4,7 @@
  */
 package Ultil;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,5 +47,9 @@ public class XDate {
     public static String toTime(Date time) {
         formater.applyPattern(tt);
         return formater.format(time);
+    }
+    public static Date toT(String time) throws ParseException {
+        formater.applyPattern(tt);
+        return formater.parse(time);
     }
 }

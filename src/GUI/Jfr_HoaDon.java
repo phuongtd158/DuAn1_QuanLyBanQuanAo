@@ -658,6 +658,11 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
                 cbbHTThanhToanItemStateChanged(evt);
             }
         });
+        cbbHTThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbHTThanhToanActionPerformed(evt);
+            }
+        });
         jPanel52.add(cbbHTThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 130, -1));
         jPanel52.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 270, -1));
 
@@ -1566,6 +1571,10 @@ public class Jfr_HoaDon extends javax.swing.JInternalFrame implements Runnable, 
     private void txtKhachDuaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKhachDuaFocusLost
         txtKhachDua.setText( HamDinhDang( txtKhachDua.getText()) );
     }//GEN-LAST:event_txtKhachDuaFocusLost
+
+    private void cbbHTThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbHTThanhToanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbHTThanhToanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
